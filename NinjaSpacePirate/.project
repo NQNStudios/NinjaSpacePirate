@@ -3,6 +3,7 @@
 	<name>NinjaSpacePirate</name>
 	<comment></comment>
 	<projects>
+		<project>JavaLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
