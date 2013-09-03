@@ -54,59 +54,62 @@ public class StealthWorld extends EntityWorld {
 		
 		spriteSheet = new SpriteSheet(new Texture(Gdx.files.internal("data/lofi_scifi_v2_trans.png")));
 		
+		//View overlay
+		spriteSheet.addRegion("View", new Rectangle(165, 326, 20, 15));
+		
 		//Humans
-		addAnimatedSprite("blueSuitMan", 8, 24);
-		addAnimatedSprite("redSuitMan", 8, 32);
-		addAnimatedSprite("greenSuitMan", 8, 40);
-		addAnimatedSprite("yellowSuitMan", 8, 48);
-		addAnimatedSprite("whiteSuitMan", 8, 56);
-		addAnimatedSprite("ranger1", 8, 64);
-		addAnimatedSprite("ranger2", 8, 72);
-		addAnimatedSprite("officeWorker1", 8, 80);
-		addAnimatedSprite("bandit1", 8, 88);
-		addAnimatedSprite("cop1", 8, 96);
-		addAnimatedSprite("cop2", 8, 104);
-		addAnimatedSprite("bandit2", 8, 112);
-		addAnimatedSprite("sherriff", 8, 120);
-		addAnimatedSprite("ranger3", 8, 128);
-		addAnimatedSprite("cop3", 8, 136);
-		addAnimatedSprite("detective", 8, 144);
-		addAnimatedSprite("officeWorker2", 8, 152);
-		addAnimatedSprite("purpleDressLady", 8, 160);
-		addAnimatedSprite("priest", 8, 168);
-		addAnimatedSprite("priestess", 8, 176);
-		addAnimatedSprite("plainWhiteGuy", 8, 184);
+		addHumanSprite("blueSuitMan", 8, 24);
+		addHumanSprite("redSuitMan", 8, 32);
+		addHumanSprite("greenSuitMan", 8, 40);
+		addHumanSprite("yellowSuitMan", 8, 48);
+		addHumanSprite("whiteSuitMan", 8, 56);
+		addHumanSprite("ranger1", 8, 64);
+		addHumanSprite("ranger2", 8, 72);
+		addHumanSprite("officeWorker1", 8, 80);
+		addHumanSprite("bandit1", 8, 88);
+		addHumanSprite("cop1", 8, 96);
+		addHumanSprite("cop2", 8, 104);
+		addHumanSprite("bandit2", 8, 112);
+		addHumanSprite("sherriff", 8, 120);
+		addHumanSprite("ranger3", 8, 128);
+		addHumanSprite("cop3", 8, 136);
+		addHumanSprite("detective", 8, 144);
+		addHumanSprite("officeWorker2", 8, 152);
+		addHumanSprite("purpleDressLady", 8, 160);
+		addHumanSprite("priest", 8, 168);
+		addHumanSprite("priestess", 8, 176);
+		addHumanSprite("plainWhiteGuy", 8, 184);
 		
 		//Monsters
-		addAnimatedSprite("walkingSlime1", 128, 24);
-		addAnimatedSprite("walkingSlime2", 128, 32);
-		addAnimatedSprite("slime2", 128, 40);
-		addAnimatedSprite("slime1", 128, 48);
-		addAnimatedSprite("rat", 128, 56);
-		addAnimatedSprite("glowingAlien1", 128, 64);
-		addAnimatedSprite("brownMass1", 128, 72);
-		addAnimatedSprite("floatingEye", 128, 80);
-		addAnimatedSprite("spider", 128, 88);
-		addAnimatedSprite("cat", 128, 96);
-		addAnimatedSprite("zombieWorker", 128, 104);
-		addAnimatedSprite("greenAlien", 128, 112);
-		addAnimatedSprite("whiteAlien", 128, 120);
-		addAnimatedSprite("blueAlien", 128, 128);
-		addAnimatedSprite("blackAlien", 128, 136);
-		addAnimatedSprite("fireGelAlien", 128, 144);
-		addAnimatedSprite("glowingAlien2", 128, 152);
-		addAnimatedSprite("snake", 128, 160);
-		addAnimatedSprite("brownMass2", 128, 168);
-		addAnimatedSprite("camoAlien", 128, 176);
-		addAnimatedSprite("purpleAlien", 128, 184);
-		addAnimatedSprite("paleAlien", 128, 192);
-		addAnimatedSprite("robot1", 128, 200);
-		addAnimatedSprite("robot2", 128, 208);
-		addAnimatedSprite("graySquid", 128, 216);
+		addMonsterSprite("walkingSlime1", 128, 24);
+		addMonsterSprite("walkingSlime2", 128, 32);
+		addMonsterSprite("slime2", 128, 40);
+		addMonsterSprite("slime1", 128, 48);
+		addMonsterSprite("rat", 128, 56);
+		addMonsterSprite("glowingAlien1", 128, 64);
+		addMonsterSprite("brownMass1", 128, 72);
+		addMonsterSprite("floatingEye", 128, 80);
+		addMonsterSprite("spider", 128, 88);
+		addMonsterSprite("cat", 128, 96);
+		addMonsterSprite("zombieWorker", 128, 104);
+		addMonsterSprite("greenAlien", 128, 112);
+		addMonsterSprite("whiteAlien", 128, 120);
+		addMonsterSprite("blueAlien", 128, 128);
+		addMonsterSprite("blackAlien", 128, 136);
+		addMonsterSprite("fireGelAlien", 128, 144);
+		addMonsterSprite("glowingAlien2", 128, 152);
+		addMonsterSprite("snake", 128, 160);
+		addMonsterSprite("brownMass2", 128, 168);
+		addMonsterSprite("camoAlien", 128, 176);
+		addMonsterSprite("purpleAlien", 128, 184);
+		addMonsterSprite("paleAlien", 128, 192);
+		addMonsterSprite("robot1", 128, 200);
+		addMonsterSprite("robot2", 128, 208);
+		addMonsterSprite("graySquid", 128, 216);
 		
 	}
 
-	private void addAnimatedSprite(String key, int x, int y) {
+	private void addHumanSprite(String key, int x, int y) {
 		Rectangle frame = new Rectangle(x, y, 8, 8);
 		
 		spriteSheet.addRegion(key + "Right", frame);
@@ -126,6 +129,26 @@ public class StealthWorld extends EntityWorld {
 		spriteSheet.addRegion(key + "MoveUp", frame);
 		frame.x += 16; frame.width = 8;
 		spriteSheet.addRegion(key + "Dead", frame);
+	}
+	
+	private void addMonsterSprite(String key, int x, int y) {
+		Rectangle frame = new Rectangle(x, y, 8, 8);
+		
+		spriteSheet.addRegion(key + "Right", frame);
+		frame.x += 8; frame.width = 16;
+		spriteSheet.addRegion(key + "MoveRight", frame);
+		frame.x += 16; frame.width = 8;
+		spriteSheet.addRegion(key + "Down", frame);
+		frame.x += 8; frame.width = 16;
+		spriteSheet.addRegion(key + "MoveDown", frame);
+		frame.x += 16; frame.width = 8;
+		spriteSheet.addRegion(key + "Left", frame);
+		frame.x += 8; frame.width = 16;
+		spriteSheet.addRegion(key + "MoveLeft", frame);
+		frame.x += 16; frame.width = 8;
+		spriteSheet.addRegion(key + "Up", frame);
+		frame.x += 8; frame.width = 16;
+		spriteSheet.addRegion(key + "MoveUp", frame);
 	}
 	
 	@Override

@@ -3,7 +3,9 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.AnimatedSprite;
+import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.entities.systems.InputSystem;
 
 /**
@@ -42,22 +44,35 @@ public class PlayerControlSystem extends InputSystem {
 	public boolean keyDown(int keycode) {
 		if (player == null) return false;
 		
-		AnimatedSprite sprite = (AnimatedSprite) player.getComponent(AnimatedSprite.class);
+		MultiRenderable mr = (MultiRenderable) player.getComponent(MultiRenderable.class);
+		
+		AnimatedSprite sprite = (AnimatedSprite) mr.getBase();
+		
+		Body b = (Body) player.getComponent(Body.class);
 		
 		if (keycode == Keys.LEFT) {
 			sprite.setState("MoveLeft", true);
+			b.setRotation(180);
 			return true;
 		} else if (keycode == Keys.DOWN) {
 			sprite.setState("MoveDown", true);
+			b.setRotation(270);
 			return true;
 		} else if (keycode == Keys.UP) {
 			sprite.setState("MoveUp", true);
+			b.setRotation(90);
 			return true;
 		} else if (keycode == Keys.RIGHT) {
 			sprite.setState("MoveRight", true);
+			b.setRotation(0);
 			return true;
 		} else if (keycode == Keys.ESCAPE) {
-			sprite.setState("Dead", true);
+			if (sprite.hasState("Dead")) sprite.setState("Dead", true);
+			return true;
+		} else if (keycode == Keys.SPACE) {
+			String state = sprite.getState();
+			state = state.replace("Move", "");
+			sprite.setState(state, true);
 			return true;
 		}
 		
