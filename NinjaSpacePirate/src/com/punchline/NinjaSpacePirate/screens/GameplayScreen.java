@@ -24,7 +24,7 @@ public class GameplayScreen extends GameScreen {
 	public GameplayScreen(Game game) {
 		super(game);
 		
-		camera = new OrthographicCamera(480, 800);
+		camera = new OrthographicCamera(56, 96);
 		world = new StealthWorld(game.getInput(), camera);
 	}
 
@@ -46,12 +46,12 @@ public class GameplayScreen extends GameScreen {
 
 	@Override
 	public void show() {
-		world.pause();
+		world.resume(); 
 	}
 
 	@Override
 	public void hide() {
-		world.resume();
+		world.pause();
 	}
 
 	@Override
