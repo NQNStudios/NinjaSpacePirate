@@ -52,15 +52,15 @@ public class PlayerControlSystem extends InputSystem {
 		
 		if (keycode == Keys.LEFT) {
 			sprite.setState("MoveLeft", true);
-			b.setRotation(180);
+			b.setRotation((float)Math.toRadians(180));
 			return true;
 		} else if (keycode == Keys.DOWN) {
 			sprite.setState("MoveDown", true);
-			b.setRotation(270);
+			b.setRotation((float)Math.toRadians(270));
 			return true;
 		} else if (keycode == Keys.UP) {
 			sprite.setState("MoveUp", true);
-			b.setRotation(90);
+			b.setRotation((float)Math.toRadians(90));
 			return true;
 		} else if (keycode == Keys.RIGHT) {
 			sprite.setState("MoveRight", true);

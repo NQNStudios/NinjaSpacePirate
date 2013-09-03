@@ -46,8 +46,8 @@ public class PlayerTemplate implements EntityTemplate {
 		
 		AnimatedSprite sprite = new AnimatedSprite(world.getSpriteSheet(), "walkingSlime2", 8, Animation.LOOP_PINGPONG, 0.3f);
 		Sprite viewSprite = new Sprite(world.getSpriteSheet(), "View");
-		viewSprite.setOrigin(new Vector2(0, 8));
-		viewSprite.setPosition(new Vector2(10, 2));
+		viewSprite.setOrigin(new Vector2(0, 8f));
+		viewSprite.setPosition(new Vector2(10, 1.5f));
 		MultiRenderable mr = new MultiRenderable(sprite, viewSprite);
 		
 		e.addComponent(mr);
