@@ -4,4 +4,10 @@
 *.jar
 *.war
 *.ear
-/NinjaSpacePirate-android/bin/*.apk
+
+# Log Files #
+*.gwt-log
+
+/NinjaSpacePirate-android/bin/
+/NinjaSpacePirate-desktop/bin/
+/NinjaSpacePirate-html/bin/
