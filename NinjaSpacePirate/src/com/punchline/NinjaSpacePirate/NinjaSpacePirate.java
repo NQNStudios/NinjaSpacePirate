@@ -8,11 +8,11 @@ public class NinjaSpacePirate extends Game {
 
 	@Override
 	public void create() {
+		Convert.init(8f);
+		
 		title = "Stealth Pirate";
 		
 		landscapeMode = false;
-		
-		Convert.init(4f);
 		
 		super.create();
 		

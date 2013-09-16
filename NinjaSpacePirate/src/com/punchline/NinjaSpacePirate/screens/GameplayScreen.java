@@ -2,7 +2,6 @@ package com.punchline.NinjaSpacePirate.screens;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.punchline.NinjaSpacePirate.gameplay.StealthGameOverInfo;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.states.GameScreen;
@@ -33,7 +32,7 @@ public class GameplayScreen extends GameScreen {
 		world.process();
 		
 		if (world.isGameOver()) {
-			StealthGameOverInfo info = (StealthGameOverInfo) world.getGameOverInfo();
+			//StealthGameOverInfo info = (StealthGameOverInfo) world.getGameOverInfo();
 			
 			//TODO Process the game over
 		}
