@@ -47,7 +47,7 @@ public class StealthWorld extends EntityWorld {
 	
 	@Override
 	protected void buildEntities() {
-		createEntity("Player", "walkingSlime2", new Vector2(0, 0), "Player", "Players", "Player");
+		createEntity("Player", "blueSuitMan", new Vector2(0, 0), "Player", "Players", "Player");
 	}
 	
 	@Override

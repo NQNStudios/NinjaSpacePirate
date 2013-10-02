@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.NPCSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Body;
@@ -55,30 +56,8 @@ public class NPCTemplate implements EntityTemplate {
 		body.setRotation((float)Math.toRadians(270));
 		e.addComponent(body);
 		
-		AnimatedSprite sprite = new AnimatedSprite(world.getSpriteSheet(), spriteKey, 
+		AnimatedSprite sprite = new NPCSprite(world.getSpriteSheet(), spriteKey, 
 				8, Animation.LOOP_PINGPONG, 0.3f) {
-
-			public boolean moving = true;
-			
-			@Override
-			public void setRotation(float degrees) {
-				
-				String state = "";
-				
-				if (moving) state += "Move";
-				
-				if (degrees < 45 || degrees > 315) {
-					state += "Right";
-				} else if (degrees >= 45 && degrees < 135) {
-					state += "Up";
-				} else if (degrees >= 135 && degrees < 225) {
-					state += "Left";
-				} else {
-					state += "Down";
-				}
-				
-				setState(state, true);
-			}
 			
 		};
 		
