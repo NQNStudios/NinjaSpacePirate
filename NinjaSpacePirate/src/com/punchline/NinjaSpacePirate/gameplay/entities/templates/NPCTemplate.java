@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.generic.View;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.entities.templates.EntityTemplate;
@@ -19,6 +20,10 @@ import com.punchline.javalib.utils.Convert;
  *
  */
 public class NPCTemplate implements EntityTemplate {
+	
+	//View constants
+	private static final float VIEW_RANGE = Convert.pixelsToMeters(17.5f);
+	private static final float VIEW_FOV = 0.18f;
 	
 	private BodyDef bodyDef;
 	private FixtureDef fixtureDef;
@@ -53,7 +58,10 @@ public class NPCTemplate implements EntityTemplate {
 		body.setRotation((float)Math.toRadians(270));
 		e.addComponent(body);
 
-		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey);
+		View view = new View(e, VIEW_RANGE, VIEW_FOV);
+		e.addComponent(view);
+		
+		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
 		
 		e.addComponent(mr);
 		

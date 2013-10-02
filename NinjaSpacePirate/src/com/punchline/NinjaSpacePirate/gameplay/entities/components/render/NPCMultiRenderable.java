@@ -1,6 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
 
 import com.badlogic.gdx.utils.Array;
+import com.punchline.javalib.entities.components.generic.View;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.utils.SpriteSheet;
 
@@ -10,16 +11,17 @@ import com.punchline.javalib.utils.SpriteSheet;
  *
  */
 public class NPCMultiRenderable extends MultiRenderable {
-
+	
 	private Array<Integer> reverseOrder = new Array<Integer>();
 	
 	/**
 	 * Constructs an NPCMultiRenderable.
 	 * @param spriteSheet The game's SpriteSheet.
 	 * @param spritePrefix The prefix of this MultiRenderable's AnimatedSprite.
+	 * @param view The NPC's View sensor, whose position has to change to reflect the sprite's state.
 	 */
-	public NPCMultiRenderable(SpriteSheet spriteSheet, String spritePrefix) {
-		super(new NPCAnimatedSprite(spriteSheet, spritePrefix), new NPCViewSprite(spriteSheet));
+	public NPCMultiRenderable(SpriteSheet spriteSheet, String spritePrefix, View view) {
+		super(new NPCAnimatedSprite(spriteSheet, spritePrefix), new NPCViewSprite(spriteSheet, view));
 		
 		reverseOrder.add(1);
 		reverseOrder.add(0);
