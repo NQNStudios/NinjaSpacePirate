@@ -57,39 +57,39 @@ public class PlayerControlSystem extends InputSystem {
 		Body b = (Body) player.getComponent(Body.class);
 		
 		if (keycode == Keys.LEFT) {
-			if (changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = false;
-			}
-			
-			sprite.setState("MoveLeft", true);
+//			if (changeOrder) {
+//				mr.reorder(reverseOrder);
+//				changeOrder = false;
+//			}
+//			
+//			sprite.setState("MoveLeft", true);
 			b.setRotation((float)Math.toRadians(180));
 			return true;
 		} else if (keycode == Keys.DOWN) {
-			if (changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = false;
-			}
-			
-			sprite.setState("MoveDown", true);
+//			if (changeOrder) {
+//				mr.reorder(reverseOrder);
+//				changeOrder = false;
+//			}
+//			
+//			sprite.setState("MoveDown", true);
 			b.setRotation((float)Math.toRadians(270));
 			return true;
 		} else if (keycode == Keys.UP) {
-			if (!changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = true;
-			}
-			
-			sprite.setState("MoveUp", true);
+//			if (!changeOrder) {
+//				mr.reorder(reverseOrder);
+//				changeOrder = true;
+//			}
+//			
+//			sprite.setState("MoveUp", true);
 			b.setRotation((float)Math.toRadians(90));
 			return true;
 		} else if (keycode == Keys.RIGHT) {
-			if (changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = false;
-			}
-			
-			sprite.setState("MoveRight", true);
+//			if (changeOrder) {
+//				mr.reorder(reverseOrder);
+//				changeOrder = false;
+//			}
+//			
+//			sprite.setState("MoveRight", true);
 			b.setRotation(0);
 			return true;
 		} else if (keycode == Keys.ESCAPE) {
