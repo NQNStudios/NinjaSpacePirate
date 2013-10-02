@@ -1,5 +1,6 @@
-package com.punchline.NinjaSpacePirate.gameplay.entities.components;
+package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.punchline.javalib.entities.components.render.AnimatedSprite;
 import com.punchline.javalib.utils.SpriteSheet;
 
@@ -10,7 +11,7 @@ import com.punchline.javalib.utils.SpriteSheet;
  * @author Natman64
  *
  */
-public class NPCSprite extends AnimatedSprite {
+public class NPCAnimatedSprite extends AnimatedSprite {
 
 	/**
 	 * Whether the Entity that owns this Sprite is moving and the Sprite should animate to reflect this.
@@ -21,16 +22,14 @@ public class NPCSprite extends AnimatedSprite {
 	 * Constructs an NPCSprite.
 	 * @param spriteSheet
 	 * @param prefix The prefix of this Sprite's texture regions in the given SpriteSheet.
-	 * @param frameWidth The width of this Sprite's frames.
-	 * @param playType The type of animation this Sprite needs. Animation.LOOP, for example.
-	 * @param frameDuration The duration of this Sprite's frames.
 	 */
-	public NPCSprite(SpriteSheet spriteSheet, String prefix, int frameWidth, int playType, float frameDuration) {
-		super(spriteSheet, prefix, frameWidth, playType, frameDuration);
+	public NPCAnimatedSprite(SpriteSheet spriteSheet, String prefix) {
+		super(spriteSheet, prefix, 8, Animation.LOOP_PINGPONG, 0.3f);
 	}
 	
 	@Override
 	public void setRotation(float degrees) {
+		super.setRotation(degrees);
 		
 		if (getState().equals("Dead")) return; //Dead sprites don't rotate
 		

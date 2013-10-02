@@ -1,18 +1,15 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.NPCSprite;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Body;
-import com.punchline.javalib.entities.components.render.AnimatedSprite;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
-import com.punchline.javalib.entities.components.render.Sprite;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 
@@ -55,17 +52,8 @@ public class NPCTemplate implements EntityTemplate {
 		body.setPosition(position);
 		body.setRotation((float)Math.toRadians(270));
 		e.addComponent(body);
-		
-		AnimatedSprite sprite = new NPCSprite(world.getSpriteSheet(), spriteKey, 
-				8, Animation.LOOP_PINGPONG, 0.3f) {
-			
-		};
-		
-		Sprite viewSprite = new Sprite(world.getSpriteSheet(), "View");
-		viewSprite.setOrigin(new Vector2(0f, 8f));
-		viewSprite.setPosition(new Vector2(14, 5.5f));
 
-		MultiRenderable mr = new MultiRenderable(sprite, viewSprite);
+		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey);
 		
 		e.addComponent(mr);
 		
