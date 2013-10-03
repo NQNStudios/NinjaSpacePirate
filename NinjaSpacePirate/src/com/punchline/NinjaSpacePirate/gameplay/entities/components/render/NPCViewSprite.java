@@ -37,7 +37,7 @@ public class NPCViewSprite extends Sprite {
 	 * Destroys the view fixture.
 	 */
 	public void destroyView() {
-		
+		view.destroy();
 	}
 	
 	@Override
