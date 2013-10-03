@@ -42,6 +42,8 @@ public class PlayerControlSystem extends InputSystem {
 
 	@Override
 	public void processEntities() {
+		player = null;
+		
 		super.processEntities();
 	}
 
