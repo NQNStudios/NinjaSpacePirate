@@ -2,12 +2,14 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Body;
-import com.punchline.javalib.entities.components.render.AnimatedSprite;
-import com.punchline.javalib.entities.components.render.MultiRenderable;
+import com.punchline.javalib.entities.components.physical.Velocity;
+import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.systems.InputSystem;
+import com.punchline.javalib.utils.Convert;
 
 /**
  * The PlayerControlSystem.
@@ -16,9 +18,9 @@ import com.punchline.javalib.entities.systems.InputSystem;
  */
 public class PlayerControlSystem extends InputSystem {
 	
+	private static final float PLAYER_SPEED = Convert.pixelsToMeters(15);
+	
 	private Entity player;
-	private Array<Integer> reverseOrder = new Array<Integer>();
-	private boolean changeOrder = false;
 	
 	/**
 	 * Constructs the PlayerControlSystem.
@@ -26,9 +28,6 @@ public class PlayerControlSystem extends InputSystem {
 	 */
 	public PlayerControlSystem(InputMultiplexer input) {
 		super(input);
-		
-		reverseOrder.add(1);
-		reverseOrder.add(0);
 	}
 
 	@Override
@@ -50,65 +49,36 @@ public class PlayerControlSystem extends InputSystem {
 	public boolean keyDown(int keycode) {
 		if (player == null) return false;
 		
-		MultiRenderable mr = (MultiRenderable) player.getComponent(MultiRenderable.class);
+		NPCMultiRenderable mr = (NPCMultiRenderable) player.getComponent(Renderable.class);
 		
-		AnimatedSprite sprite = (AnimatedSprite) mr.getBase();
+		if (mr.isDead()) return false;
 		
-		Body b = (Body) player.getComponent(Body.class);
+		Body b = player.getComponent(Body.class);
+		
+		Velocity v = player.getComponent(Velocity.class);
 		
 		if (keycode == Keys.LEFT) {
-//			if (changeOrder) {
-//				mr.reorder(reverseOrder);
-//				changeOrder = false;
-//			}
-//			
-//			sprite.setState("MoveLeft", true);
 			b.setRotation((float)Math.toRadians(180));
+			v.setLinearVelocity(new Vector2(-PLAYER_SPEED, 0));
 			return true;
 		} else if (keycode == Keys.DOWN) {
-//			if (changeOrder) {
-//				mr.reorder(reverseOrder);
-//				changeOrder = false;
-//			}
-//			
-//			sprite.setState("MoveDown", true);
 			b.setRotation((float)Math.toRadians(270));
+			v.setLinearVelocity(new Vector2(0, -PLAYER_SPEED));
 			return true;
 		} else if (keycode == Keys.UP) {
-//			if (!changeOrder) {
-//				mr.reorder(reverseOrder);
-//				changeOrder = true;
-//			}
-//			
-//			sprite.setState("MoveUp", true);
 			b.setRotation((float)Math.toRadians(90));
+			v.setLinearVelocity(new Vector2(0, PLAYER_SPEED));
 			return true;
 		} else if (keycode == Keys.RIGHT) {
-//			if (changeOrder) {
-//				mr.reorder(reverseOrder);
-//				changeOrder = false;
-//			}
-//			
-//			sprite.setState("MoveRight", true);
 			b.setRotation(0);
+			v.setLinearVelocity(new Vector2(PLAYER_SPEED, 0));
 			return true;
 		} else if (keycode == Keys.ESCAPE) {
-			if (changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = false;
-			}
-			
-			if (sprite.hasState("Dead")) sprite.setState("Dead", true);
+			mr.die();
+			v.setLinearVelocity(new Vector2());
 			return true;
-		} else if (keycode == Keys.SPACE) {
-			if (changeOrder) {
-				mr.reorder(reverseOrder);
-				changeOrder = false;
-			}
-			
-			String state = sprite.getState();
-			state = state.replace("Move", "");
-			sprite.setState(state, true);
+		} else if (keycode == Keys.SPACE) {			
+			v.setLinearVelocity(new Vector2());
 			return true;
 		}
 		

@@ -16,7 +16,7 @@ public class NPCAnimatedSprite extends AnimatedSprite {
 	/**
 	 * Whether the Entity that owns this Sprite is moving and the Sprite should animate to reflect this.
 	 */
-	public boolean moving;
+	public boolean moving = false;
 	
 	/**
 	 * Constructs an NPCSprite.

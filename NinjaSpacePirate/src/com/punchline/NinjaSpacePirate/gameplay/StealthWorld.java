@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.SpriteSheet;
 
 /**
@@ -43,6 +45,7 @@ public class StealthWorld extends EntityWorld {
 		super.buildSystems();
 		
 		systems.addSystem(new PlayerControlSystem(input));
+		systems.addSystem(new NPCAnimationSystem());
 	}
 	
 	@Override
@@ -154,7 +157,13 @@ public class StealthWorld extends EntityWorld {
 	
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(-240, -400, 480, 800);
+		float width = Convert.pixelsToMeters(camera.viewportWidth);
+		float height = Convert.pixelsToMeters(camera.viewportHeight);
+		
+		float x = Convert.pixelsToMeters(camera.position.x) - width / 2;
+		float y = Convert.pixelsToMeters(camera.position.y) - height / 2;
+		
+		return new Rectangle(x, y, width, height);
 	}
 
 }

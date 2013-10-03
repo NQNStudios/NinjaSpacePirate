@@ -32,7 +32,14 @@ public class NPCViewSprite extends Sprite {
 		
 		this.view = view;
 	}
-
+	
+	/**
+	 * Destroys the view fixture.
+	 */
+	public void destroyView() {
+		
+	}
+	
 	@Override
 	public void setRotation(float degrees) {
 		float oldRotation = getRotation();
