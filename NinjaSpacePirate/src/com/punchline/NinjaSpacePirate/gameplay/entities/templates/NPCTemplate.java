@@ -21,6 +21,9 @@ import com.punchline.javalib.utils.Convert;
  */
 public class NPCTemplate implements EntityTemplate {
 	
+	//Body constants
+	private static final float BODY_RADIUS = Convert.pixelsToMeters(4);
+	
 	//View constants
 	private static final float VIEW_RANGE = Convert.pixelsToMeters(17.5f);
 	private static final float VIEW_FOV = 0.18f;
@@ -37,7 +40,7 @@ public class NPCTemplate implements EntityTemplate {
 		bodyDef.type = BodyType.DynamicBody;
 		
 		shape = new CircleShape();
-		shape.setRadius(Convert.pixelsToMeters(4));
+		shape.setRadius(BODY_RADIUS);
 		
 		fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;

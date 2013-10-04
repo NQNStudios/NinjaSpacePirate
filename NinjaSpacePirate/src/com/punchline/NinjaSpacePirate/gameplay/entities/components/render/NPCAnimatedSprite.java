@@ -13,6 +13,8 @@ import com.punchline.javalib.utils.SpriteSheet;
  */
 public class NPCAnimatedSprite extends AnimatedSprite {
 
+	private static final int SPRITE_LAYER = 5;
+	
 	/**
 	 * Whether the Entity that owns this Sprite is moving and the Sprite should animate to reflect this.
 	 */
@@ -25,6 +27,8 @@ public class NPCAnimatedSprite extends AnimatedSprite {
 	 */
 	public NPCAnimatedSprite(SpriteSheet spriteSheet, String prefix) {
 		super(spriteSheet, prefix, 8, Animation.LOOP_PINGPONG, 0.3f);
+		
+		setLayer(SPRITE_LAYER);
 	}
 	
 	@Override

@@ -47,12 +47,6 @@ public class PlayerControlSystem extends InputSystem {
 	public boolean keyDown(int keycode) {
 		if (player == null) return false;
 		
-		Vector2 point1 = new Vector2(2, 0);
-		Vector2 point2 = new Vector2(-2, 0);
-		
-		PatrolProcess patrol = new PatrolProcess(player, PLAYER_SPEED, point1, point2);
-		world.getProcessManager().attach(patrol);
-		
 		return false;
 	}
 	
