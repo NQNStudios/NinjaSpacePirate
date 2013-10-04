@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.SpriteSheet;
@@ -38,6 +39,7 @@ public class StealthWorld extends EntityWorld {
 		super.buildTemplates();
 		
 		addTemplate("Player", new NPCTemplate());
+		addTemplate("Tile", new TileTemplate());
 	}
 	
 	@Override
@@ -50,6 +52,46 @@ public class StealthWorld extends EntityWorld {
 	
 	@Override
 	protected void buildEntities() {
+		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 0));
+		createEntity("Tile", "Floor", new Vector2(-2, 0));
+		createEntity("Tile", "Floor", new Vector2(-1, 0));
+		createEntity("Tile", "Floor", new Vector2(0, 0));
+		createEntity("Tile", "Floor", new Vector2(1, 0));
+		createEntity("Tile", "Floor", new Vector2(2, 0));
+		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 0));
+		
+		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 1));
+		createEntity("Tile", "Floor", new Vector2(-2, 1));
+		createEntity("Tile", "Floor", new Vector2(-1, 1));
+		createEntity("Tile", "Floor", new Vector2(0, 1));
+		createEntity("Tile", "Floor", new Vector2(1, 1));
+		createEntity("Tile", "Floor", new Vector2(2, 1));
+		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 1));
+		
+		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 2));
+		createEntity("Tile", "Floor", new Vector2(-2, 2));
+		createEntity("Tile", "Floor", new Vector2(-1, 2));
+		createEntity("Tile", "Floor", new Vector2(0, 2));
+		createEntity("Tile", "Floor", new Vector2(1, 2));
+		createEntity("Tile", "Floor", new Vector2(2, 2));
+		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 2));
+
+		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 3));
+		createEntity("Tile", "Floor", new Vector2(-2, 3));
+		createEntity("Tile", "Floor", new Vector2(-1, 3));
+		createEntity("Tile", "Floor", new Vector2(0, 3));
+		createEntity("Tile", "Floor", new Vector2(1, 3));
+		createEntity("Tile", "Floor", new Vector2(2, 3));
+		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 3));
+		
+		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 4));
+		createEntity("Tile", "Floor", new Vector2(-2, 4));
+		createEntity("Tile", "Floor", new Vector2(-1, 4));
+		createEntity("Tile", "Floor", new Vector2(0, 4));
+		createEntity("Tile", "Floor", new Vector2(1, 4));
+		createEntity("Tile", "Floor", new Vector2(2, 4));
+		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 4));
+		
 		createEntity("Player", "blueSuitMan", new Vector2(0, 0), "Player", "Players", "Player");
 	}
 	
@@ -57,6 +99,13 @@ public class StealthWorld extends EntityWorld {
 	protected void buildSpriteSheet() {
 		
 		spriteSheet = new SpriteSheet(new Texture(Gdx.files.internal("data/lofi_scifi_v2_trans.png")));
+		
+		//Tiles
+		spriteSheet.addRegion("Floor", new Rectangle(8, 531, 8, 8));
+		
+		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(40, 456, 8, 8));
+		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(24, 456, 8, 8));
+		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(24, 440, 8, 8));
 		
 		//View overlay
 		spriteSheet.addRegion("View", new Rectangle(165, 326, 20, 15));
