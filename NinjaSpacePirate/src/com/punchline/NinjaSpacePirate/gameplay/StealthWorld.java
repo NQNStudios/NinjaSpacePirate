@@ -8,7 +8,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileSpawnSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.utils.Convert;
@@ -21,6 +23,8 @@ import com.punchline.javalib.utils.SpriteSheet;
  */
 public class StealthWorld extends EntityWorld {
 
+	public static final int TILE_SPAWN_Y = -6;
+	
 	/**
 	 * Makes a StealthWorld.
 	 * @param input
@@ -38,61 +42,23 @@ public class StealthWorld extends EntityWorld {
 	protected void buildTemplates() {
 		super.buildTemplates();
 		
-		addTemplate("Player", new NPCTemplate());
+		addTemplate("Player", new PlayerTemplate());
 		addTemplate("Tile", new TileTemplate());
+		addTemplate("NPC", new NPCTemplate());
 	}
 	
 	@Override
 	protected void buildSystems() {
 		super.buildSystems();
 		
+		systems.addSystem(new TileSpawnSystem());
 		systems.addSystem(new PlayerControlSystem(input));
 		systems.addSystem(new NPCAnimationSystem());
 	}
 	
 	@Override
-	protected void buildEntities() {
-		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 0), true);
-		createEntity("Tile", "Floor", new Vector2(-2, 0));
-		createEntity("Tile", "Floor", new Vector2(-1, 0));
-		createEntity("Tile", "Floor", new Vector2(0, 0));
-		createEntity("Tile", "Floor", new Vector2(1, 0));
-		createEntity("Tile", "Floor", new Vector2(2, 0));
-		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 0), true);
-		
-		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 1), true);
-		createEntity("Tile", "Floor", new Vector2(-2, 1));
-		createEntity("Tile", "Floor", new Vector2(-1, 1));
-		createEntity("Tile", "Floor", new Vector2(0, 1));
-		createEntity("Tile", "Floor", new Vector2(1, 1));
-		createEntity("Tile", "Floor", new Vector2(2, 1));
-		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 1), true);
-		
-		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 2), true);
-		createEntity("Tile", "Floor", new Vector2(-2, 2));
-		createEntity("Tile", "Floor", new Vector2(-1, 2));
-		createEntity("Tile", "Floor", new Vector2(0, 2));
-		createEntity("Tile", "Floor", new Vector2(1, 2));
-		createEntity("Tile", "Floor", new Vector2(2, 2));
-		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 2), true);
-
-		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 3), true);
-		createEntity("Tile", "Floor", new Vector2(-2, 3));
-		createEntity("Tile", "Floor", new Vector2(-1, 3));
-		createEntity("Tile", "Floor", new Vector2(0, 3));
-		createEntity("Tile", "Floor", new Vector2(1, 3));
-		createEntity("Tile", "Floor", new Vector2(2, 3));
-		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 3), true);
-		
-		createEntity("Tile", "WhiteWallVertical", new Vector2(-3, 4), true);
-		createEntity("Tile", "Floor", new Vector2(-2, 4));
-		createEntity("Tile", "Floor", new Vector2(-1, 4));
-		createEntity("Tile", "Floor", new Vector2(0, 4));
-		createEntity("Tile", "Floor", new Vector2(1, 4));
-		createEntity("Tile", "Floor", new Vector2(2, 4));
-		createEntity("Tile", "WhiteWallVertical", new Vector2(3, 4), true);
-		
-		createEntity("Player", "blueSuitMan", new Vector2(0, 0), "Player", "Players", "Player");
+	protected void buildEntities() {		
+		createEntity("Player");
 	}
 	
 	@Override

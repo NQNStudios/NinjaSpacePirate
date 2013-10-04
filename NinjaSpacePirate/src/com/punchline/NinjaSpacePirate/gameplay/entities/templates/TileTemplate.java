@@ -18,6 +18,8 @@ import com.punchline.javalib.entities.templates.EntityTemplate;
 public class TileTemplate implements EntityTemplate {
 
 	private static final float BOX_SIZE = 1f;
+	private static final int NORMAL_TILE_LAYER = 0;
+	private static final int BLOCKED_TILE_LAYER = 100;
 	
 	private PolygonShape boxShape;
 	
@@ -52,9 +54,13 @@ public class TileTemplate implements EntityTemplate {
 		e.addComponent(sprite);
 		
 		if (blocked) {
+			sprite.setLayer(BLOCKED_TILE_LAYER);
+			
 			Body body = new Body(world, e, BodyType.StaticBody, boxShape, position);
 			e.addComponent(body);
 		} else {
+			sprite.setLayer(NORMAL_TILE_LAYER);
+			
 			Particle particle = new Particle(e, position, 0f);
 			e.addComponent(particle);
 		}
