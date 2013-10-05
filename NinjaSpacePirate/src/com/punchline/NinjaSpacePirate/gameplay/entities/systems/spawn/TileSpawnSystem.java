@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 
 /**
@@ -55,11 +56,19 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	//endregion
 
+	//region Constants
+	
+	private static final float SPAWN_DISTANCE = 12f;
+	
+	//endregion
+	
 	//region Fields
 	
 	private int y = StealthWorld.TILE_SPAWN_Y;
 	private LinkedList<String> rowsToSpawn = new LinkedList<String>();
 	private HashMap<String, TileRow> rowTemplates = new HashMap<String, TileRow>();
+	
+	private Entity player;
 	
 	//endregion
 	
@@ -102,7 +111,13 @@ public class TileSpawnSystem extends EntitySystem {
 	public void processEntities() {
 		super.processEntities();
 		
-		spawnRow("HallSegment");
+		rowsToSpawn.add("HallSegment"); //demo code
+		
+		Transform t = player.getComponent(Transform.class);
+		
+		if (t.getPosition().y + SPAWN_DISTANCE >= y) {
+			spawnRow(rowsToSpawn.removeFirst());
+		}
 	}
 	
 	//endregion
@@ -110,10 +125,14 @@ public class TileSpawnSystem extends EntitySystem {
 	//region Entity Processing
 	
 	@Override
-	protected void process(Entity e) { }
+	protected void process(Entity e) { 
+		this.player = e;
+	}
 
 	@Override
-	public boolean canProcess(Entity e) { return false; }
+	public boolean canProcess(Entity e) { 
+		return e.getTag().equals("Player");
+	}
 	
 	//endregion
 

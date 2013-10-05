@@ -13,6 +13,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.SpriteSheet;
 
@@ -50,6 +51,13 @@ public class StealthWorld extends EntityWorld {
 	@Override
 	protected void buildSystems() {
 		super.buildSystems();
+		
+		TrackingCameraSystem cameraSystem = 
+				new TrackingCameraSystem("Player", camera, Convert.metersToPixels(getBounds()));
+		
+		cameraSystem.setCameraOffset(Convert.metersToPixels(new Vector2(0, 5)));
+		systems.addSystem(cameraSystem);
+		
 		
 		systems.addSystem(new TileSpawnSystem());
 		systems.addSystem(new PlayerControlSystem(input));
