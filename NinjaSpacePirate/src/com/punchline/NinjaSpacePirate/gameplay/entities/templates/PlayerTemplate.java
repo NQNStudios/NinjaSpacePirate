@@ -48,7 +48,6 @@ public class PlayerTemplate implements EntityTemplate {
 		e.addComponent(animation);
 		
 		Body body = new Body(world, e, BodyType.DynamicBody, shape, BODY_POSITION);
-		body.setLinearVelocity(new Vector2(0,1));
 		e.addComponent(body);
 		
 		return e;
