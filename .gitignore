@@ -7,3 +7,6 @@
 
 # Log Files #
 *.gwt-log
+
+# Bin Folders #
+/NinjaSpacePirate-desktop/bin/

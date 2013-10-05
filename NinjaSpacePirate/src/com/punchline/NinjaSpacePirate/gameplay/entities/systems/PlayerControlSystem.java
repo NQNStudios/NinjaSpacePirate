@@ -3,11 +3,9 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
-import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PatrolProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
 import com.punchline.javalib.entities.systems.InputSystem;
-import com.punchline.javalib.utils.Convert;
 
 /**
  * The PlayerControlSystem.

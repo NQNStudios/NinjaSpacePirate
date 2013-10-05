@@ -41,7 +41,7 @@ public class PlayerTemplate implements EntityTemplate {
 		e.init("Player", "Players", "Player");
 		
 		Animation animation = new Animation(world.getSpriteSheet(), 
-				"blueSuitManMoveUp", 2, 1, Animation.LOOP_PINGPONG, 0.3f);
+				"blueSuitManMoveUp", 2, 1, 1, 1, Animation.LOOP_PINGPONG, 0.3f);
 		
 		animation.setLayer(5);
 		

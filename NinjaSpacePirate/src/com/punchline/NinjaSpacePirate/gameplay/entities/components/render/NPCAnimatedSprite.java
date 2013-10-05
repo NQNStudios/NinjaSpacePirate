@@ -26,7 +26,7 @@ public class NPCAnimatedSprite extends AnimatedSprite {
 	 * @param prefix The prefix of this Sprite's texture regions in the given SpriteSheet.
 	 */
 	public NPCAnimatedSprite(SpriteSheet spriteSheet, String prefix) {
-		super(spriteSheet, prefix, 8, Animation.LOOP_PINGPONG, 0.3f);
+		super(spriteSheet, prefix, 8, 1, 1, Animation.LOOP_PINGPONG, 0.3f);
 		
 		setLayer(SPRITE_LAYER);
 	}

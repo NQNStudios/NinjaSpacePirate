@@ -17,10 +17,6 @@ public class NinjaSpacePirate extends Game {
 		
 		landscapeMode = false;
 		
-		backgroundRed = 0.125f;
-		backgroundGreen = 0.125f;
-		backgroundBlue = 0.125f;
-		
 		super.create();
 		
 		getScreenManager().addScreen(new GameplayScreen(this));
