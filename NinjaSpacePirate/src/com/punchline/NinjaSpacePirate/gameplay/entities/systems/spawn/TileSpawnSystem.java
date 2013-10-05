@@ -67,6 +67,7 @@ public class TileSpawnSystem extends EntitySystem {
 	private int y = StealthWorld.TILE_SPAWN_Y;
 	private LinkedList<String> rowsToSpawn = new LinkedList<String>();
 	private HashMap<String, TileRow> rowTemplates = new HashMap<String, TileRow>();
+	private HashMap<String, String[]> locationTemplates = new HashMap<String, String[]>();
 	
 	private Entity player;
 	
@@ -79,25 +80,69 @@ public class TileSpawnSystem extends EntitySystem {
 	 */
 	public TileSpawnSystem() {
 		buildRowTemplates();
+		buildLocationTemplates();
 	}
 	
 	private void buildRowTemplates() {
 		TileArgs floor = new TileArgs("Floor", false);
+		TileArgs floorVent = new TileArgs("FloorVent", false);
+		TileArgs floorGrate = new TileArgs("FloorGrate", false);
+		TileArgs floorLight = new TileArgs("FloorLight", false);
+		
 		TileArgs whiteWallVertical = new TileArgs("WhiteWallVertical", true);
+		TileArgs whiteWallVentEast = new TileArgs("WhiteWallVentEast", true);
+		TileArgs whiteWallVentWest = new TileArgs("WhiteWallVentWest", true);
+		TileArgs whiteWallRedLightEast = new TileArgs("WhiteWallRedLightEast", true);
+		TileArgs whiteWallRedLightWest = new TileArgs("WhiteWallRedLightWest", true);
 		
 		TileArgs[] args = new TileArgs[TileRow.ROW_SIZE];
 		TileRow row = null;
 		
 		args[0] = whiteWallVertical;
-		args[1] = floor;
+		args[1] = floorLight;
 		args[2] = floor;
 		args[3] = floor;
 		args[4] = floor;
-		args[5] = floor;
+		args[5] = floorLight;
 		args[6] = whiteWallVertical;
 		row = new TileRow(args);
 		
 		rowTemplates.put("HallSegment", row);
+		
+		args[0] = whiteWallVentEast;
+		args[6] = whiteWallVentWest;
+		row = new TileRow(args);
+		
+		rowTemplates.put("HallSegmentWallVents", row);
+		
+		args[0] = whiteWallVertical;
+		args[3] = floorVent;
+		args[6] = whiteWallVertical;
+		row = new TileRow(args);
+		
+		rowTemplates.put("HallSegmentFloorVent", row);
+	}
+	
+	private void buildLocationTemplates() {
+		String[] loc = new String[16];
+		loc[0] = "HallSegment";
+		loc[1] = "HallSegment";
+		loc[2] = "HallSegment";
+		loc[3] = "HallSegmentWallVents";
+		loc[4] = "HallSegment";
+		loc[5] = "HallSegment";
+		loc[6] = "HallSegment";
+		loc[7] = "HallSegmentFloorVent";
+		loc[8] = "HallSegment";
+		loc[9] = "HallSegment";
+		loc[10] = "HallSegment";
+		loc[11] = "HallSegmentWallVents";
+		loc[12] = "HallSegment";
+		loc[13] = "HallSegment";
+		loc[14] = "HallSegment";
+		
+		locationTemplates.put("HallSegment", loc);
+		
 	}
 	
 	//endregion
@@ -111,11 +156,11 @@ public class TileSpawnSystem extends EntitySystem {
 	public void processEntities() {
 		super.processEntities();
 		
-		rowsToSpawn.add("HallSegment"); //demo code
+		queueSpawnLocation("HallSegment"); //demo code
 		
 		Transform t = player.getComponent(Transform.class);
 		
-		if (t.getPosition().y + SPAWN_DISTANCE >= y) {
+		while (t.getPosition().y + SPAWN_DISTANCE >= y) {
 			spawnRow(rowsToSpawn.removeFirst());
 		}
 	}
@@ -149,6 +194,18 @@ public class TileSpawnSystem extends EntitySystem {
 		}
 		
 		y++;
+	}
+	
+	private void queueSpawnRow(String rowKey) {
+		rowsToSpawn.add(rowKey);
+	}
+	
+	private void queueSpawnLocation(String locKey) {
+		String[] loc = locationTemplates.get(locKey);
+		
+		for (String row : loc) {
+			queueSpawnRow(row);
+		}
 	}
 	
 	//endregion

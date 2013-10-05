@@ -77,10 +77,15 @@ public class StealthWorld extends EntityWorld {
 		
 		//Tiles
 		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));
+		spriteSheet.addRegion("FloorVent", new Rectangle(10, 154, 8, 8));
+		spriteSheet.addRegion("FloorGrate", new Rectangle(19, 154, 8, 8));
+		spriteSheet.addRegion("FloorLight", new Rectangle(28, 154, 8, 8));
 		
 		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(1, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(10, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(19, 136, 8, 8));
+		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
+		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
 		
 		//View overlay
 		spriteSheet.addRegion("View", new Rectangle(96, 236, 20, 15));
