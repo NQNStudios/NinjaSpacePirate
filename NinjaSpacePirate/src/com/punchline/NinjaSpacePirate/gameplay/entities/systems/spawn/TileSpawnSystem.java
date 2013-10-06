@@ -50,7 +50,9 @@ public class TileSpawnSystem extends EntitySystem {
 				throw new IllegalArgumentException("Wrong number of tiles passed to TileRow constructor.");
 			}
 			
-			this.tiles = tiles;
+			for (int i = 0; i < ROW_SIZE; i++) {
+				this.tiles[i] = tiles[i];
+			}
 		}
 	}
 	
@@ -96,7 +98,6 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs whiteWallRedLightWest = new TileArgs("WhiteWallRedLightWest", true);
 		
 		TileArgs[] args = new TileArgs[TileRow.ROW_SIZE];
-		TileRow row = null;
 		
 		args[0] = whiteWallVertical;
 		args[1] = floorLight;
@@ -105,22 +106,19 @@ public class TileSpawnSystem extends EntitySystem {
 		args[4] = floor;
 		args[5] = floorLight;
 		args[6] = whiteWallVertical;
-		row = new TileRow(args);
 		
-		rowTemplates.put("HallSegment", row);
+		rowTemplates.put("HallSegment", new TileRow(args));
 		
 		args[0] = whiteWallVentEast;
 		args[6] = whiteWallVentWest;
-		row = new TileRow(args);
 		
-		rowTemplates.put("HallSegmentWallVents", row);
+		rowTemplates.put("HallSegmentWallVents", new TileRow(args));
 		
 		args[0] = whiteWallVertical;
 		args[3] = floorVent;
 		args[6] = whiteWallVertical;
-		row = new TileRow(args);
 		
-		rowTemplates.put("HallSegmentFloorVent", row);
+		rowTemplates.put("HallSegmentFloorVent", new TileRow(args));
 	}
 	
 	private void buildLocationTemplates() {
