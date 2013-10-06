@@ -21,7 +21,7 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float MAX_VERTICAL_SPEED = 3f;
 	
 	private float xVelocity = 0f;
-	private float yVelocity = 0f;
+	private float yVelocity = MAX_VERTICAL_SPEED;
 	
 	/**
 	 * Constructs the PlayerControlSystem.
@@ -62,6 +62,10 @@ public class PlayerControlSystem extends InputSystem {
 			xVelocity = MAX_HORIZONTAL_SPEED;
 			return true;
 			
+		case Keys.DOWN:
+			yVelocity = MIN_VERTICAL_SPEED;
+			break;
+			
 		}
 		
 		return false;
@@ -78,6 +82,10 @@ public class PlayerControlSystem extends InputSystem {
 		case Keys.RIGHT:
 			xVelocity -= MAX_HORIZONTAL_SPEED;
 			return true;
+			
+		case Keys.DOWN:
+			yVelocity = MAX_VERTICAL_SPEED;
+			break;
 		
 		}
 			

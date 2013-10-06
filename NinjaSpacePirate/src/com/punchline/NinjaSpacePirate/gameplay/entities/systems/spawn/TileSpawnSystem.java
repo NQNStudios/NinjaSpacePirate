@@ -122,7 +122,7 @@ public class TileSpawnSystem extends EntitySystem {
 	}
 	
 	private void buildLocationTemplates() {
-		String[] loc = new String[16];
+		String[] loc = new String[15];
 		loc[0] = "HallSegment";
 		loc[1] = "HallSegment";
 		loc[2] = "HallSegment";
