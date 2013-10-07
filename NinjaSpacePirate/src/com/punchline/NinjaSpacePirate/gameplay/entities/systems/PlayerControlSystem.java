@@ -15,13 +15,15 @@ import com.punchline.javalib.entities.systems.InputSystem;
 public class PlayerControlSystem extends InputSystem {
 	
 	private static final float MIN_HORIZONTAL_SPEED = 0f;
-	private static final float MAX_HORIZONTAL_SPEED = 1f;
+	private static final float MAX_HORIZONTAL_SPEED = 3f;
+	private static final float AVG_HORIZONTAL_SPEED = (MIN_HORIZONTAL_SPEED + MAX_HORIZONTAL_SPEED) / 2f;
 	
-	private static final float MIN_VERTICAL_SPEED = 1f;
-	private static final float MAX_VERTICAL_SPEED = 3f;
+	private static final float MIN_VERTICAL_SPEED = 2f;
+	private static final float MAX_VERTICAL_SPEED = 6f;
+	private static final float AVG_VERTICAL_SPEED = (MIN_VERTICAL_SPEED + MAX_VERTICAL_SPEED) / 2f;
 	
 	private float xVelocity = 0f;
-	private float yVelocity = MAX_VERTICAL_SPEED;
+	private float yVelocity = AVG_VERTICAL_SPEED;
 	
 	/**
 	 * Constructs the PlayerControlSystem.
@@ -66,6 +68,10 @@ public class PlayerControlSystem extends InputSystem {
 			yVelocity = MIN_VERTICAL_SPEED;
 			break;
 			
+		case Keys.UP:
+			yVelocity = MAX_VERTICAL_SPEED;
+			break;
+			
 		}
 		
 		return false;
@@ -84,7 +90,11 @@ public class PlayerControlSystem extends InputSystem {
 			return true;
 			
 		case Keys.DOWN:
-			yVelocity = MAX_VERTICAL_SPEED;
+			yVelocity = AVG_VERTICAL_SPEED;
+			break;
+			
+		case Keys.UP:
+			yVelocity = AVG_VERTICAL_SPEED;
 			break;
 		
 		}
