@@ -10,6 +10,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSyst
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileSpawnSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.javalib.entities.EntityWorld;
@@ -43,8 +44,12 @@ public class StealthWorld extends EntityWorld {
 	protected void buildTemplates() {
 		super.buildTemplates();
 		
-		addTemplate("Player", new PlayerTemplate());
+		//World
 		addTemplate("Tile", new TileTemplate());
+		addTemplate("Pit", new PitTemplate());
+		
+		//Characters
+		addTemplate("Player", new PlayerTemplate());
 		addTemplate("NPC", new NPCTemplate());
 	}
 	
@@ -88,11 +93,14 @@ public class StealthWorld extends EntityWorld {
 		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
 		
+		//Player
+		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));
+		spriteSheet.addRegion("PlayerDead", new Rectangle(109, 1, 8, 8));
+		
 		//View overlay
 		spriteSheet.addRegion("View", new Rectangle(96, 236, 20, 15));
 		
 		//Humans
-		addHumanSprite("blueSuitMan", 0, 0, 1);
 		addHumanSprite("redSuitMan", 0, 9, 1);
 		addHumanSprite("greenSuitMan", 0, 18, 1);
 		addHumanSprite("yellowSuitMan", 0, 27, 1);

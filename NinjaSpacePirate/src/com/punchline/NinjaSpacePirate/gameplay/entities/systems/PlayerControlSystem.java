@@ -14,7 +14,6 @@ import com.punchline.javalib.entities.systems.InputSystem;
  */
 public class PlayerControlSystem extends InputSystem {
 	
-	private static final float MIN_HORIZONTAL_SPEED = 0f;
 	private static final float MAX_HORIZONTAL_SPEED = 3f;
 	
 	private static final float MIN_VERTICAL_SPEED = 2f;

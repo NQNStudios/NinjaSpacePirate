@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
+import com.punchline.javalib.utils.LogManager;
 import com.punchline.javalib.utils.Random;
 
 /**
@@ -176,7 +178,7 @@ public class TileSpawnSystem extends EntitySystem {
 			@Override
 			public String[] getRows() {
 				
-				int grateLoc = r.nextInt(6);
+				int grateLoc = r.nextInt(5);
 				String rowKey = "PitGrate" + grateLoc;
 				
 				String[] rows = new String[16];
@@ -252,6 +254,10 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private void spawnRow(String rowKey) {
 		TileRow row = rowTemplates.get(rowKey);
+		
+		if (row == null) {
+			LogManager.error("Space Pirate Log", "Invalid row key passed: " + rowKey);
+		}
 		
 		int i = 0;
 		for (int x = -TileRow.ROW_SIZE / 2; x <= TileRow.ROW_SIZE / 2; x++, i++) {

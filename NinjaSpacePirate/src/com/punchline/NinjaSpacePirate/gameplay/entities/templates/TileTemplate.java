@@ -50,8 +50,13 @@ public class TileTemplate implements EntityTemplate {
 		}
 		
 		Sprite sprite = new Sprite(world.getSpriteSheet(), spriteKey);
-		
+		sprite.setLayer(1);
 		e.addComponent(sprite);
+		
+		if (spriteKey.equals("FloorHole")) {
+			world.createEntity("Pit", position);
+			sprite.setLayer(-1);
+		}
 		
 		if (blocked) {
 			sprite.setLayer(BLOCKED_TILE_LAYER);

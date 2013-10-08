@@ -3,13 +3,13 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.GenericCollisionEvents;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.physical.Collidable;
-import com.punchline.javalib.entities.components.render.Animation;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 
@@ -43,12 +43,9 @@ public class PlayerTemplate implements EntityTemplate {
 	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {
 		e.init("Player", "Players", "Player");
 		
-		Animation animation = new Animation(world.getSpriteSheet(), 
-				"blueSuitManMoveUp", 2, 1, 1, 1, Animation.LOOP_PINGPONG, 0.3f);
+		PlayerSprite sprite = new PlayerSprite(world.getSpriteSheet());
 		
-		animation.setLayer(5);
-		
-		e.addComponent(animation);
+		e.addComponent(sprite);
 		
 		Body body = new Body(world, e, BodyType.DynamicBody, shape, BODY_POSITION);
 		e.addComponent(body);
