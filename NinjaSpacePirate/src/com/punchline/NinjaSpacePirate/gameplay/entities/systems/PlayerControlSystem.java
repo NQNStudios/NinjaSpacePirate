@@ -23,7 +23,7 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float AVG_VERTICAL_SPEED = (MIN_VERTICAL_SPEED + MAX_VERTICAL_SPEED) / 2f;
 	
 	private static final float FALLING_HORIZONTAL_SCL = 0.3f;
-	private static final float FALLING_VERTICAL_SCL = 0.7f;
+	private static final float FALLING_VERTICAL_SCL = 0.3f;
 	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;

@@ -95,6 +95,7 @@ public class StealthWorld extends EntityWorld {
 		
 		//Player
 		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));
+		spriteSheet.addRegion("PlayerStationary", new Rectangle(82, 1, 8, 8));
 		spriteSheet.addRegion("PlayerDead", new Rectangle(109, 1, 8, 8));
 		
 		//View overlay

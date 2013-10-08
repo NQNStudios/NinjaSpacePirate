@@ -223,6 +223,8 @@ public class TileSpawnSystem extends EntitySystem {
 	public void processEntities() {
 		super.processEntities();
 		
+		if (player == null) return;
+		
 		Transform t = player.getComponent(Transform.class);
 		
 		if (t.getPosition().y + LOCATION_SPAWN_DISTANCE >= y) {

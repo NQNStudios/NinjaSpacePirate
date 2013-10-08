@@ -41,6 +41,7 @@ public class PlayerSprite extends AnimatedSprite {
 		if (state.equals("Falling")) {
 			falling = true;
 			setLayer(0);
+			setState("Stationary", false);
 		} else {
 			super.setState(state, keepStateTime);
 		}
