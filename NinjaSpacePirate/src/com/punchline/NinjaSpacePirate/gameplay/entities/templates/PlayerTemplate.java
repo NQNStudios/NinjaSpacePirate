@@ -10,6 +10,8 @@ import com.punchline.javalib.entities.GenericCollisionEvents;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.physical.Collidable;
+import com.punchline.javalib.entities.components.render.Renderable;
+import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 
@@ -51,6 +53,18 @@ public class PlayerTemplate implements EntityTemplate {
 		e.addComponent(body);
 		
 		Health health = new Health(e, world, 1f);
+		health.deleteOnDeath = false;
+		health.onDeath.addCallback("KillSprite", new EventCallback() {
+
+			@Override
+			public void invoke(Entity e, Object... args) {
+				PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
+				
+				if (!sprite.isFalling()) sprite.setState("Dead", false);
+			}
+			
+		});
+		
 		e.addComponent(health);
 		
 		Collidable onCollision = GenericCollisionEvents.empty();

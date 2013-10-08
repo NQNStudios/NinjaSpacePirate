@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.Renderable;
@@ -18,7 +19,7 @@ import com.punchline.javalib.utils.Convert;
  */
 public class PitTemplate implements EntityTemplate {
 	
-	private static final float TILE_SIZE = Convert.pixelsToMeters(8);
+	private static final float TILE_SIZE = Convert.pixelsToMeters(4); //Players must be mostly on top of the tile to fall
 	
 	@Override
 	public void dispose() {
@@ -44,6 +45,10 @@ public class PitTemplate implements EntityTemplate {
 					PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
 					
 					sprite.setState("Falling", false);
+					
+					Health h = e.getComponent(Health.class);
+					
+					h.setCurrentValue(0);
 				}
 			}
 			

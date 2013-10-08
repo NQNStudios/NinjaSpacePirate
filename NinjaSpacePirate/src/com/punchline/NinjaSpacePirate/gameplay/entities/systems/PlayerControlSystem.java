@@ -3,8 +3,10 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
+import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.systems.InputSystem;
 
 /**
@@ -20,11 +22,17 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float MAX_VERTICAL_SPEED = 6f;
 	private static final float AVG_VERTICAL_SPEED = (MIN_VERTICAL_SPEED + MAX_VERTICAL_SPEED) / 2f;
 	
+	private static final float FALLING_HORIZONTAL_SCL = 0.3f;
+	private static final float FALLING_VERTICAL_SCL = 0.7f;
+	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	
 	private boolean movingSlow = false;
 	private boolean movingFast = false;
+	
+	/** Whether the game is currently taking input. */
+	public boolean inputEnabled = true;
 	
 	/**
 	 * Constructs the PlayerControlSystem.
@@ -40,8 +48,31 @@ public class PlayerControlSystem extends InputSystem {
 	}
 
 	@Override
+	public void processEntities() {
+		if (inputEnabled) super.processEntities();
+	}
+	
+	@Override
 	protected void process(Entity e) {
+		PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
 		Velocity v = e.getComponent(Velocity.class);
+		
+		if (sprite.getState().equals("Dead")) {
+			v.setLinearVelocity(new Vector2(0, 0));
+			inputEnabled = false;
+			
+			return;
+		}
+			
+		if (sprite.isFalling()) {
+			Vector2 velocity = v.getLinearVelocity();
+			velocity.x *= FALLING_HORIZONTAL_SCL;
+			velocity.y *= FALLING_VERTICAL_SCL;
+			v.setLinearVelocity(velocity);
+			inputEnabled = false;
+			
+			return;
+		}
 		
 		//set x velocity based on input flags
 		float xVelocity = 0f;
@@ -63,11 +94,6 @@ public class PlayerControlSystem extends InputSystem {
 		
 		//set entity velocity
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));
-	}
-
-	@Override
-	public void processEntities() {		
-		super.processEntities();
 	}
 
 	//region Keyboard Controls

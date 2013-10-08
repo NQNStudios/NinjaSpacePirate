@@ -16,7 +16,7 @@ public class PlayerSprite extends AnimatedSprite {
 	
 	private float scaleX = 1f;
 	private float scaleY = 1f;
-	private boolean isFalling = false;
+	private boolean falling = false;
 	
 	/**
 	 * Creates a player sprite.
@@ -28,11 +28,18 @@ public class PlayerSprite extends AnimatedSprite {
 		setLayer(5);
 		setState("Run", false);
 	}
+	
+	/**
+	 * @return Whether the player is falling.
+	 */
+	public boolean isFalling() {
+		return falling;
+	}
 
 	@Override
 	public void setState(String state, boolean keepStateTime) throws IllegalArgumentException {
 		if (state.equals("Falling")) {
-			isFalling = true;
+			falling = true;
 			setLayer(0);
 		} else {
 			super.setState(state, keepStateTime);
@@ -49,7 +56,7 @@ public class PlayerSprite extends AnimatedSprite {
 
 	@Override
 	public void draw(SpriteBatch spriteBatch, float deltaSeconds) {
-		if (isFalling) {
+		if (falling) {
 			scaleX -= SCALE_DELTA; 
 			scaleY -= SCALE_DELTA;
 			
