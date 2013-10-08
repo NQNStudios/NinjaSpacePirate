@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.entities.Entity;
-import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 import com.punchline.javalib.utils.Random;
@@ -17,61 +16,6 @@ import com.punchline.javalib.utils.Random;
  *
  */
 public class TileSpawnSystem extends EntitySystem {
-	
-	//region Inner Classes
-	
-	/** Contains the information needed to construct a tile, minus its position. */
-	private class TileArgs {
-		/** The key of the sprite's TextureRegion in the game's SpriteSheet. */
-		public String spriteKey;
-		
-		/** Whether this tile is a physical obstacle. */
-		public boolean blocked;
-		
-		/** Constructs TileArgs.
-		 * @param spriteKey The key of the tile's sprite.
-		 * @param blocked Whether this tile is a physical obstacle. */
-		public TileArgs(String spriteKey, boolean blocked) {
-			this.spriteKey = spriteKey;
-			this.blocked = blocked;
-		}
-	}
-	
-	/** Contains {@link TileArgs} for an entire row of tiles of size {@link #ROW_SIZE}. */
-	private class TileRow {
-		/** The size of a row of tiles. */
-		public static final int ROW_SIZE = 7;
-		
-		/** The TileArgs for creating this row of tiles. */
-		public TileArgs[] tiles = new TileArgs[ROW_SIZE];
-		
-		/** Constructs a TileRow.
-		 * @param tiles The TileArgs array for creating this row of tiles. Must have size {@link #ROW_SIZE}. */
-		public TileRow(TileArgs... tiles) {
-			if (tiles.length != ROW_SIZE) {
-				throw new IllegalArgumentException("Wrong number of tiles passed to TileRow constructor.");
-			}
-			
-			for (int i = 0; i < ROW_SIZE; i++) {
-				this.tiles[i] = tiles[i];
-			}
-		}
-	}
-	
-	/** Listener for when a location is spawned, capable of performing extra logic (such as 
-	 * spawning entities to go along with the tiles of the location. */
-	private interface RowSpawnListener {
-		
-		/**
-		 * Called when the location is spawned that this listener is interested in.
-		 * @param world Reference to the EntityWorld, for spawning entities, etc.
-		 * @param y The y coordinate of where the row was spawned.
-		 */
-		public void onRowSpawned(EntityWorld world, float y);
-		
-	}
-	
-	//endregion
 
 	//region Constants
 	
@@ -87,8 +31,7 @@ public class TileSpawnSystem extends EntitySystem {
 	private int y = StealthWorld.TILE_SPAWN_Y;
 	private LinkedList<String> rowsToSpawn = new LinkedList<String>();
 	private HashMap<String, TileRow> rowTemplates = new HashMap<String, TileRow>();
-	private HashMap<String, String[]> locationTemplates = new HashMap<String, String[]>();
-	private HashMap<String, RowSpawnListener> rowSpawnListeners = new HashMap<String, RowSpawnListener>();
+	private HashMap<String, LocationTemplate> locationTemplates = new HashMap<String, LocationTemplate>();
 	
 	private Entity player;
 	
@@ -102,6 +45,8 @@ public class TileSpawnSystem extends EntitySystem {
 	public TileSpawnSystem() {
 		buildRowTemplates();
 		buildLocationTemplates();
+		
+		queueSpawnLocation("HallSegment");
 	}
 	
 	private void buildRowTemplates() {
@@ -109,6 +54,7 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs floorVent = new TileArgs("FloorVent", false);
 		TileArgs floorGrate = new TileArgs("FloorGrate", false);
 		TileArgs floorLight = new TileArgs("FloorLight", false);
+		TileArgs floorHole = new TileArgs("FloorHole", false);
 		
 		TileArgs whiteWallVertical = new TileArgs("WhiteWallVertical", true);
 		TileArgs whiteWallVentEast = new TileArgs("WhiteWallVentEast", true);
@@ -149,10 +95,40 @@ public class TileSpawnSystem extends EntitySystem {
 		args[6] = floor;
 		
 		rowTemplates.put("HallSegmentDoors", new TileRow(args));
-	}
-	
-	private void buildRowSpawnListeners() {
 		
+		args[0] = whiteWallVertical;
+		args[1] = floorHole;
+		args[2] = floorHole;
+		args[3] = floorHole;
+		args[4] = floorHole;
+		args[5] = floorHole;
+		args[6] = whiteWallVertical;
+		
+		rowTemplates.put("Pit", new TileRow(args));
+		
+		args[1] = floorGrate;
+		
+		rowTemplates.put("PitGrate0", new TileRow(args));
+		
+		args[1] = floorHole;
+		args[2] = floorGrate;
+		
+		rowTemplates.put("PitGrate1", new TileRow(args));
+		
+		args[2] = floorHole;
+		args[3] = floorGrate;
+		
+		rowTemplates.put("PitGrate2", new TileRow(args));
+		
+		args[3] = floorHole;
+		args[4] = floorGrate;
+		
+		rowTemplates.put("PitGrate3", new TileRow(args));
+		
+		args[4] = floorHole;
+		args[5] = floorGrate;
+		
+		rowTemplates.put("PitGrate4", new TileRow(args));
 	}
 	
 	private void buildLocationTemplates() {
@@ -173,7 +149,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegment", loc);
+		locationTemplates.put("HallSegment", new LocationTemplate(loc));
 		
 		loc = null;
 		loc = new String[15];
@@ -193,7 +169,41 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegmentDoors", loc);
+		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc));
+		
+		LocationTemplate pitLocation = new LocationTemplate(null) {
+			
+			@Override
+			public String[] getRows() {
+				
+				int grateLoc = r.nextInt(6);
+				String rowKey = "PitGrate" + grateLoc;
+				
+				String[] rows = new String[16];
+				rows[0] = rowKey;
+				rows[1] = rowKey;
+				rows[2] = rowKey;
+				rows[3] = rowKey;
+				rows[4] = rowKey;
+				rows[5] = rowKey;
+				rows[6] = "HallSegment";
+				rows[7] = "HallSegment";
+				rows[8] = "HallSegment";
+				rows[9] = "HallSegment";
+				rows[10] = "HallSegment";
+				rows[11] = "HallSegment";
+				rows[12] = "HallSegment";
+				rows[13] = "HallSegment";
+				rows[14] = "HallSegment";
+				rows[15] = "HallSegment";
+				
+				return rows;
+				
+			}
+			
+		};
+		
+		locationTemplates.put("PitGrate", pitLocation);
 	}
 	
 	//endregion
@@ -248,14 +258,10 @@ public class TileSpawnSystem extends EntitySystem {
 			TileArgs args = row.tiles[i];
 			
 			world.createEntity("Tile", args.spriteKey, new Vector2(x, y), args.blocked);
+			args.onCreated(world, x, y);
 		}
 		
-		//Activate the interested row spawn listener, if there is one.
-		if (rowSpawnListeners.containsKey(rowKey)) {
-			RowSpawnListener listener = rowSpawnListeners.get(rowKey);
-			
-			listener.onRowSpawned(world, y);
-		}
+		row.onCreated(world, y);
 		
 		y++;
 	}
@@ -265,7 +271,7 @@ public class TileSpawnSystem extends EntitySystem {
 	}
 	
 	private void queueSpawnLocation(String locKey) {
-		String[] loc = locationTemplates.get(locKey);
+		String[] loc = locationTemplates.get(locKey).getRows();
 		
 		for (String row : loc) {
 			queueSpawnRow(row);
@@ -275,10 +281,22 @@ public class TileSpawnSystem extends EntitySystem {
 	private void queueNextLocation() {
 		//This is where the system decides what obstacle to throw at the player next.
 		
-		if (r.nextBoolean()) {
+		int loc = r.nextInt(3);
+		
+		switch (loc) {
+		
+		case 0:
 			queueSpawnLocation("HallSegment");
-		} else {
+			break;
+			
+		case 1:
 			queueSpawnLocation("HallSegmentDoors");
+			break;
+			
+		case 2:
+			queueSpawnLocation("PitGrate");
+			break;
+		
 		}
 	}
 	

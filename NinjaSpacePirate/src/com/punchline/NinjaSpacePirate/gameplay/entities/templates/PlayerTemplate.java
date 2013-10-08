@@ -21,7 +21,7 @@ import com.punchline.javalib.utils.Convert;
 public class PlayerTemplate implements EntityTemplate {
 
 	//Body constants
-	private static final float BODY_RADIUS = Convert.pixelsToMeters(4);
+	private static final float BODY_RADIUS = Convert.pixelsToMeters(3.5f);
 	private static final Vector2 BODY_POSITION = new Vector2(0, -5);
 	
 	private CircleShape shape;
