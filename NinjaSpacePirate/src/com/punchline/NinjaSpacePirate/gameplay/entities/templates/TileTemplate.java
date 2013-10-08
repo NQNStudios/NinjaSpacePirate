@@ -18,7 +18,9 @@ import com.punchline.javalib.entities.templates.EntityTemplate;
 public class TileTemplate implements EntityTemplate {
 
 	private static final float BOX_SIZE = 1f;
-	private static final int NORMAL_TILE_LAYER = 0;
+	
+	private static final int BACKGROUND_TILE_LAYER = -1;
+	private static final int NORMAL_TILE_LAYER = 1;
 	private static final int BLOCKED_TILE_LAYER = 100;
 	
 	private PolygonShape boxShape;
@@ -53,11 +55,6 @@ public class TileTemplate implements EntityTemplate {
 		sprite.setLayer(1);
 		e.addComponent(sprite);
 		
-		if (spriteKey.equals("FloorHole")) {
-			world.createEntity("Pit", position);
-			sprite.setLayer(-1);
-		}
-		
 		if (blocked) {
 			sprite.setLayer(BLOCKED_TILE_LAYER);
 			
@@ -68,6 +65,11 @@ public class TileTemplate implements EntityTemplate {
 			
 			Particle particle = new Particle(e, position, 0f);
 			e.addComponent(particle);
+		}
+		
+		if (spriteKey.equals("FloorHole")) {
+			world.createEntity("Pit", position);
+			sprite.setLayer(BACKGROUND_TILE_LAYER);
 		}
 		
 		return e;
