@@ -37,7 +37,7 @@ public class NPCTemplate implements EntityTemplate {
 	 */
 	public NPCTemplate() {
 		bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.type = BodyType.KinematicBody;
 		
 		shape = new CircleShape();
 		shape.setRadius(BODY_RADIUS);

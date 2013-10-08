@@ -5,7 +5,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.GenericCollisionEvents;
+import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Body;
+import com.punchline.javalib.entities.components.physical.Collidable;
 import com.punchline.javalib.entities.components.render.Animation;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
@@ -49,6 +52,12 @@ public class PlayerTemplate implements EntityTemplate {
 		
 		Body body = new Body(world, e, BodyType.DynamicBody, shape, BODY_POSITION);
 		e.addComponent(body);
+		
+		Health health = new Health(e, world, 1f);
+		e.addComponent(health);
+		
+		Collidable onCollision = GenericCollisionEvents.empty();
+		e.addComponent(onCollision);
 		
 		return e;
 	}

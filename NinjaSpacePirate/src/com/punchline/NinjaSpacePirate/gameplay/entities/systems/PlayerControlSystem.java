@@ -22,8 +22,11 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float MAX_VERTICAL_SPEED = 6f;
 	private static final float AVG_VERTICAL_SPEED = (MIN_VERTICAL_SPEED + MAX_VERTICAL_SPEED) / 2f;
 	
-	private float xVelocity = 0f;
-	private float yVelocity = AVG_VERTICAL_SPEED;
+	private boolean movingLeft = false;
+	private boolean movingRight = false;
+	
+	private boolean movingSlow = false;
+	private boolean movingFast = false;
 	
 	/**
 	 * Constructs the PlayerControlSystem.
@@ -42,6 +45,25 @@ public class PlayerControlSystem extends InputSystem {
 	protected void process(Entity e) {
 		Velocity v = e.getComponent(Velocity.class);
 		
+		//set x velocity based on input flags
+		float xVelocity = 0f;
+		
+		if (movingLeft) {
+			xVelocity = -MAX_HORIZONTAL_SPEED;
+		} else if (movingRight) {
+			xVelocity = MAX_HORIZONTAL_SPEED;
+		}
+		
+		//set y velocity based on input flags
+		float yVelocity = AVG_VERTICAL_SPEED;
+		
+		if (movingSlow) {
+			yVelocity = MIN_VERTICAL_SPEED;
+		} else if (movingFast) {
+			yVelocity = MAX_VERTICAL_SPEED;
+		}
+		
+		//set entity velocity
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));
 	}
 
@@ -57,19 +79,19 @@ public class PlayerControlSystem extends InputSystem {
 		switch (keycode) {
 		
 		case Keys.LEFT:
-			xVelocity = -MAX_HORIZONTAL_SPEED;
+			movingLeft = true;
 			return true;
 			
 		case Keys.RIGHT:
-			xVelocity = MAX_HORIZONTAL_SPEED;
+			movingRight = true;
 			return true;
 			
 		case Keys.DOWN:
-			yVelocity = MIN_VERTICAL_SPEED;
+			movingSlow = true;
 			break;
 			
 		case Keys.UP:
-			yVelocity = MAX_VERTICAL_SPEED;
+			movingFast = true;
 			break;
 			
 		}
@@ -82,19 +104,19 @@ public class PlayerControlSystem extends InputSystem {
 		switch (keycode) {
 		
 		case Keys.LEFT:
-			xVelocity += MAX_HORIZONTAL_SPEED;
+			movingLeft = false;
 			return true;
 			
 		case Keys.RIGHT:
-			xVelocity -= MAX_HORIZONTAL_SPEED;
+			movingRight = false;
 			return true;
 			
 		case Keys.DOWN:
-			yVelocity = AVG_VERTICAL_SPEED;
+			movingSlow = false;
 			break;
 			
 		case Keys.UP:
-			yVelocity = AVG_VERTICAL_SPEED;
+			movingFast = false;
 			break;
 		
 		}
