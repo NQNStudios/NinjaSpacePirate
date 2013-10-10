@@ -59,11 +59,17 @@ public class NPCTemplate implements EntityTemplate {
 		String group = (String) args[3];
 		String type = (String) args[4];
 		
+		Vector2 velocity = new Vector2();
+		if (args.length >= 5) {
+			velocity = (Vector2) args[5];
+		}
+		
 		e.init(tag, group, type);
 		
 		Body body = new Body(world, e, bodyDef, fixtureDef);
 		body.setPosition(position);
 		body.setRotation((float)Math.toRadians(270));
+		body.setLinearVelocity(velocity);
 		e.addComponent(body);
 
 		Collidable collidable = GenericCollisionEvents.damageVictim();
