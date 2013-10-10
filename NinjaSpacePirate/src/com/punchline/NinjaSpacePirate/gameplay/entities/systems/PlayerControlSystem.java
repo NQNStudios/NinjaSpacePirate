@@ -64,6 +64,8 @@ public class PlayerControlSystem extends InputSystem {
 			return;
 		}
 		
+		if (!inputEnabled) return;
+		
 		if (sprite.isFalling()) {
 			Vector2 velocity = v.getLinearVelocity();
 			velocity.x *= FALLING_HORIZONTAL_SCL;
@@ -73,8 +75,6 @@ public class PlayerControlSystem extends InputSystem {
 			
 			return;
 		}
-		
-		if (!inputEnabled) return;
 		
 		//set x velocity based on input flags
 		float xVelocity = 0f;
