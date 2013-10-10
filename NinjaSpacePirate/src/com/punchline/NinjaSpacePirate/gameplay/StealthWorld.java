@@ -14,6 +14,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
+import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.punchline.javalib.utils.Convert;
@@ -26,7 +27,12 @@ import com.punchline.javalib.utils.SpriteSheet;
  */
 public class StealthWorld extends EntityWorld {
 
+	/** The first y coordinate where tiles will spawn. */
 	public static final int TILE_SPAWN_Y = -6;
+	
+	private Entity player;
+	
+	//region Initialization
 	
 	/**
 	 * Makes a StealthWorld.
@@ -41,6 +47,10 @@ public class StealthWorld extends EntityWorld {
 		debugView.visible = true;
 	}
 
+	//endregion
+	
+	//region Templates
+	
 	@Override
 	protected void buildTemplates() {
 		super.buildTemplates();
@@ -54,6 +64,10 @@ public class StealthWorld extends EntityWorld {
 		addTemplate("Player", new PlayerTemplate());
 		addTemplate("NPC", new NPCTemplate());
 	}
+	
+	//endregion
+	
+	//region Systems
 	
 	@Override
 	protected void buildSystems() {
@@ -71,10 +85,18 @@ public class StealthWorld extends EntityWorld {
 		systems.addSystem(new NPCAnimationSystem());
 	}
 	
+	//endregion
+	
+	//region Entities
+	
 	@Override
-	protected void buildEntities() {		
-		createEntity("Player");
+	protected void buildEntities() {
+		player = createEntity("Player");
 	}
+	
+	//endregion
+	
+	//region SpriteSheet
 	
 	@Override
 	protected void buildSpriteSheet() {
@@ -152,6 +174,10 @@ public class StealthWorld extends EntityWorld {
 		spriteSheet.addRegion(key + "MoveUp", frame);
 	}
 	
+	//endregion
+	
+	//region Bounds
+	
 	@Override
 	public Rectangle getBounds() {
 		float width = Convert.pixelsToMeters(camera.viewportWidth);
@@ -163,4 +189,17 @@ public class StealthWorld extends EntityWorld {
 		return new Rectangle(x, y, width, height);
 	}
 
+	//endregion
+
+	//region Accessors
+	
+	/**
+	 * @return The player Entity.
+	 */
+	public Entity getPlayer() {
+		return player;
+	}
+	
+	//endregion
+	
 }
