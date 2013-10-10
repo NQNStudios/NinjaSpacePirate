@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 import com.punchline.javalib.utils.LogManager;
@@ -25,6 +26,8 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private static final float ROW_SPAWN_DISTANCE = 12f;
 	private static final float LOCATION_SPAWN_DISTANCE = 24f;
+	
+	private static final float ENEMY_SPEED = 3f;
 	
 	private static final float FILLER_SECTION_CHANCE = 0.15f;
 	
@@ -105,7 +108,28 @@ public class TileSpawnSystem extends EntitySystem {
 		args[0] = floor;
 		args[6] = floor;
 		
-		rowTemplates.put("HallSegmentDoors", new TileRow(args));
+		rowTemplates.put("HallSegmentDoors", new TileRow(args) {
+
+			@Override
+			public void onCreated(EntityWorld world, float y) {
+				super.onCreated(world, y);
+				
+				Vector2 position = new Vector2(0, y);
+				Vector2 velocity = new Vector2(0, 0);
+				
+				//create spawner on either side
+				if (r.nextBoolean()) { //left side
+					position.x = -5;
+					velocity.x = ENEMY_SPEED;
+				} else { //right side
+					position.x = 5;
+					velocity.x = -ENEMY_SPEED;
+				}
+				
+				world.createEntity("EnemySpawner", "whiteSuitMan", position, "", "Enemies", "Patroller", velocity);
+			}
+			
+		});
 		
 		args[0] = whiteWallVertical;
 		args[1] = floorHole;

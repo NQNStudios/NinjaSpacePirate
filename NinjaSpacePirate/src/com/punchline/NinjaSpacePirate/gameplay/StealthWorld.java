@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileSpawnSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
@@ -47,6 +48,7 @@ public class StealthWorld extends EntityWorld {
 		//World
 		addTemplate("Tile", new TileTemplate());
 		addTemplate("Pit", new PitTemplate());
+		addTemplate("EnemySpawner", new NPCSpawnerTemplate());
 		
 		//Characters
 		addTemplate("Player", new PlayerTemplate());

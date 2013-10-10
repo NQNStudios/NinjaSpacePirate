@@ -49,7 +49,7 @@ public class PlayerControlSystem extends InputSystem {
 
 	@Override
 	public void processEntities() {
-		if (inputEnabled) super.processEntities();
+		super.processEntities();
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class PlayerControlSystem extends InputSystem {
 			
 			return;
 		}
-			
+		
 		if (sprite.isFalling()) {
 			Vector2 velocity = v.getLinearVelocity();
 			velocity.x *= FALLING_HORIZONTAL_SCL;
@@ -73,6 +73,8 @@ public class PlayerControlSystem extends InputSystem {
 			
 			return;
 		}
+		
+		if (!inputEnabled) return;
 		
 		//set x velocity based on input flags
 		float xVelocity = 0f;

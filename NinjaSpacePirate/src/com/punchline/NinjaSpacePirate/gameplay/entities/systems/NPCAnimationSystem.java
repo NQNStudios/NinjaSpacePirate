@@ -2,7 +2,7 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
-import com.punchline.javalib.entities.components.physical.Velocity;
+import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.systems.ComponentSystem;
 
 /**
@@ -18,7 +18,7 @@ public class NPCAnimationSystem extends ComponentSystem {
 	 */
 	@SuppressWarnings("unchecked")
 	public NPCAnimationSystem() {
-		super(NPCMultiRenderable.class);
+		super(NPCMultiRenderable.class, Body.class);
 	}
 
 	@Override
@@ -30,12 +30,12 @@ public class NPCAnimationSystem extends ComponentSystem {
 	protected void process(Entity e) {
 		NPCMultiRenderable mr = e.getComponent(NPCMultiRenderable.class);
 		
-		if (e.hasComponent(Velocity.class)) {
-			//Try to update state to reflect velocity.
-			Velocity v = e.getComponent(Velocity.class);
-			
-			mr.setMoving(v.getLinearVelocity().len() > 0);
-		}
+		//Try to update state to reflect velocity.
+		Body body = e.getComponent(Body.class);
+		
+		mr.setMoving(body.getLinearVelocity().len() > 0);
+		
+		body.setRotation((float) Math.toRadians(body.getLinearVelocity().angle()));
 	}
 
 }

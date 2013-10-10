@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.EntitySpawner;
-import com.punchline.javalib.entities.templates.EntityCreationArgs;
+import com.punchline.javalib.entities.components.physical.Particle;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 
 /**
@@ -29,6 +29,9 @@ public class NPCSpawnerTemplate implements EntityTemplate {
 		String group = (String) args[3];
 		String type = (String) args[4];
 		Vector2 velocity = (Vector2) args[5];
+		
+		Particle particle = new Particle(e, position, 0f);
+		e.addComponent(particle); //give the Entity a Transform so the Removal system can process it.
 		
 		EntitySpawner spawner = new EntitySpawner("NPC", 
 				false, 3f, spriteKey, position, tag, group, type, velocity);
