@@ -119,10 +119,10 @@ public class TileSpawnSystem extends EntitySystem {
 				
 				//create spawner on either side
 				if (r.nextBoolean()) { //left side
-					position.x = -5;
+					position.x = -4;
 					velocity.x = ENEMY_SPEED;
 				} else { //right side
-					position.x = 5;
+					position.x = 4;
 					velocity.x = -ENEMY_SPEED;
 				}
 				

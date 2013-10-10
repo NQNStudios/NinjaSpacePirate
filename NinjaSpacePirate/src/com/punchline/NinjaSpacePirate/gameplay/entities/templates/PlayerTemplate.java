@@ -61,6 +61,9 @@ public class PlayerTemplate implements EntityTemplate {
 				PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
 				
 				if (!sprite.isFalling()) sprite.setState("Dead", false);
+				
+				Body body = e.getComponent(Body.class);
+				body.getBody().getFixtureList().get(0).setSensor(true); //don't collide with anything now
 			}
 			
 		});

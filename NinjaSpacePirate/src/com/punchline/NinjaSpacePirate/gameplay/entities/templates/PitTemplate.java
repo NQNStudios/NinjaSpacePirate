@@ -8,7 +8,6 @@ import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
-import com.punchline.javalib.entities.components.physical.Particle;
 import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
@@ -50,9 +49,6 @@ public class PitTemplate implements EntityTemplate {
 					Health h = e.getComponent(Health.class);
 					
 					h.setCurrentValue(0);
-					
-					Body body = e.getComponent(Body.class);
-					body.getBody().getFixtureList().get(0).setSensor(true); //don't collide with anything now
 				}
 			}
 			

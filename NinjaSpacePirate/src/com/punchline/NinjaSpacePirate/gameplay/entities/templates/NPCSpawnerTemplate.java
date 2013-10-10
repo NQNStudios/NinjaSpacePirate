@@ -38,6 +38,10 @@ public class NPCSpawnerTemplate implements EntityTemplate {
 		
 		e.addComponent(spawner);
 		
+		//create an entity to start the fun off
+		
+		world.createEntity("NPC", spriteKey, position, tag, group, type, velocity);
+		
 		return e;
 	}
 
