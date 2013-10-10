@@ -1,12 +1,14 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.entities.Entity;
-import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 import com.punchline.javalib.utils.LogManager;
@@ -24,6 +26,8 @@ public class TileSpawnSystem extends EntitySystem {
 	private static final float ROW_SPAWN_DISTANCE = 12f;
 	private static final float LOCATION_SPAWN_DISTANCE = 24f;
 	
+	private static final float FILLER_SECTION_CHANCE = 0.15f;
+	
 	//endregion
 	
 	//region Fields
@@ -34,6 +38,11 @@ public class TileSpawnSystem extends EntitySystem {
 	private LinkedList<String> rowsToSpawn = new LinkedList<String>();
 	private HashMap<String, TileRow> rowTemplates = new HashMap<String, TileRow>();
 	private HashMap<String, LocationTemplate> locationTemplates = new HashMap<String, LocationTemplate>();
+	
+	private float totalElapsedTime = 0f;
+	private float difficulty = 0;
+	
+	private Array<String> availableLocations = new Array<String>();
 	
 	private Entity player;
 	
@@ -151,7 +160,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegment", new LocationTemplate(loc));
+		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1));
 		
 		loc = null;
 		loc = new String[15];
@@ -171,9 +180,9 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc));
+		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1));
 		
-		LocationTemplate pitLocation = new LocationTemplate(null) {
+		LocationTemplate pitLocation = new LocationTemplate(null, 1) {
 			
 			@Override
 			public String[] getRows() {
@@ -225,6 +234,8 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (player == null) return;
 		
+		calculateDifficulty(deltaSeconds());
+		
 		Transform t = player.getComponent(Transform.class);
 		
 		if (t.getPosition().y + LOCATION_SPAWN_DISTANCE >= y) {
@@ -234,6 +245,25 @@ public class TileSpawnSystem extends EntitySystem {
 		while (t.getPosition().y + ROW_SPAWN_DISTANCE >= y) {
 			spawnRow(rowsToSpawn.removeFirst());
 		}
+	}
+	
+	private void calculateDifficulty(float deltaTime) {
+		totalElapsedTime += deltaTime;
+		
+		int oldDifficulty = (int) difficulty;
+		difficulty = (totalElapsedTime + 30f) / 30f; //add the extra count to avoid 0 casting.
+		
+		if ((int) difficulty - oldDifficulty >= 1) {
+			Iterator<Entry<String, LocationTemplate>> it = locationTemplates.entrySet().iterator();
+			while (it.hasNext()) {
+				Entry<String, LocationTemplate> entry = it.next();
+				
+				if (entry.getValue().getDifficulty() <= difficulty && !availableLocations.contains(entry.getKey(), false)) {
+					availableLocations.add(entry.getKey());
+				}
+			}
+		}
+		
 	}
 	
 	//endregion
@@ -289,22 +319,13 @@ public class TileSpawnSystem extends EntitySystem {
 	private void queueNextLocation() {
 		//This is where the system decides what obstacle to throw at the player next.
 		
-		int loc = r.nextInt(3);
-		
-		switch (loc) {
-		
-		case 0:
+		if (r.percent(FILLER_SECTION_CHANCE)) {
 			queueSpawnLocation("HallSegment");
-			break;
+			return;
+		} else {
+			int index = r.nextInt(availableLocations.size);
 			
-		case 1:
-			queueSpawnLocation("HallSegmentDoors");
-			break;
-			
-		case 2:
-			queueSpawnLocation("PitGrate");
-			break;
-		
+			queueSpawnLocation(availableLocations.get(index));
 		}
 	}
 	

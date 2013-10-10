@@ -8,13 +8,16 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn;
 public class LocationTemplate {
 
 	private String[] rows;
+	private int difficulty;
 	
 	/**
 	 * Constructs a LocationTemplate.
 	 * @param rows
+	 * @param difficulty How difficult this location is for the player to traverse.
 	 */
-	public LocationTemplate(String[] rows) {
+	public LocationTemplate(String[] rows, int difficulty) {
 		this.rows = rows;
+		this.difficulty = difficulty;
 	}
 	
 	/**
@@ -22,6 +25,13 @@ public class LocationTemplate {
 	 */
 	public String[] getRows() {
 		return rows;
+	}
+	
+	/**
+	 * @return How difficult this location is for the player to traverse.
+	 */
+	public int getDifficulty() {
+		return difficulty;
 	}
 	
 }

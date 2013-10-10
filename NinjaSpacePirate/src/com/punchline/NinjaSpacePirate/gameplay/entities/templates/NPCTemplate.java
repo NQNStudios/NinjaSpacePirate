@@ -8,9 +8,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.GenericCollisionEvents;
+import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.View;
 import com.punchline.javalib.entities.components.physical.Body;
+import com.punchline.javalib.entities.components.physical.Collidable;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
+import com.punchline.javalib.entities.components.render.Renderable;
+import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 
@@ -61,6 +66,25 @@ public class NPCTemplate implements EntityTemplate {
 		body.setRotation((float)Math.toRadians(270));
 		e.addComponent(body);
 
+		Collidable collidable = GenericCollisionEvents.damageVictim();
+		e.addComponent(collidable);
+		
+		Health health = new Health(e, world, 5f);
+		health.deleteOnDeath = false;
+		
+		health.onDeath.addCallback("SetDeadSprite", new EventCallback() {
+
+			@Override
+			public void invoke(Entity e, Object... args) {
+				NPCMultiRenderable sprite = (NPCMultiRenderable) e.getComponent(Renderable.class);
+				
+				sprite.die();
+			}
+			
+		});
+		
+		e.addComponent(health);
+		
 		View view = new View(e, VIEW_RANGE, VIEW_FOV);
 		e.addComponent(view);
 		
