@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.GenericCollisionEvents;
@@ -91,7 +93,17 @@ public class NPCTemplate implements EntityTemplate {
 		
 		e.addComponent(health);
 		
-		View view = new View(e, VIEW_RANGE, VIEW_FOV);
+		View view = new View(e, VIEW_RANGE, VIEW_FOV) {
+
+			@Override
+			public void onDetected(Entity e, EntityWorld world) {
+				super.onDetected(e, world);
+				
+				world.getProcessManager().attach(
+						new ChasePlayerProcess(owner, ((StealthWorld) world).getPlayer()));
+			}
+			
+		};
 		e.addComponent(view);
 		
 		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
