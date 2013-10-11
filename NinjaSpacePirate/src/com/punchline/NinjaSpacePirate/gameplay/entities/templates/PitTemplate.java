@@ -2,6 +2,7 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
@@ -49,6 +50,10 @@ public class PitTemplate implements EntityTemplate {
 					Health h = e.getComponent(Health.class);
 					
 					h.setCurrentValue(0);
+				} else if (e.getGroup().equals("Enemies")) {
+					Health health = e.getComponent(Health.class);
+					
+					health.drainEmpty();
 				}
 			}
 			

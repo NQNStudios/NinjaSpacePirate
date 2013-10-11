@@ -35,7 +35,9 @@ public class NPCAnimationSystem extends ComponentSystem {
 		
 		mr.setMoving(body.getLinearVelocity().len() > 0);
 		
-		body.setRotation((float) Math.toRadians(body.getLinearVelocity().angle()));
+		if (body.getLinearVelocity().len() > 0) {
+			body.setRotation((float) Math.toRadians(body.getLinearVelocity().angle()));
+		}
 	}
 
 }
