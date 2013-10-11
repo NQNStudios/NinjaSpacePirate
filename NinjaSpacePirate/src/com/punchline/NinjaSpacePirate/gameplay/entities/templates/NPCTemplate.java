@@ -20,6 +20,7 @@ import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
+import com.punchline.javalib.utils.LogManager;
 
 /**
  * Template used to create NPCs.
@@ -54,7 +55,7 @@ public class NPCTemplate implements EntityTemplate {
 	}
 	
 	@Override
-	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {		
+	public Entity buildEntity(final Entity e, EntityWorld world, Object... args) {		
 		String spriteKey = (String) args[0];
 		Vector2 position = (Vector2) args[1];
 		String tag = (String) args[2];
@@ -95,12 +96,23 @@ public class NPCTemplate implements EntityTemplate {
 		
 		View view = new View(e, VIEW_RANGE, VIEW_FOV) {
 
+			ChasePlayerProcess ps;
+			
 			@Override
-			public void onDetected(Entity e, EntityWorld world) {
-				super.onDetected(e, world);
+			public void onDetected(Entity es, EntityWorld world) {
+				super.onDetected(es, world);
 				
-				world.getProcessManager().attach(
-						new ChasePlayerProcess(owner, ((StealthWorld) world).getPlayer()));
+				
+				if(e.getType().equals("Tile"))
+					LogManager.error("WeirdPool", "A tile was found instead of a NPC");
+				
+				if(ps == null)
+				{
+					ps= new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
+					world.getProcessManager().attach(
+							ps);
+				}
+
 			}
 			
 		};

@@ -8,8 +8,10 @@ import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
 import com.punchline.javalib.entities.events.EventCallback;
+import com.punchline.javalib.entities.events.processes.EndProcessCallback;
 import com.punchline.javalib.entities.processes.Process;
 import com.punchline.javalib.entities.processes.ProcessState;
+import com.punchline.javalib.utils.LogManager;
 
 /**
  * A process that makes an enemy chase the player.
@@ -17,21 +19,18 @@ import com.punchline.javalib.entities.processes.ProcessState;
  *
  */
 public class ChasePlayerProcess extends Process {
-
-	private class AbortionCallback implements EventCallback {
-
-		@Override
-		public void invoke(Entity e, Object... args) {
-			ChasePlayerProcess.this.end = true;
+	private class SuccessCallback implements EventCallback {
+		
+		private ChasePlayerProcess WhoIsDumb;
+		public SuccessCallback(ChasePlayerProcess natIsDumb){
+			WhoIsDumb = natIsDumb; // JK nat I actualyl love you, and yours was a very interesitng way of implementing it. I'm glad I could help :)
 		}
 		
-	}
-	
-	private class SuccessCallback implements EventCallback {
-
+		
+		
 		@Override
 		public void invoke(Entity e, Object... args) {
-			ChasePlayerProcess.this.endAll = true;
+			WhoIsDumb.endAll = true;
 		}
 		
 	}
@@ -44,8 +43,6 @@ public class ChasePlayerProcess extends Process {
 	/** Flag that triggers the ending of all ChasePlayerProcesses. */
 	public boolean endAll = false;
 	
-	/** Flag that triggers the ending of this process. */
-	public boolean end = false;
 	
 	/**
 	 * Creates a ChasePlayerProcess.
@@ -56,14 +53,20 @@ public class ChasePlayerProcess extends Process {
 		this.chaser = chaser;
 		this.player = player;
 		
-		chaser.onDeleted.addCallback("ChaseProcessEnd", new AbortionCallback());
-		player.onDeleted.addCallback("ChaseProcessEnd", new AbortionCallback());
+		System.out.println("New Chase");
+		
+		if(chaser.getType().equals("Tile"))
+			LogManager.error("WeirdPool", "A tile was found instead of a NPC");
+		
+		
+		chaser.onDeleted.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
+		player.onDeleted.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
 		
 		Health chaserHealth = chaser.getComponent(Health.class);
 		Health playerHealth = player.getComponent(Health.class);
 		
-		chaserHealth.onDeath.addCallback("ChaseProcessEnd", new AbortionCallback());
-		playerHealth.onDeath.addCallback("ChaseProcessEnd", new SuccessCallback());
+		chaserHealth.onDeath.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
+		playerHealth.onDeath.addCallback("ChaseProcessEnd", new SuccessCallback(this));
 	}
 	
 	@Override
@@ -74,11 +77,9 @@ public class ChasePlayerProcess extends Process {
 			return;
 		}
 		
-		if (end) {
-			end(ProcessState.ABORTED);
-			
-			return;
-		}
+		
+		
+
 		
 		if (chaser == null || player == null) return;
 		

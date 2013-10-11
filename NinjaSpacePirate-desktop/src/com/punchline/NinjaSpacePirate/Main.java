@@ -2,6 +2,8 @@ package com.punchline.NinjaSpacePirate;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.punchline.javalib.utils.LogManager;
+import com.punchline.javalib.utils.LogManager.LogType;
 
 public class Main {
 	public static void main(String[] args) {
@@ -12,6 +14,7 @@ public class Main {
 		cfg.height = 320;
 		cfg.resizable = false;
 		
-		new LwjglApplication(new NinjaSpacePirate(), cfg);
+
+		LogManager.init(new LwjglApplication(new NinjaSpacePirate(), cfg), LogType.INFO) ;
 	}
 }
