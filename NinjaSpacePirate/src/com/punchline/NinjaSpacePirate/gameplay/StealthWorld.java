@@ -14,6 +14,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.VoidTemplate;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.systems.generic.TrackingCameraSystem;
@@ -62,6 +63,7 @@ public class StealthWorld extends EntityWorld {
 		addTemplate("Tile", new TileTemplate());
 		addTemplate("Pit", new PitTemplate());
 		addTemplate("EnemySpawner", new NPCSpawnerTemplate());
+		addTemplate("Void", new VoidTemplate());
 		
 		//Characters
 		addTemplate("Player", new PlayerTemplate());

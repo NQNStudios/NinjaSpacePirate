@@ -58,6 +58,7 @@ public class PitTemplate implements EntityTemplate {
 		
 		e.addComponent(zone);
 		
+		//enemies shouldn't pursue over pits
 		world.getProcessManager().endAll(ChasePlayerProcess.class, ProcessState.FAILED);
 		 
 		return e;

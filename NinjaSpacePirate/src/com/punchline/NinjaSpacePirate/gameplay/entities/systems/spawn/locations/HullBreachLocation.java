@@ -11,7 +11,7 @@ import com.punchline.javalib.utils.Random;
 public class HullBreachLocation extends LocationTemplate {
 
 	private static final int ROWS = 7;
-	private static final int PADDING_ROWS = 4;
+	private static final int PADDING_ROWS = 10;
 	
 	private Random r = new Random();
 	
