@@ -21,7 +21,7 @@ import com.punchline.javalib.utils.Convert;
  */
 public class PitTemplate implements EntityTemplate {
 	
-	private static final float TILE_SIZE = Convert.pixelsToMeters(1); //Players must be mostly on top of the tile to fall
+	private static final float TILE_SIZE = Convert.pixelsToMeters(0.1f); //Players must be mostly on top of the tile to fall
 	
 	@Override
 	public void dispose() {

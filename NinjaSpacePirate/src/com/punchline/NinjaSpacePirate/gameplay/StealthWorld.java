@@ -111,6 +111,8 @@ public class StealthWorld extends EntityWorld {
 		//Scenery
 		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));
 		spriteSheet.addRegion("TinyStar1", new Rectangle(4, 92, 1, 1));
+		spriteSheet.addRegion("SmallStar0", new Rectangle(10, 91, 17, 8));
+		spriteSheet.addRegion("SmallStar1", new Rectangle(28, 91, 17, 8));
 		
 		//Tiles
 		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));

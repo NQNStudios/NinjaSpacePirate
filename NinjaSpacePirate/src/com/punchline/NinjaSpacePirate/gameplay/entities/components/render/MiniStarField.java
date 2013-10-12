@@ -1,14 +1,47 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
 
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.stars.SmallStar;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.stars.TinyStar;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
-import com.punchline.javalib.entities.components.render.Renderable;
-import com.punchline.javalib.utils.SpriteSheet;
+import com.punchline.javalib.utils.Random;
 
+/**
+ * A mini star field to show through a hull breach
+ * @author Natman64
+ * 
+ */
 public class MiniStarField extends MultiRenderable {
 
-	public MiniStarField(SpriteSheet spriteSheet) {
-		super();
+	private static final int TINY_STARS = 20;
+	private static final int SMALL_STARS = 40;
+	
+	private static final float OFFSET_RADIUS = 16;
+	
+	private Random r = new Random();
+	
+	/**
+	 * Creates a star field
+	 * @param spriteSheet
+	 */
+	public MiniStarField(EntityWorld world) {
+		super(new SmallStar(world.getSpriteSheet(), new Vector2()));
+		
+		for (int i = 0; i < TINY_STARS; i++) {
+			children.add(new TinyStar(world.getSpriteSheet(), randomOffset()));
+		}
+		
+		for (int i = 0; i < SMALL_STARS; i++) {
+			children.add(new SmallStar(world.getSpriteSheet(), randomOffset()));
+		}
+	}
+	
+	private Vector2 randomOffset() {
+		float x = r.nextFloat(-1, 1);
+		float y = r.nextFloat(-1, 1);
+		
+		return new Vector2(x, y).scl(OFFSET_RADIUS);
 	}
 
 }

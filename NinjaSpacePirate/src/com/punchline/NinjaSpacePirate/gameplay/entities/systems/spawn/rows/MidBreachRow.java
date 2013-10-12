@@ -31,7 +31,7 @@ public class MidBreachRow extends TileRow {
 	public void onCreated(EntityWorld world, float y) {
 		Vector2 position = new Vector2(0, y);
 		
-		position.x = leftSide ? -7 : 7;
+		position.x = leftSide ? -4 : 4;
 		
 		world.createEntity("Void", ((StealthWorld) world).getPlayer(), position, FORCE);
 	}

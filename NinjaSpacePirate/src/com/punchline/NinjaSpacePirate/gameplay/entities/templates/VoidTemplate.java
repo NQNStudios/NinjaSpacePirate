@@ -1,6 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.MiniStarField;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.VacuumProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
@@ -28,6 +29,9 @@ public class VoidTemplate implements EntityTemplate {
 		
 		VacuumProcess process = new VacuumProcess(world, target, position, force);
 		e.addComponent(process);
+		
+		MiniStarField stars = new MiniStarField(world);
+		e.addComponent(stars);
 		
 		return e;
 	}

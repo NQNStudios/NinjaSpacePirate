@@ -23,6 +23,8 @@ public class TinyStar extends Sprite {
 		super(sheet, key());
 		
 		setPosition(position);
+		setLayer(0);
+		setScale(0.2f, 0.2f);
 	}
 	
 	private static String key() {
