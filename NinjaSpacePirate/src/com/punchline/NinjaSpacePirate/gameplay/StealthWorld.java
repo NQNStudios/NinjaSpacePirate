@@ -112,12 +112,18 @@ public class StealthWorld extends EntityWorld {
 		spriteSheet.addRegion("FloorGrate", new Rectangle(19, 154, 8, 8));
 		spriteSheet.addRegion("FloorLight", new Rectangle(28, 154, 8, 8));
 		spriteSheet.addRegion("FloorHole", new Rectangle(1, 172, 8, 8));
+		spriteSheet.addRegion("FloorGreen", new Rectangle(37, 154, 8, 8));
+		spriteSheet.addRegion("FloorDamaged0", new Rectangle(73, 154, 8, 8));
+		spriteSheet.addRegion("FloorDamaged1", new Rectangle(82, 154, 8, 8));
+		spriteSheet.addRegion("FloorDamaged2", new Rectangle(91, 154, 8, 8));
+		spriteSheet.addRegion("FloorDamaged3", new Rectangle(100, 154, 8, 8));
 		
 		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(1, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(10, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(19, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
 		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
+		spriteSheet.addRegion("WhiteWallVerticalDamaged", new Rectangle(73, 136, 8, 8));
 		
 		//Player
 		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));

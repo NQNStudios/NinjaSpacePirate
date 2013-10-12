@@ -65,18 +65,34 @@ public class TileSpawnSystem extends EntitySystem {
 		queueSpawnLocation("HallSegment");
 	}
 	
+	//endregion
+	
+	//region Rows
+	
 	private void buildRowTemplates() {
+		//region TileArgs
+		
 		TileArgs floor = new TileArgs("Floor", false);
 		TileArgs floorVent = new TileArgs("FloorVent", false);
 		TileArgs floorGrate = new TileArgs("FloorGrate", false);
 		TileArgs floorLight = new TileArgs("FloorLight", false);
 		TileArgs floorHole = new TileArgs("FloorHole", false);
+		TileArgs floorGreen = new TileArgs("FloorGreen", false);
+		TileArgs floorDamaged0 = new TileArgs("FloorDamaged0", false);
+		TileArgs floorDamaged1 = new TileArgs("FloorDamaged1", false);
+		TileArgs floorDamaged2 = new TileArgs("FloorDamaged2", false);
+		TileArgs floorDamaged3 = new TileArgs("FloorDamaged3", false);
 		
 		TileArgs whiteWallVertical = new TileArgs("WhiteWallVertical", true);
 		TileArgs whiteWallVentEast = new TileArgs("WhiteWallVentEast", true);
 		TileArgs whiteWallVentWest = new TileArgs("WhiteWallVentWest", true);
 		TileArgs whiteWallRedLightEast = new TileArgs("WhiteWallRedLightEast", true);
 		TileArgs whiteWallRedLightWest = new TileArgs("WhiteWallRedLightWest", true);
+		TileArgs whiteWallVerticalDamaged = new TileArgs("WhiteWallVerticalDamaged", true);
+		
+		//endregion
+		
+		//region Hall
 		
 		TileArgs[] args = new TileArgs[TileRow.ROW_SIZE];
 		
@@ -107,10 +123,16 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		rowTemplates.put("HallSegmentWallRedLights", new TileRow(args));
 		
-		args[0] = floor;
-		args[6] = floor;
+		args[0] = floorGreen;
+		args[1] = floor;
+		args[5] = floor;
+		args[6] = floorGreen;
 		
 		rowTemplates.put("HallSegmentDoors", new DoorRow(args));
+		
+		//endregion
+		
+		//region Pits
 		
 		args[0] = whiteWallVertical;
 		args[1] = floorHole;
@@ -145,7 +167,19 @@ public class TileSpawnSystem extends EntitySystem {
 		args[5] = floorGrate;
 		
 		rowTemplates.put("PitGrate4", new TileRow(args));
+		
+		//endregion
+		
+		//region Hull Breach
+		
+		
+		
+		//endregion
 	}
+	
+	//endregion
+	
+	//region Locations
 	
 	private void buildLocationTemplates() {
 		String[] loc = new String[15];
