@@ -108,6 +108,10 @@ public class StealthWorld extends EntityWorld {
 		
 		spriteSheet = new SpriteSheet(new Texture(Gdx.files.internal("data/spritesheet.png")));
 		
+		//Scenery
+		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));
+		spriteSheet.addRegion("TinyStar1", new Rectangle(4, 92, 1, 1));
+		
 		//Tiles
 		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));
 		spriteSheet.addRegion("FloorVent", new Rectangle(10, 154, 8, 8));
