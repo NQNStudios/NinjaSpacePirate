@@ -31,6 +31,7 @@ public class NPCViewSprite extends Sprite {
 		setPosition(new Vector2(14, 5.5f));
 		
 		this.view = view;
+		view.setPosition(RIGHT_POSITION);
 	}
 	
 	/**
