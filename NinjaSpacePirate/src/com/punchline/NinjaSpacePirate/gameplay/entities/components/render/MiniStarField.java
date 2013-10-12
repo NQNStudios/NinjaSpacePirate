@@ -2,7 +2,6 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
 
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.stars.SmallStar;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.stars.TinyStar;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.utils.Random;
@@ -14,7 +13,6 @@ import com.punchline.javalib.utils.Random;
  */
 public class MiniStarField extends MultiRenderable {
 
-	private static final int TINY_STARS = 20;
 	private static final int SMALL_STARS = 40;
 	
 	private static final float OFFSET_RADIUS = 16;
@@ -27,10 +25,6 @@ public class MiniStarField extends MultiRenderable {
 	 */
 	public MiniStarField(EntityWorld world) {
 		super(new SmallStar(world.getSpriteSheet(), new Vector2()));
-		
-		for (int i = 0; i < TINY_STARS; i++) {
-			children.add(new TinyStar(world.getSpriteSheet(), randomOffset()));
-		}
 		
 		for (int i = 0; i < SMALL_STARS; i++) {
 			children.add(new SmallStar(world.getSpriteSheet(), randomOffset()));
