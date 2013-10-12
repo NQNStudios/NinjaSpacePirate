@@ -225,7 +225,7 @@ public class TileSpawnSystem extends EntitySystem {
 				rows[7] = "HallSegment";
 				rows[8] = "HallSegment";
 				rows[9] = "HallSegment";
-				rows[10] = "HallSegment";
+				rows[10] = "HallSegmentWallVents";
 				rows[11] = "HallSegment";
 				rows[12] = "HallSegment";
 				rows[13] = "HallSegment";

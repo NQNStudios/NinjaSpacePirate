@@ -154,6 +154,7 @@ public class StealthWorld extends EntityWorld {
 		spriteSheet.addRegion(key + "Dead", frame);
 	}
 	
+	@SuppressWarnings("unused")
 	private void addMonsterSprite(String key, int x, int y, int padding) {
 		Rectangle frame = new Rectangle(x + padding, y + padding, 8, 8);
 		

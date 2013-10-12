@@ -1,7 +1,6 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.processes;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.Health;
@@ -21,16 +20,14 @@ import com.punchline.javalib.utils.LogManager;
 public class ChasePlayerProcess extends Process {
 	private class SuccessCallback implements EventCallback {
 		
-		private ChasePlayerProcess WhoIsDumb;
-		public SuccessCallback(ChasePlayerProcess natIsDumb){
-			WhoIsDumb = natIsDumb; // JK nat I actualyl love you, and yours was a very interesitng way of implementing it. I'm glad I could help :)
+		private ChasePlayerProcess process;
+		public SuccessCallback(ChasePlayerProcess process){
+			this.process = process;
 		}
-		
-		
 		
 		@Override
 		public void invoke(Entity e, Object... args) {
-			WhoIsDumb.endAll = true;
+			process.endAll = true;
 		}
 		
 	}
@@ -101,7 +98,7 @@ public class ChasePlayerProcess extends Process {
 
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
-		if (endState != ProcessState.SUCCEEDED) return;
+		if (endState != ProcessState.SUCCEEDED && endState != ProcessState.FAILED) return;
 		
 		Velocity v = chaser.getComponent(Velocity.class);
 		
