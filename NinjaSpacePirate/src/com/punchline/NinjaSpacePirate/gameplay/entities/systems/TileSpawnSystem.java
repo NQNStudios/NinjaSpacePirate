@@ -11,8 +11,10 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.HullBreachLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.MidBreachRow;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
@@ -172,7 +174,87 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		//region Hull Breach
 		
+		//Left side
+		args[0] = whiteWallVerticalDamaged;
+		args[1] = floorDamaged0;
+		args[2] = floor;
+		args[3] = floor;
+		args[4] = floor;
+		args[5] = floorLight;
+		args[6] = whiteWallVertical;
 		
+		rowTemplates.put("LeftBreach0", new TileRow(args));
+		
+		args[0] = floorHole;
+		args[1] = floorDamaged3;
+		args[2] = floorDamaged1;
+		
+		rowTemplates.put("LeftBreach1", new TileRow(args));
+		
+		args[1] = floorHole;
+		args[2] = floorDamaged0;
+		
+		rowTemplates.put("LeftBreach2", new TileRow(args));
+		
+		args[3] = floorDamaged2;
+		
+		rowTemplates.put("LeftBreach3", new MidBreachRow(true, args));
+		
+		args[2] = floorDamaged3;
+		args[3] = floor;
+		
+		rowTemplates.put("LeftBreach4", new TileRow(args));
+		
+		args[1] = floorDamaged0;
+		
+		rowTemplates.put("LeftBreach5", new TileRow(args));
+		
+		args[0] = whiteWallVerticalDamaged;
+		args[1] = floorDamaged3;
+		args[2] = floor;
+		
+		rowTemplates.put("LeftBreach6", new TileRow(args));
+		
+		//Right side
+		args[0] = whiteWallVertical;
+		args[1] = floorLight;
+		args[2] = floor;
+		args[3] = floor;
+		args[4] = floor;
+		args[5] = floorDamaged0;
+		args[6] = whiteWallVerticalDamaged;
+		
+		rowTemplates.put("RightBreach0", new TileRow(args));
+		
+		args[6] = floorHole;
+		args[5] = floorDamaged3;
+		args[4] = floorDamaged1;
+		
+		rowTemplates.put("RightBreach1", new TileRow(args));
+		
+		args[5] = floorHole;
+		args[4] = floorDamaged0;
+		
+		rowTemplates.put("RightBreach2", new TileRow(args));
+		
+		args[3] = floorDamaged2;
+		
+		rowTemplates.put("RightBreach3", new MidBreachRow(false, args));
+		
+		args[4] = floorDamaged3;
+		args[3] = floor;
+		
+		rowTemplates.put("RightBreach4", new TileRow(args));
+		
+		args[5] = floorDamaged0;
+		
+		rowTemplates.put("RightBreach5", new TileRow(args));
+		
+		args[6] = whiteWallVerticalDamaged;
+		args[5] = floorDamaged3;
+		args[4] = floor;
+		
+		rowTemplates.put("RightBreach6", new TileRow(args));
 		
 		//endregion
 	}
@@ -224,6 +306,10 @@ public class TileSpawnSystem extends EntitySystem {
 		LocationTemplate pitLocation = new PitLocation();
 		
 		locationTemplates.put("PitGrate", pitLocation);
+		
+		LocationTemplate breachLocation = new HullBreachLocation();
+		
+		locationTemplates.put("Breach", breachLocation);
 	}
 	
 	//endregion
