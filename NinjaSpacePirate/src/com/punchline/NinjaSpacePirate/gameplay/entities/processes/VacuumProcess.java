@@ -12,7 +12,7 @@ import com.punchline.javalib.entities.processes.Process;
 import com.punchline.javalib.entities.processes.ProcessState;
 
 /**
- * Sucks an entity toward a point.
+ * Sucks an entity toward a point. When added to an entity, will automatically end.
  * @author Natman64
  * @created Oct 12, 2013
  */
