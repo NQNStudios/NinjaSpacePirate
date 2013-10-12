@@ -1,4 +1,4 @@
-package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn;
+package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,8 +8,12 @@ import java.util.Map.Entry;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
 import com.punchline.javalib.entities.Entity;
-import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 import com.punchline.javalib.utils.LogManager;
@@ -26,8 +30,6 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private static final float ROW_SPAWN_DISTANCE = 12f;
 	private static final float LOCATION_SPAWN_DISTANCE = 24f;
-	
-	private static final float ENEMY_SPEED = 3f;
 	
 	private static final float FILLER_SECTION_CHANCE = 0.15f;
 	
@@ -108,28 +110,7 @@ public class TileSpawnSystem extends EntitySystem {
 		args[0] = floor;
 		args[6] = floor;
 		
-		rowTemplates.put("HallSegmentDoors", new TileRow(args) {
-
-			@Override
-			public void onCreated(EntityWorld world, float y) {
-				super.onCreated(world, y);
-				
-				Vector2 position = new Vector2(0, y);
-				Vector2 velocity = new Vector2(0, 0);
-				
-				//create spawner on either side
-				if (r.nextBoolean()) { //left side
-					position.x = -6;
-					velocity.x = ENEMY_SPEED;
-				} else { //right side
-					position.x = 6;
-					velocity.x = -ENEMY_SPEED;
-				}
-				
-				world.createEntity("EnemySpawner", "whiteSuitMan", position, "", "Enemies", "Patroller", velocity);
-			}
-			
-		});
+		rowTemplates.put("HallSegmentDoors", new DoorRow(args));
 		
 		args[0] = whiteWallVertical;
 		args[1] = floorHole;
@@ -206,37 +187,7 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1));
 		
-		LocationTemplate pitLocation = new LocationTemplate(null, 1) {
-			
-			@Override
-			public String[] getRows() {
-				
-				int grateLoc = r.nextInt(5);
-				String rowKey = "PitGrate" + grateLoc;
-				
-				String[] rows = new String[16];
-				rows[0] = rowKey;
-				rows[1] = rowKey;
-				rows[2] = rowKey;
-				rows[3] = rowKey;
-				rows[4] = rowKey;
-				rows[5] = rowKey;
-				rows[6] = "HallSegment";
-				rows[7] = "HallSegment";
-				rows[8] = "HallSegment";
-				rows[9] = "HallSegment";
-				rows[10] = "HallSegmentWallVents";
-				rows[11] = "HallSegment";
-				rows[12] = "HallSegment";
-				rows[13] = "HallSegment";
-				rows[14] = "HallSegment";
-				rows[15] = "HallSegment";
-				
-				return rows;
-				
-			}
-			
-		};
+		LocationTemplate pitLocation = new PitLocation();
 		
 		locationTemplates.put("PitGrate", pitLocation);
 	}

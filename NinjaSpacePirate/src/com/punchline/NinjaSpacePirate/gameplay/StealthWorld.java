@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
-import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileSpawnSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.TileSpawnSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
@@ -29,6 +29,9 @@ public class StealthWorld extends EntityWorld {
 
 	/** The first y coordinate where tiles will spawn. */
 	public static final int TILE_SPAWN_Y = -6;
+	
+	/** The speed of walking enemies. */
+	public static final float ENEMY_SPEED = 3f;
 	
 	private Entity player;
 	
