@@ -50,11 +50,7 @@ public class PitTemplate implements EntityTemplate {
 					
 					Health h = e.getComponent(Health.class);
 					
-					h.setCurrentValue(0);
-				} else if (e.getGroup().equals("Enemies")) {
-					Health health = e.getComponent(Health.class);
-					
-					health.drainEmpty();
+					h.drainEmpty();
 				}
 			}
 			

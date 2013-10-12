@@ -262,6 +262,8 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		Transform t = player.getComponent(Transform.class);
 		
+		if (t == null) return;
+		
 		if (t.getPosition().y + LOCATION_SPAWN_DISTANCE >= y) {
 			queueNextLocation();
 		}
