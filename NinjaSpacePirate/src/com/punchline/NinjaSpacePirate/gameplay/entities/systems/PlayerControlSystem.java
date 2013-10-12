@@ -18,18 +18,23 @@ public class PlayerControlSystem extends InputSystem {
 	
 	private static final float MAX_HORIZONTAL_SPEED = 3f;
 	
-	private static final float MIN_VERTICAL_SPEED = 2f;
-	private static final float MAX_VERTICAL_SPEED = 6f;
-	private static final float AVG_VERTICAL_SPEED = (MIN_VERTICAL_SPEED + MAX_VERTICAL_SPEED) / 2f;
-	
 	private static final float FALLING_HORIZONTAL_SCL = 0.3f;
 	private static final float FALLING_VERTICAL_SCL = 0.3f;
+	
+	private static final float SLOW_SPEED_MODIFIER = .6f;
+	private static final float FAST_SPEED_MODIFIER = 2f;
+	
+	private static final float SPEED_DELTA = 0.001f;
+	private static final float MAX_SPEED = 20f;
 	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	
 	private boolean movingSlow = false;
 	private boolean movingFast = false;
+	
+	/** The player's normal running speed. */
+	public static float movementSpeed = 3f;
 	
 	/** Whether the game is currently taking input. */
 	public boolean inputEnabled = true;
@@ -85,13 +90,19 @@ public class PlayerControlSystem extends InputSystem {
 			xVelocity = MAX_HORIZONTAL_SPEED;
 		}
 		
+		//increase movement speed to ramp up the challenge
+		movementSpeed += SPEED_DELTA;
+		
+		//apply a reasonable maximum
+		if (movementSpeed > MAX_SPEED) movementSpeed = MAX_SPEED;
+		
 		//set y velocity based on input flags
-		float yVelocity = AVG_VERTICAL_SPEED;
+		float yVelocity = movementSpeed;
 		
 		if (movingSlow) {
-			yVelocity = MIN_VERTICAL_SPEED;
+			yVelocity *= SLOW_SPEED_MODIFIER;
 		} else if (movingFast) {
-			yVelocity = MAX_VERTICAL_SPEED;
+			yVelocity *= FAST_SPEED_MODIFIER;
 		}
 		
 		//set entity velocity

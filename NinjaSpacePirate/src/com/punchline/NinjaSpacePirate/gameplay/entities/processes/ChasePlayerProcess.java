@@ -1,6 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.processes;
 
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.Health;
@@ -32,7 +33,7 @@ public class ChasePlayerProcess extends Process {
 		
 	}
 	
-	private static final float CHASE_SPEED = 5f;
+	private static final float SPEED_ADVANTAGE_MODIFIER = 1.75f;
 	
 	private Entity chaser;
 	private Entity player;
@@ -90,7 +91,7 @@ public class ChasePlayerProcess extends Process {
 		
 		Vector2 velocity = destination.cpy().sub(position);
 		velocity.nor();
-		velocity.scl(CHASE_SPEED);
+		velocity.scl(PlayerControlSystem.movementSpeed * SPEED_ADVANTAGE_MODIFIER); //speed relative the player's regular speed
 		
 		Velocity v = chaser.getComponent(Velocity.class);
 		v.setLinearVelocity(velocity);
