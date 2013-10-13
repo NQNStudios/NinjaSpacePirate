@@ -28,6 +28,8 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float MAX_SPEED = 20f;
 	
 	private static final float HORIZONTAL_TILT_MAX = 3f;
+	
+	private static final float VERTICAL_TILT_MIN = -3f;
 	private static final float VERTICAL_TILT_MAX = 3f;
 	
 	private boolean movingLeft = false;
@@ -51,6 +53,8 @@ public class PlayerControlSystem extends InputSystem {
 	 */
 	public PlayerControlSystem(InputMultiplexer input) {
 		super(input);
+		
+		tiltThresholdX = 0f;
 	}
 
 	@Override
@@ -97,7 +101,9 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		if (horizontalTilt != 0) {
-			xVelocity = Math.min(MAX_HORIZONTAL_SPEED * -horizontalTilt / HORIZONTAL_TILT_MAX, MAX_HORIZONTAL_SPEED);
+			xVelocity = Math.min(
+					MAX_HORIZONTAL_SPEED * -horizontalTilt / HORIZONTAL_TILT_MAX, 
+					MAX_HORIZONTAL_SPEED);
 		}
 		
 		//increase movement speed to ramp up the challenge
@@ -116,8 +122,9 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		if (verticalTilt != 0) {
+			float tilt = (Math.min(Math.max(VERTICAL_TILT_MIN, -verticalTilt), VERTICAL_TILT_MAX) + VERTICAL_TILT_MAX) / (2 * VERTICAL_TILT_MAX);
 			float speedModifier = SLOW_SPEED_MODIFIER + 
-					((FAST_SPEED_MODIFIER - SLOW_SPEED_MODIFIER) * ((-verticalTilt + VERTICAL_TILT_MAX) / 2 * VERTICAL_TILT_MAX));
+					((FAST_SPEED_MODIFIER - SLOW_SPEED_MODIFIER) * tilt);
 
 			yVelocity = movementSpeed;
 			yVelocity *= speedModifier;
@@ -143,11 +150,11 @@ public class PlayerControlSystem extends InputSystem {
 			
 		case Keys.DOWN:
 			movingSlow = true;
-			break;
+			return true;
 			
 		case Keys.UP:
 			movingFast = true;
-			break;
+			return true;
 			
 		}
 		
@@ -168,11 +175,11 @@ public class PlayerControlSystem extends InputSystem {
 			
 		case Keys.DOWN:
 			movingSlow = false;
-			break;
+			return true;
 			
 		case Keys.UP:
 			movingFast = false;
-			break;
+			return true;
 		
 		}
 			

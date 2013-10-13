@@ -13,7 +13,7 @@ public class NinjaSpacePirate extends Game {
 		Convert.init(8f);
 		LogManager.init(Gdx.app);
 		
-		title = "Stealth Pirate";
+		title = "Ninja Space Pirate";
 		
 		landscapeMode = false;
 		

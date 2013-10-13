@@ -335,12 +335,12 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (t == null) return;
 		
-		while (t.getPosition().y + ROW_SPAWN_DISTANCE >= y) {
-			spawnRow(rowsToSpawn.removeFirst());
-		}
-		
 		if (rowsToSpawn.isEmpty()) {
 			queueNextLocation();
+		}
+		
+		while (t.getPosition().y + ROW_SPAWN_DISTANCE >= y) {
+			spawnRow(rowsToSpawn.removeFirst());
 		}
 	}
 	
@@ -363,10 +363,10 @@ public class TileSpawnSystem extends EntitySystem {
 						availableLocations.add(entry.getKey()); //weight the picking
 					}
 				} else if (availableLocations.contains(entry.getKey(), false) //don't spawn locations that are too easy now
-						&& difficulty - entry.getValue().getDifficulty() > DIFFICULTY_RANGE) {
+						&& difficulty - entry.getValue().getDifficulty() > DIFFICULTY_RANGE && entry.getValue().getDifficulty() > 0) {
 					
 					while (availableLocations.contains(entry.getKey(), false)) {
-						availableLocations.removeValue(entry.getKey(), false); //remove all occurances
+						availableLocations.removeValue(entry.getKey(), false); //remove all occurrences
 					}
 				}
 			}
