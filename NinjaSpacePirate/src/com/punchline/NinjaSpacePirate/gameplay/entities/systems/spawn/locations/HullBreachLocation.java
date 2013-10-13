@@ -19,7 +19,7 @@ public class HullBreachLocation extends LocationTemplate {
 	 * Constructs a HullBreachLocation.
 	 */
 	public HullBreachLocation() {
-		super(null, 0);
+		super(null, 0, 1);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class HullBreachLocation extends LocationTemplate {
 
 	@Override
 	public int getDifficulty() {
-		return 1;
+		return 3;
 	}
 
 	

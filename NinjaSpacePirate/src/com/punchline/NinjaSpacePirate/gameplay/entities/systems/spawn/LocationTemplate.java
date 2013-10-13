@@ -9,15 +9,18 @@ public class LocationTemplate {
 
 	private String[] rows;
 	private int difficulty;
+	private int weight;
 	
 	/**
 	 * Constructs a LocationTemplate.
 	 * @param rows
 	 * @param difficulty How difficult this location is for the player to traverse.
+	 * @param weight This location's weight when being selected for spawning
 	 */
-	public LocationTemplate(String[] rows, int difficulty) {
+	public LocationTemplate(String[] rows, int difficulty, int weight) {
 		this.rows = rows;
 		this.difficulty = difficulty;
+		this.weight = weight;
 	}
 	
 	/**
@@ -32,6 +35,13 @@ public class LocationTemplate {
 	 */
 	public int getDifficulty() {
 		return difficulty;
+	}
+	
+	/**
+	 * @return This location's weight when being selected for spawning.
+	 */
+	public int getWeight() {
+		return weight;
 	}
 	
 }

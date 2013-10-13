@@ -31,9 +31,7 @@ public class TileSpawnSystem extends EntitySystem {
 	//region Constants
 	
 	private static final float ROW_SPAWN_DISTANCE = 12f;
-	private static final float LOCATION_SPAWN_DISTANCE = 24f;
-	
-	private static final float FILLER_SECTION_CHANCE = 0.15f;
+	private static final float LOCATION_SPAWN_DISTANCE = 13f;
 	
 	//endregion
 	
@@ -281,7 +279,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1));
+		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 1));
 		
 		loc = null;
 		loc = new String[15];
@@ -301,7 +299,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1));
+		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1, 3));
 		
 		LocationTemplate pitLocation = new PitLocation();
 		
@@ -335,12 +333,12 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (t == null) return;
 		
-		if (t.getPosition().y + LOCATION_SPAWN_DISTANCE >= y) {
-			queueNextLocation();
-		}
-		
 		while (t.getPosition().y + ROW_SPAWN_DISTANCE >= y) {
 			spawnRow(rowsToSpawn.removeFirst());
+		}
+		
+		if (rowsToSpawn.isEmpty()) {
+			queueNextLocation();
 		}
 	}
 	
@@ -348,6 +346,7 @@ public class TileSpawnSystem extends EntitySystem {
 		totalElapsedTime += deltaTime;
 		
 		int oldDifficulty = (int) difficulty;
+		if (oldDifficulty == 0) oldDifficulty = -1;
 		difficulty = (totalElapsedTime + 30f) / 30f; //add the extra count to avoid 0 casting.
 		
 		if ((int) difficulty - oldDifficulty >= 1) {
@@ -356,7 +355,9 @@ public class TileSpawnSystem extends EntitySystem {
 				Entry<String, LocationTemplate> entry = it.next();
 				
 				if (entry.getValue().getDifficulty() <= difficulty && !availableLocations.contains(entry.getKey(), false)) {
-					availableLocations.add(entry.getKey());
+					for (int i = 0; i < entry.getValue().getWeight(); i++) {
+						availableLocations.add(entry.getKey()); //weight the picking
+					}
 				}
 			}
 		}
@@ -416,14 +417,9 @@ public class TileSpawnSystem extends EntitySystem {
 	private void queueNextLocation() {
 		//This is where the system decides what obstacle to throw at the player next.
 		
-		if (r.percent(FILLER_SECTION_CHANCE)) {
-			queueSpawnLocation("HallSegment");
-			return;
-		} else {
-			int index = r.nextInt(availableLocations.size);
-			
-			queueSpawnLocation(availableLocations.get(index));
-		}
+		int index = r.nextInt(availableLocations.size);
+		
+		queueSpawnLocation(availableLocations.get(index));
 	}
 	
 	//endregion

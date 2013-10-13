@@ -16,7 +16,7 @@ public class PitLocation extends LocationTemplate {
 	 * Creates a pit location template.
 	 */
 	public PitLocation() {
-		super(null, 0);
+		super(null, 0, 1);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class PitLocation extends LocationTemplate {
 
 	@Override
 	public int getDifficulty() {
-		return 1;
+		return 2;
 	}
 	
 }
