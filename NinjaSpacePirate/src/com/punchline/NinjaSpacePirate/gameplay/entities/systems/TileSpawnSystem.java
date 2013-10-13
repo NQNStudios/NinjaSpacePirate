@@ -31,7 +31,9 @@ public class TileSpawnSystem extends EntitySystem {
 	//region Constants
 	
 	private static final float ROW_SPAWN_DISTANCE = 12f;
-	private static final float LOCATION_SPAWN_DISTANCE = 13f;
+	
+	private static final float MAX_DIFFICULTY = 5;
+	private static final int DIFFICULTY_RANGE = 5;
 	
 	//endregion
 	
@@ -349,6 +351,8 @@ public class TileSpawnSystem extends EntitySystem {
 		if (oldDifficulty == 0) oldDifficulty = -1;
 		difficulty = (totalElapsedTime + 30f) / 30f; //add the extra count to avoid 0 casting.
 		
+		if (difficulty > MAX_DIFFICULTY) difficulty = MAX_DIFFICULTY;
+		
 		if ((int) difficulty - oldDifficulty >= 1) {
 			Iterator<Entry<String, LocationTemplate>> it = locationTemplates.entrySet().iterator();
 			while (it.hasNext()) {
@@ -357,6 +361,12 @@ public class TileSpawnSystem extends EntitySystem {
 				if (entry.getValue().getDifficulty() <= difficulty && !availableLocations.contains(entry.getKey(), false)) {
 					for (int i = 0; i < entry.getValue().getWeight(); i++) {
 						availableLocations.add(entry.getKey()); //weight the picking
+					}
+				} else if (availableLocations.contains(entry.getKey(), false) //don't spawn locations that are too easy now
+						&& difficulty - entry.getValue().getDifficulty() > DIFFICULTY_RANGE) {
+					
+					while (availableLocations.contains(entry.getKey(), false)) {
+						availableLocations.removeValue(entry.getKey(), false); //remove all occurances
 					}
 				}
 			}

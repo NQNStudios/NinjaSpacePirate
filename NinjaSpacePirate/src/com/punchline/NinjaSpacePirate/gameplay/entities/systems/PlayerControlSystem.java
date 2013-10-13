@@ -27,11 +27,17 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float SPEED_DELTA = 0.001f;
 	private static final float MAX_SPEED = 20f;
 	
+	private static final float HORIZONTAL_TILT_MAX = 3f;
+	private static final float VERTICAL_TILT_MAX = 3f;
+	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	
 	private boolean movingSlow = false;
 	private boolean movingFast = false;
+	
+	private float horizontalTilt = 0f;
+	private float verticalTilt = 0f;
 	
 	/** The player's normal running speed. */
 	public static float movementSpeed = 3f;
@@ -90,6 +96,10 @@ public class PlayerControlSystem extends InputSystem {
 			xVelocity = MAX_HORIZONTAL_SPEED;
 		}
 		
+		if (horizontalTilt != 0) {
+			xVelocity = Math.min(MAX_HORIZONTAL_SPEED * -horizontalTilt / HORIZONTAL_TILT_MAX, MAX_HORIZONTAL_SPEED);
+		}
+		
 		//increase movement speed to ramp up the challenge
 		movementSpeed += SPEED_DELTA;
 		
@@ -103,6 +113,14 @@ public class PlayerControlSystem extends InputSystem {
 			yVelocity *= SLOW_SPEED_MODIFIER;
 		} else if (movingFast) {
 			yVelocity *= FAST_SPEED_MODIFIER;
+		}
+		
+		if (verticalTilt != 0) {
+			float speedModifier = SLOW_SPEED_MODIFIER + 
+					((FAST_SPEED_MODIFIER - SLOW_SPEED_MODIFIER) * ((-verticalTilt + VERTICAL_TILT_MAX) / 2 * VERTICAL_TILT_MAX));
+
+			yVelocity = movementSpeed;
+			yVelocity *= speedModifier;
 		}
 		
 		//set entity velocity
@@ -167,12 +185,12 @@ public class PlayerControlSystem extends InputSystem {
 	
 	@Override
 	protected void onTiltX(float x) {
-		
+		horizontalTilt = x;
 	}
 
 	@Override
 	protected void onTiltY(float y) {
-		
+		verticalTilt = y;
 	}
 
 	@Override
