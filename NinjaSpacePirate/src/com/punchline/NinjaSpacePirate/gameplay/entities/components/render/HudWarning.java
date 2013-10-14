@@ -46,7 +46,7 @@ public class HudWarning extends Sprite {
 		
 		this.world = world;
 		
-		setPosition(Convert.metersToPixels(new Vector2(lane - 2, 0))); //y set on draw
+		setPosition(Convert.metersToPixels(new Vector2(lane - 3, 0))); //y set on draw
 		setLayer(105); //in front of everything
 	}
 	

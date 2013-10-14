@@ -58,7 +58,7 @@ public class PitLocation extends LocationTemplate {
 
 	@Override
 	public void onQueue(EntityWorld world) {
-		world.createEntity("HudWarning", WarningType.GreenArrow, grateLoc);
+		world.createEntity("HudWarning", WarningType.GreenArrow, grateLoc + 1);
 	}
 	
 }

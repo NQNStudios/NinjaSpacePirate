@@ -61,6 +61,7 @@ public class HullBreachLocation extends LocationTemplate {
 	@Override
 	public void onQueue(EntityWorld world) {
 		int lane = 1;
+		
 		if (!leftSide) {
 			lane = 5;
 		}
