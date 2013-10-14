@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.TileSpawnSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.HudWarningTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
@@ -59,6 +60,9 @@ public class StealthWorld extends EntityWorld {
 	protected void buildTemplates() {
 		super.buildTemplates();
 		
+		//HUD
+		addTemplate("HudWarning", new HudWarningTemplate());
+		
 		//World
 		addTemplate("Tile", new TileTemplate());
 		addTemplate("Pit", new PitTemplate());
@@ -107,6 +111,10 @@ public class StealthWorld extends EntityWorld {
 	protected void buildSpriteSheet() {
 		
 		spriteSheet = new SpriteSheet(new Texture(Gdx.files.internal("data/spritesheet.png")));
+		
+		//HUD
+		spriteSheet.addRegion("GreenArrow", new Rectangle(73, 235, 8, 8));
+		spriteSheet.addRegion("WarningSign", new Rectangle(82, 235, 8, 8));
 		
 		//Scenery
 		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));

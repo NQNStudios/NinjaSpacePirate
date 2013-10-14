@@ -35,6 +35,8 @@ public class TileSpawnSystem extends EntitySystem {
 	private static final float MAX_DIFFICULTY = 5;
 	private static final int DIFFICULTY_RANGE = 5;
 	
+	private static final float MIN_ROW_BUFFER = 7;
+	
 	//endregion
 	
 	//region Fields
@@ -335,7 +337,7 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (t == null) return;
 		
-		if (rowsToSpawn.isEmpty()) {
+		if (rowsToSpawn.size() <= MIN_ROW_BUFFER) {
 			queueNextLocation();
 		}
 		
@@ -422,6 +424,8 @@ public class TileSpawnSystem extends EntitySystem {
 		for (String row : loc) {
 			queueSpawnRow(row);
 		}
+		
+		locationTemplates.get(locKey).onQueue(world);
 	}
 	
 	private void queueNextLocation() {

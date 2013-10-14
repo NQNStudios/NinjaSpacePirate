@@ -1,6 +1,8 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations;
 
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.HudWarning.WarningType;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.utils.Random;
 
 /**
@@ -15,6 +17,8 @@ public class HullBreachLocation extends LocationTemplate {
 	
 	private Random r = new Random();
 	
+	private boolean leftSide;
+	
 	/**
 	 * Constructs a HullBreachLocation.
 	 */
@@ -28,7 +32,9 @@ public class HullBreachLocation extends LocationTemplate {
 		
 		String[] rows = new String[ROWS + PADDING_ROWS];
 		
-		if (r.nextBoolean()) {
+		leftSide = r.nextBoolean();
+		
+		if (leftSide) {
 			//left side
 			prefix = "Left";
 		} else {
@@ -46,12 +52,22 @@ public class HullBreachLocation extends LocationTemplate {
 		
 		return rows;
 	}
-
+	
 	@Override
 	public int getDifficulty() {
 		return 3;
 	}
 
+	@Override
+	public void onQueue(EntityWorld world) {
+		int lane = 1;
+		if (!leftSide) {
+			lane = 5;
+		}
+		
+		world.createEntity("HudWarning", WarningType.WarningSign, lane);
+	}
+	
 	
 	
 }

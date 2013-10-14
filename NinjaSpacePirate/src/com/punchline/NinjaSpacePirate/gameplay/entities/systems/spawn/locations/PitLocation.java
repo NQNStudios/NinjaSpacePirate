@@ -1,6 +1,8 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations;
 
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.HudWarning.WarningType;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.utils.Random;
 
 /**
@@ -12,6 +14,8 @@ public class PitLocation extends LocationTemplate {
 
 	private Random r = new Random();
 	
+	private int grateLoc;
+	
 	/**
 	 * Creates a pit location template.
 	 */
@@ -22,7 +26,7 @@ public class PitLocation extends LocationTemplate {
 	@Override
 	public String[] getRows() {
 		
-		int grateLoc = r.nextInt(5);
+		grateLoc = r.nextInt(5);
 		String rowKey = "PitGrate" + grateLoc;
 		
 		String[] rows = new String[16];
@@ -50,6 +54,11 @@ public class PitLocation extends LocationTemplate {
 	@Override
 	public int getDifficulty() {
 		return 2;
+	}
+
+	@Override
+	public void onQueue(EntityWorld world) {
+		world.createEntity("HudWarning", WarningType.GreenArrow, grateLoc);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn;
 
+import com.punchline.javalib.entities.EntityWorld;
+
 /**
  * Contains the information for creating a location.
  * @author Natman64
@@ -42,6 +44,14 @@ public class LocationTemplate {
 	 */
 	public int getWeight() {
 		return weight;
+	}
+	
+	/**
+	 * Called when this location is queued for spawning.
+	 * @param world
+	 */
+	public void onQueue(EntityWorld world) {
+		
 	}
 	
 }
