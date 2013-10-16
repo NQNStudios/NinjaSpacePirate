@@ -15,7 +15,7 @@ public class MiniStarField extends MultiRenderable {
 
 	private static final int SMALL_STARS = 40;
 	
-	private static final float OFFSET_RADIUS = 16;
+	private static final float OFFSET_RADIUS = 16 / SmallStar.STAR_SCALE;
 	
 	private Random r = new Random();
 	

@@ -12,6 +12,9 @@ import com.punchline.javalib.utils.SpriteSheet;
  */
 public class SmallStar extends Animation {
 
+	/** The scale of the star sprites. */
+	public static final float STAR_SCALE = 0.2f;
+	
 	private static Random r = new Random();
 	
 	/**
@@ -24,7 +27,8 @@ public class SmallStar extends Animation {
 		
 		setOrigin(position);
 		setLayer(0);
-		setScale(0.2f, 0.2f);
+		setScale(STAR_SCALE, STAR_SCALE);
+		setStateTime(r.nextFloat(5f));
 	}
 	
 	private static String key() {
