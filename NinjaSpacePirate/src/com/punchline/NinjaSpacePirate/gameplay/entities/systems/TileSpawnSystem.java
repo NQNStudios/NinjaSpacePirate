@@ -36,6 +36,7 @@ public class TileSpawnSystem extends EntitySystem {
 	private static final int DIFFICULTY_RANGE = 5;
 	
 	private static final float MIN_ROW_BUFFER = 7;
+	private static final float ROW_BUFFER_DELTA = PlayerControlSystem.SPEED_DELTA;
 	
 	//endregion
 	
@@ -43,6 +44,7 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private static Random r = new Random();
 	
+	private float rowBuffer = MIN_ROW_BUFFER;
 	private int y = StealthWorld.TILE_SPAWN_Y;
 	private LinkedList<String> rowsToSpawn = new LinkedList<String>();
 	private HashMap<String, TileRow> rowTemplates = new HashMap<String, TileRow>();
@@ -337,7 +339,9 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (t == null) return;
 		
-		if (rowsToSpawn.size() <= MIN_ROW_BUFFER) {
+		rowBuffer += ROW_BUFFER_DELTA * deltaSeconds();
+		
+		if (rowsToSpawn.size() <= (int) rowBuffer) {
 			queueNextLocation();
 		}
 		

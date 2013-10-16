@@ -16,6 +16,9 @@ import com.punchline.javalib.entities.systems.InputSystem;
  */
 public class PlayerControlSystem extends InputSystem {
 	
+	/** How fast the player accelerates */
+	public static final float SPEED_DELTA = 0.06f;
+	
 	private static final float MAX_HORIZONTAL_SPEED = 3f;
 	
 	private static final float FALLING_HORIZONTAL_SCL = 0.3f;
@@ -24,7 +27,6 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float SLOW_SPEED_MODIFIER = .6f;
 	private static final float FAST_SPEED_MODIFIER = 2f;
 	
-	private static final float SPEED_DELTA = 0.001f;
 	private static final float MAX_SPEED = 20f;
 	
 	private static final float HORIZONTAL_TILT_MAX = 3f;
@@ -107,7 +109,7 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		//increase movement speed to ramp up the challenge
-		movementSpeed += SPEED_DELTA;
+		movementSpeed += SPEED_DELTA * deltaSeconds();
 		
 		//apply a reasonable maximum
 		if (movementSpeed > MAX_SPEED) movementSpeed = MAX_SPEED;
