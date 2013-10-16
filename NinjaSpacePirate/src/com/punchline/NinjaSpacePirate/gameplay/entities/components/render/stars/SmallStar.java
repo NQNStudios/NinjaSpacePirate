@@ -22,7 +22,7 @@ public class SmallStar extends Animation {
 	public SmallStar(SpriteSheet spriteSheet, Vector2 position) {
 		super(spriteSheet, key(), 2, 1, 1, 0, Animation.LOOP_PINGPONG, 0.3f);
 		
-		setPosition(position);
+		setOrigin(position);
 		setLayer(0);
 		setScale(0.2f, 0.2f);
 	}
