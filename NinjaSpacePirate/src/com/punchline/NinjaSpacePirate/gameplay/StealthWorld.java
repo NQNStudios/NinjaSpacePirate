@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PitBlockingSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.TileSpawnSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.HudWarningTemplate;
@@ -92,6 +93,7 @@ public class StealthWorld extends EntityWorld {
 		systems.addSystem(new TileSpawnSystem());
 		systems.addSystem(new PlayerControlSystem(input));
 		systems.addSystem(new NPCAnimationSystem());
+		systems.addSystem(new PitBlockingSystem());
 	}
 	
 	//endregion
