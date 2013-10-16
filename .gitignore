@@ -9,4 +9,6 @@
 *.gwt-log
 
 # Bin Folders #
-/NinjaSpacePirate-desktop/bin/
+
+/NinjaSpacePirate-android/bin/
+/NinjaSpacePirate-desktop/bin

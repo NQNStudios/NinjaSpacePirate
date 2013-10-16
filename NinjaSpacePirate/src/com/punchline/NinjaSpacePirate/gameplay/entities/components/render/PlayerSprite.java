@@ -1,6 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.punchline.javalib.entities.components.render.AnimatedSprite;
 import com.punchline.javalib.entities.components.render.Animation;
 import com.punchline.javalib.utils.SpriteSheet;
@@ -25,6 +26,7 @@ public class PlayerSprite extends AnimatedSprite {
 	public PlayerSprite(SpriteSheet spriteSheet) {
 		super(spriteSheet, "Player", 8, 1, 0, Animation.LOOP_PINGPONG, 0.3f);
 		
+		setOrigin(new Vector2(4.5f, 4f));
 		setLayer(5);
 		setState("Run", false);
 	}
