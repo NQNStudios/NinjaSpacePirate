@@ -3,14 +3,12 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
-import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.Renderable;
-import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 
