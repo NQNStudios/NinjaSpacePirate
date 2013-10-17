@@ -27,7 +27,7 @@ public class NPCViewSprite extends Sprite {
 	public NPCViewSprite(SpriteSheet spriteSheet, View view) {
 		super(spriteSheet, "View");
 		
-		setOrigin(new Vector2(0, 6));
+		setOrigin(new Vector2(0, 8));
 		setPosition(Convert.metersToPixels(RIGHT_POSITION));
 		
 		this.view = view;
@@ -60,11 +60,11 @@ public class NPCViewSprite extends Sprite {
 		}
 		
 		//Now move the view sprite so it always appears to come from the AnimatedSprite's eyes
-		if (facingLeft(degrees) && !facingLeft(oldRotation)) {
-			setOrigin(new Vector2(0, 9));
-		} else if (facingLeft(oldRotation) && !facingLeft(degrees)) {
-			setOrigin(new Vector2(0, 6));
-		}
+//		if (facingLeft(degrees) && !facingLeft(oldRotation)) {
+//			setOrigin(new Vector2(0, 9));
+//		} else if (facingLeft(oldRotation) && !facingLeft(degrees)) {
+//			setOrigin(new Vector2(0, 6));
+//		}
 	}
 	
 	private boolean facingLeft(float degrees) {
