@@ -16,6 +16,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemp
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.VoidTemplate;
 import com.punchline.javalib.entities.Entity;
@@ -74,6 +75,9 @@ public class StealthWorld extends EntityWorld {
 		//Characters
 		addTemplate("Player", new PlayerTemplate());
 		addTemplate("NPC", new NPCTemplate());
+		
+		//Items
+		addTemplate("Potion", new PotionTemplate());
 	}
 	
 	//endregion
@@ -104,6 +108,8 @@ public class StealthWorld extends EntityWorld {
 	@Override
 	protected void buildEntities() {
 		player = createEntity("Player");
+		
+		createEntity("Potion");
 	}
 	
 	//endregion

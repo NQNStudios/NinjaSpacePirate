@@ -32,4 +32,6 @@
 	<rect key="PlayerDead">109, 1, 8, 8</rect>
 
 	<rect key="View">96, 236, 20, 15</rect>
+	
+	<rect key="Potion">1, 235, 8, 8</rect>
 </SpriteSheet>
