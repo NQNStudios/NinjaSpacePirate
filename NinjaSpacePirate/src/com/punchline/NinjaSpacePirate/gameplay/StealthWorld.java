@@ -1,9 +1,10 @@
 package com.punchline.NinjaSpacePirate.gameplay;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
@@ -112,44 +113,48 @@ public class StealthWorld extends EntityWorld {
 	@Override
 	protected void buildSpriteSheet() {
 		
-		spriteSheet = new SpriteSheet(new Texture(Gdx.files.internal("data/spritesheet.png")));
+		try {
+			spriteSheet = SpriteSheet.fromXML(Gdx.files.internal("data/spritesheet.xml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		//HUD
-		spriteSheet.addRegion("GreenArrow", new Rectangle(73, 235, 8, 8));
-		spriteSheet.addRegion("WarningSign", new Rectangle(82, 235, 8, 8));
-		
-		//Scenery
-		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));
-		spriteSheet.addRegion("TinyStar1", new Rectangle(4, 92, 1, 1));
-		spriteSheet.addRegion("SmallStar0", new Rectangle(10, 91, 17, 8));
-		spriteSheet.addRegion("SmallStar1", new Rectangle(28, 91, 17, 8));
-		
-		//Tiles
-		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));
-		spriteSheet.addRegion("FloorVent", new Rectangle(10, 154, 8, 8));
-		spriteSheet.addRegion("FloorGrate", new Rectangle(19, 154, 8, 8));
-		spriteSheet.addRegion("FloorLight", new Rectangle(28, 154, 8, 8));
-		spriteSheet.addRegion("FloorHole", new Rectangle(1, 172, 8, 8));
-		spriteSheet.addRegion("FloorGreen", new Rectangle(37, 154, 8, 8));
-		spriteSheet.addRegion("FloorDamaged0", new Rectangle(73, 154, 8, 8));
-		spriteSheet.addRegion("FloorDamaged1", new Rectangle(82, 154, 8, 8));
-		spriteSheet.addRegion("FloorDamaged2", new Rectangle(91, 154, 8, 8));
-		spriteSheet.addRegion("FloorDamaged3", new Rectangle(100, 154, 8, 8));
-		
-		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(1, 136, 8, 8));
-		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(10, 136, 8, 8));
-		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(19, 136, 8, 8));
-		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
-		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
-		spriteSheet.addRegion("WhiteWallVerticalDamaged", new Rectangle(73, 136, 8, 8));
-		
-		//Player
-		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));
-		spriteSheet.addRegion("PlayerStationary", new Rectangle(82, 1, 8, 8));
-		spriteSheet.addRegion("PlayerDead", new Rectangle(109, 1, 8, 8));
-		
-		//View overlay
-		spriteSheet.addRegion("View", new Rectangle(96, 236, 20, 15));
+//		//HUD
+//		spriteSheet.addRegion("GreenArrow", new Rectangle(73, 235, 8, 8));
+//		spriteSheet.addRegion("WarningSign", new Rectangle(82, 235, 8, 8));
+//		
+//		//Scenery
+//		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));
+//		spriteSheet.addRegion("TinyStar1", new Rectangle(4, 92, 1, 1));
+//		spriteSheet.addRegion("SmallStar0", new Rectangle(10, 91, 17, 8));
+//		spriteSheet.addRegion("SmallStar1", new Rectangle(28, 91, 17, 8));
+//		
+//		//Tiles
+//		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));
+//		spriteSheet.addRegion("FloorVent", new Rectangle(10, 154, 8, 8));
+//		spriteSheet.addRegion("FloorGrate", new Rectangle(19, 154, 8, 8));
+//		spriteSheet.addRegion("FloorLight", new Rectangle(28, 154, 8, 8));
+//		spriteSheet.addRegion("FloorHole", new Rectangle(1, 172, 8, 8));
+//		spriteSheet.addRegion("FloorGreen", new Rectangle(37, 154, 8, 8));
+//		spriteSheet.addRegion("FloorDamaged0", new Rectangle(73, 154, 8, 8));
+//		spriteSheet.addRegion("FloorDamaged1", new Rectangle(82, 154, 8, 8));
+//		spriteSheet.addRegion("FloorDamaged2", new Rectangle(91, 154, 8, 8));
+//		spriteSheet.addRegion("FloorDamaged3", new Rectangle(100, 154, 8, 8));
+//		
+//		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(1, 136, 8, 8));
+//		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(10, 136, 8, 8));
+//		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(19, 136, 8, 8));
+//		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
+//		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
+//		spriteSheet.addRegion("WhiteWallVerticalDamaged", new Rectangle(73, 136, 8, 8));
+//		
+//		//Player
+//		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));
+//		spriteSheet.addRegion("PlayerStationary", new Rectangle(82, 1, 8, 8));
+//		spriteSheet.addRegion("PlayerDead", new Rectangle(109, 1, 8, 8));
+//		
+//		//View overlay
+//		spriteSheet.addRegion("View", new Rectangle(96, 236, 20, 15));
 		
 		//Humans
 		addHumanSprite("redSuitMan", 0, 9, 1);
