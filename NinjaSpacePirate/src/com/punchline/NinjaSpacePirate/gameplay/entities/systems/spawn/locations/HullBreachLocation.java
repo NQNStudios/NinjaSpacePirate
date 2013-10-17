@@ -1,6 +1,6 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations;
 
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.HudWarning.WarningType;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.hud.HudWarning.WarningType;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.utils.Random;

@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;

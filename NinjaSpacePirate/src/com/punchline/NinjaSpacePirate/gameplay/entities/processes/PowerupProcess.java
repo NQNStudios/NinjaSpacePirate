@@ -33,6 +33,8 @@ public abstract class PowerupProcess extends Process {
 		if (firstUpdate) {
 			startEffect(world);
 			firstUpdate = false;
+			
+			world.createEntity("PotionMessage", getMessage(), duration);
 		}
 		
 		duration -= deltaTime;
@@ -54,4 +56,7 @@ public abstract class PowerupProcess extends Process {
 	/** Removes the powerup effect from {@link #e}. */
 	protected abstract void endEffect(EntityWorld world);
 
+	/** The message this powerup shows the player. */
+	protected abstract String getMessage();
+	
 }

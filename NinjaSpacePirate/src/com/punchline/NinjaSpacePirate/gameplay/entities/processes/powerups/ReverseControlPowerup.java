@@ -33,4 +33,9 @@ public class ReverseControlPowerup extends PowerupProcess {
 		e.removeComponent(reverseControl);
 	}
 
+	@Override
+	protected String getMessage() {
+		 return "Reverse";
+	}
+
 }

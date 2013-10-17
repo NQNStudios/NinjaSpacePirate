@@ -4,6 +4,8 @@
 	<rect key="GreenArrow">73, 235, 8, 8</rect>
 	<rect key="WarningSign">82, 235, 8, 8</rect>
 
+	<rect key="PotionDialog">11, 233, 48, 12</rect>
+	
 	<rect key="TinyStar0">2, 92, 1, 1</rect>
 	<rect key="TinyStar1">4, 92, 1, 1</rect>
 	<rect key="SmallStar0">10, 91, 17, 8</rect>

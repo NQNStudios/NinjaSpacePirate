@@ -46,7 +46,6 @@ public class PlayerTemplate implements EntityTemplate {
 		e.init("Player", "Players", "Player");
 		
 		PlayerSprite sprite = new PlayerSprite(world.getSpriteSheet());
-		
 		e.addComponent(sprite);
 		
 		Body body = new Body(world, e, BodyType.DynamicBody, shape, BODY_POSITION);
@@ -58,7 +57,7 @@ public class PlayerTemplate implements EntityTemplate {
 
 			@Override
 			public void invoke(Entity e, Object... args) {
-				PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
+				PlayerSprite sprite = (PlayerSprite) (e.getComponent(Renderable.class));
 				
 				if (!sprite.isFalling()) sprite.setState("Dead", false);
 				

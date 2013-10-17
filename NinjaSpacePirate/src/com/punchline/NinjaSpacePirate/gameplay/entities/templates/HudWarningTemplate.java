@@ -1,7 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.HudWarning;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.HudWarning.WarningType;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.hud.HudWarning;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.hud.HudWarning.WarningType;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.templates.EntityTemplate;

@@ -1,4 +1,4 @@
-package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
+package com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs;
 
 import com.badlogic.gdx.utils.Array;
 import com.punchline.javalib.entities.components.generic.View;

@@ -1,6 +1,6 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.NPCMultiRenderable;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.systems.ComponentSystem;

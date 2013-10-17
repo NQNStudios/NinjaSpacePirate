@@ -17,6 +17,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemp
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionMessageTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.VoidTemplate;
@@ -66,6 +67,7 @@ public class StealthWorld extends EntityWorld {
 		
 		//HUD
 		addTemplate("HudWarning", new HudWarningTemplate());
+		addTemplate("PotionMessage", new PotionMessageTemplate());
 		
 		//World
 		addTemplate("Tile", new TileTemplate());
@@ -92,7 +94,7 @@ public class StealthWorld extends EntityWorld {
 		TrackingCameraSystem cameraSystem = 
 				new TrackingCameraSystem("Player", camera);
 		
-		cameraSystem.setCameraOffset(Convert.metersToPixels(new Vector2(0, 5)));
+		cameraSystem.setCameraOffset(Convert.metersToPixels(new Vector2(0, 4.5f)));
 		systems.addSystem(cameraSystem);
 		
 		
@@ -125,43 +127,6 @@ public class StealthWorld extends EntityWorld {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-//		//HUD
-//		spriteSheet.addRegion("GreenArrow", new Rectangle(73, 235, 8, 8));
-//		spriteSheet.addRegion("WarningSign", new Rectangle(82, 235, 8, 8));
-//		
-//		//Scenery
-//		spriteSheet.addRegion("TinyStar0", new Rectangle(2, 92, 1, 1));
-//		spriteSheet.addRegion("TinyStar1", new Rectangle(4, 92, 1, 1));
-//		spriteSheet.addRegion("SmallStar0", new Rectangle(10, 91, 17, 8));
-//		spriteSheet.addRegion("SmallStar1", new Rectangle(28, 91, 17, 8));
-//		
-//		//Tiles
-//		spriteSheet.addRegion("Floor", new Rectangle(1, 154, 8, 8));
-//		spriteSheet.addRegion("FloorVent", new Rectangle(10, 154, 8, 8));
-//		spriteSheet.addRegion("FloorGrate", new Rectangle(19, 154, 8, 8));
-//		spriteSheet.addRegion("FloorLight", new Rectangle(28, 154, 8, 8));
-//		spriteSheet.addRegion("FloorHole", new Rectangle(1, 172, 8, 8));
-//		spriteSheet.addRegion("FloorGreen", new Rectangle(37, 154, 8, 8));
-//		spriteSheet.addRegion("FloorDamaged0", new Rectangle(73, 154, 8, 8));
-//		spriteSheet.addRegion("FloorDamaged1", new Rectangle(82, 154, 8, 8));
-//		spriteSheet.addRegion("FloorDamaged2", new Rectangle(91, 154, 8, 8));
-//		spriteSheet.addRegion("FloorDamaged3", new Rectangle(100, 154, 8, 8));
-//		
-//		spriteSheet.addRegion("WhiteWallVertical", new Rectangle(1, 136, 8, 8));
-//		spriteSheet.addRegion("WhiteWallVentEast", new Rectangle(10, 136, 8, 8));
-//		spriteSheet.addRegion("WhiteWallVentWest", new Rectangle(19, 136, 8, 8));
-//		spriteSheet.addRegion("WhiteWallRedLightEast", new Rectangle(28, 136, 8, 8));
-//		spriteSheet.addRegion("WhiteWallRedLightWest", new Rectangle(37, 136, 8, 8));
-//		spriteSheet.addRegion("WhiteWallVerticalDamaged", new Rectangle(73, 136, 8, 8));
-//		
-//		//Player
-//		spriteSheet.addRegion("PlayerRun", new Rectangle(91, 1, 17, 8));
-//		spriteSheet.addRegion("PlayerStationary", new Rectangle(82, 1, 8, 8));
-//		spriteSheet.addRegion("PlayerDead", new Rectangle(109, 1, 8, 8));
-//		
-//		//View overlay
-//		spriteSheet.addRegion("View", new Rectangle(96, 236, 20, 15));
 		
 		//Humans
 		addHumanSprite("redSuitMan", 0, 9, 1);

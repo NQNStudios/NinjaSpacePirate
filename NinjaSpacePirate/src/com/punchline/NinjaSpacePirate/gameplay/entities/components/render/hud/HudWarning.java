@@ -1,4 +1,4 @@
-package com.punchline.NinjaSpacePirate.gameplay.entities.components.render;
+package com.punchline.NinjaSpacePirate.gameplay.entities.components.render.hud;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
