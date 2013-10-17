@@ -3,6 +3,7 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.ReverseControl;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
@@ -71,6 +72,8 @@ public class PlayerControlSystem extends InputSystem {
 	
 	@Override
 	protected void process(Entity e) {
+		boolean reversed = e.hasComponent(ReverseControl.class);
+		
 		PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
 		Velocity v = e.getComponent(Velocity.class);
 		
@@ -118,13 +121,18 @@ public class PlayerControlSystem extends InputSystem {
 		float yVelocity = movementSpeed;
 		
 		if (movingSlow) {
-			yVelocity *= SLOW_SPEED_MODIFIER;
+			yVelocity *= (reversed ? FAST_SPEED_MODIFIER : SLOW_SPEED_MODIFIER);
 		} else if (movingFast) {
-			yVelocity *= FAST_SPEED_MODIFIER;
+			yVelocity *= (reversed ? SLOW_SPEED_MODIFIER : FAST_SPEED_MODIFIER);
 		}
 		
 		if (verticalTilt != 0) {
 			float tilt = (Math.min(Math.max(VERTICAL_TILT_MIN, -verticalTilt), VERTICAL_TILT_MAX) + VERTICAL_TILT_MAX) / (2 * VERTICAL_TILT_MAX);
+			
+			if (reversed) {
+				tilt = 1 - tilt;
+			}
+			
 			float speedModifier = SLOW_SPEED_MODIFIER + 
 					((FAST_SPEED_MODIFIER - SLOW_SPEED_MODIFIER) * tilt);
 
@@ -133,6 +141,10 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		//set entity velocity
+		if (reversed) {
+			xVelocity = -xVelocity;
+		}
+		
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));
 	}
 

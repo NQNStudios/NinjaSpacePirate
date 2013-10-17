@@ -12,6 +12,7 @@ import com.punchline.javalib.entities.processes.ProcessState;
  */
 public abstract class PowerupProcess extends Process {
 
+	private boolean firstUpdate = true;
 	private float duration;
 
 	/** The entity that this powerup boosts. */
@@ -25,28 +26,32 @@ public abstract class PowerupProcess extends Process {
 	public PowerupProcess(float duration, Entity e) {
 		this.duration = duration;
 		this.e = e;
-		
-		startEffect();
 	}
 	
 	@Override
 	public void update(EntityWorld world, float deltaTime) {
+		if (firstUpdate) {
+			startEffect(world);
+			firstUpdate = false;
+		}
+		
 		duration -= deltaTime;
 		
 		if (duration <= 0) {
+			endEffect(world);
 			end(ProcessState.SUCCEEDED);
 		}
 	}
 	
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
-		endEffect();
+
 	}
 	
 	/** Applies the powerup effect to {@link #e}. */
-	protected abstract void startEffect();
+	protected abstract void startEffect(EntityWorld world);
 	
 	/** Removes the powerup effect from {@link #e}. */
-	protected abstract void endEffect();
+	protected abstract void endEffect(EntityWorld world);
 
 }
