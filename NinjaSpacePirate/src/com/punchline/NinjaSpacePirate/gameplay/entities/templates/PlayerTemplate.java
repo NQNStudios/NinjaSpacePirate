@@ -3,7 +3,9 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
+import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.GenericCollisionEvents;
@@ -63,6 +65,9 @@ public class PlayerTemplate implements EntityTemplate {
 				
 				Body body = e.getComponent(Body.class);
 				body.getBody().getFixtureList().get(0).setSensor(true); //don't collide with anything now
+				
+				IntStat deaths = (IntStat) Stats.getStat("Deaths");
+				deaths.increment();
 			}
 			
 		});

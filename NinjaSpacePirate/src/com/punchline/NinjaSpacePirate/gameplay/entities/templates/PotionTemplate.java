@@ -2,7 +2,9 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PowerupProcess;
+import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
@@ -38,8 +40,6 @@ public class PotionTemplate implements EntityTemplate {
 		e.addComponent(body);
 		
 		TriggerZone triggerZone = new TriggerZone(e, 0.5f, 0.5f) {
-
-			
 			
 			@Override
 			public void onDetected(Entity e, EntityWorld world) {
@@ -47,6 +47,9 @@ public class PotionTemplate implements EntityTemplate {
 				
 				if (e.getTag().equals("Player")) {
 					world.getProcessManager().attach(powerup);
+					
+					IntStat potions = (IntStat) Stats.getStat("Potions Drunk");
+					potions.increment();
 					
 					owner.delete(); //remove the potion from the world
 				}

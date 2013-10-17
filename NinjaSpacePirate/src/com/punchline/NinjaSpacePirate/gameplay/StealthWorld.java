@@ -21,6 +21,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionMessageT
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.TileTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.VoidTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.stats.TimeStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.systems.generic.TrackingCameraSystem;
@@ -203,6 +204,18 @@ public class StealthWorld extends EntityWorld {
 	 */
 	public Entity getPlayer() {
 		return player;
+	}
+	
+	//endregion
+	
+	//region Processing
+	
+	@Override
+	public void process() {
+		super.process();
+		
+		TimeStat timePlayed = (TimeStat) Stats.getStat("Time Played");
+		timePlayed.add(Gdx.graphics.getDeltaTime());
 	}
 	
 	//endregion
