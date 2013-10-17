@@ -109,7 +109,7 @@ public class StealthWorld extends EntityWorld {
 	protected void buildEntities() {
 		player = createEntity("Player");
 		
-		createEntity("Potion");
+		createEntity("Potion", new Vector2());
 	}
 	
 	//endregion
