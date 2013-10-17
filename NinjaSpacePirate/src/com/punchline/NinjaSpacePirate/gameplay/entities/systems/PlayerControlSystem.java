@@ -1,9 +1,11 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.systems;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.ReverseControl;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.SpeedLock;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
@@ -34,6 +36,9 @@ public class PlayerControlSystem extends InputSystem {
 	
 	private static final float VERTICAL_TILT_MIN = -3f;
 	private static final float VERTICAL_TILT_MAX = 3f;
+	
+	private boolean speedLock;
+	private boolean wasSpeedLock;
 	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
@@ -72,6 +77,13 @@ public class PlayerControlSystem extends InputSystem {
 	
 	@Override
 	protected void process(Entity e) {
+		speedLock = e.hasComponent(SpeedLock.class);
+		
+		if (wasSpeedLock && !speedLock) {
+			movingSlow = Gdx.input.isKeyPressed(Keys.DOWN);
+			movingFast = Gdx.input.isKeyPressed(Keys.UP);
+		}
+		
 		boolean reversed = e.hasComponent(ReverseControl.class);
 		
 		PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
@@ -126,7 +138,7 @@ public class PlayerControlSystem extends InputSystem {
 			yVelocity *= (reversed ? SLOW_SPEED_MODIFIER : FAST_SPEED_MODIFIER);
 		}
 		
-		if (verticalTilt != 0) {
+		if (verticalTilt != 0 && !speedLock) {
 			float tilt = (Math.min(Math.max(VERTICAL_TILT_MIN, -verticalTilt), VERTICAL_TILT_MAX) + VERTICAL_TILT_MAX) / (2 * VERTICAL_TILT_MAX);
 			
 			if (reversed) {
@@ -146,6 +158,8 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));
+		
+		wasSpeedLock = speedLock;
 	}
 
 	//region Keyboard Controls
@@ -163,11 +177,11 @@ public class PlayerControlSystem extends InputSystem {
 			return true;
 			
 		case Keys.DOWN:
-			movingSlow = true;
+			if (!speedLock) movingSlow = true;
 			return true;
 			
 		case Keys.UP:
-			movingFast = true;
+			if (!speedLock) movingFast = true;
 			return true;
 			
 		}
@@ -188,11 +202,11 @@ public class PlayerControlSystem extends InputSystem {
 			return true;
 			
 		case Keys.DOWN:
-			movingSlow = false;
+			if (!speedLock) movingSlow = false;
 			return true;
 			
 		case Keys.UP:
-			movingFast = false;
+			if (!speedLock) movingFast = false;
 			return true;
 		
 		}
