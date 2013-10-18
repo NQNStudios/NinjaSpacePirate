@@ -14,6 +14,11 @@ public class MainMenuScreen extends MenuScreen {
 	private static final String TITLE_0 = "NINJA SPACE";
 	private static final String TITLE_1 = "PIRATE";
 	
+	private MenuButton playButton;
+	private MenuButton learnButton;
+	private MenuButton reflectButton;
+	private MenuButton quitButton;
+	
 	/**
 	 * Constructs the screen.
 	 * @param game
@@ -21,7 +26,15 @@ public class MainMenuScreen extends MenuScreen {
 	public MainMenuScreen(Game game) {
 		super(game);
 		
-		buttons.add(new MenuButton(font, "Play"));
+		playButton = new MenuButton(font, "Play");
+		learnButton = new MenuButton(font, "Learn");
+		reflectButton = new MenuButton(font, "Reflect");
+		quitButton = new MenuButton(font, "Quit");
+		
+		buttons.add(playButton);
+		buttons.add(learnButton);
+		buttons.add(reflectButton);
+		buttons.add(quitButton);
 	}
 
 	@Override

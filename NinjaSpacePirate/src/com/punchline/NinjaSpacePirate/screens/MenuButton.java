@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.javalib.utils.Display;
 
 /**
  * A text button that is part of a menu.
@@ -41,16 +42,18 @@ public class MenuButton {
 		TextBounds bounds = getBounds();
 		
 		float x = position.x - bounds.width / 2;
-		float y = position.y + bounds.height / 2;
+		float y = position.y - bounds.height / 2;
 		Rectangle screenBounds = new Rectangle(x, y, bounds.width, bounds.height);
 		
-		selected = screenBounds.contains(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		selected = screenBounds.contains(new Vector2(
+				Gdx.input.getX() * (Display.getPreferredWidth() / Display.getRealWidth()), 
+				(Display.getRealHeight() - Gdx.input.getY()) * (Display.getPreferredHeight() / Display.getRealHeight())));
 		
 		if (selected) {
 			font.setColor(SELECTED_COLOR);
 		}
 		
-		y = position.y - bounds.height / 2;
+		y = position.y + bounds.height / 2;
 		
 		font.draw(batch, text, x, y);
 		
