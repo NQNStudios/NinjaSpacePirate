@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.ReverseControlPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.SpeedLockPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PitBlockingSystem;
@@ -113,7 +114,7 @@ public class StealthWorld extends EntityWorld {
 	protected void buildEntities() {
 		player = createEntity("Player");
 		
-		createEntity("Potion", new Vector2(), new SpeedLockPowerup(10f, player));
+		createEntity("Potion", new Vector2(), new ReverseControlPowerup(10f, player));
 	}
 	
 	//endregion
