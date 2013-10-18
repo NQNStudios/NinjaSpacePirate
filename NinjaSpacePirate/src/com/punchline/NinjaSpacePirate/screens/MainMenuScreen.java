@@ -29,7 +29,7 @@ public class MainMenuScreen extends MenuScreen {
 		playButton = new MenuButton(font, "Play");
 		learnButton = new MenuButton(font, "Learn");
 		reflectButton = new MenuButton(font, "Reflect");
-		quitButton = new MenuButton(font, "Quit");
+		quitButton = new MenuButton(font, "Exit");
 		
 		buttons.add(playButton);
 		buttons.add(learnButton);
