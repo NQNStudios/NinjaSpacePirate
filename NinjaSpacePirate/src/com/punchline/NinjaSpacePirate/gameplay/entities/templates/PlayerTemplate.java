@@ -44,7 +44,7 @@ public class PlayerTemplate implements EntityTemplate {
 	}
 
 	@Override
-	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {
+	public Entity buildEntity(Entity e, final EntityWorld world, Object... args) {
 		e.init("Player", "Players", "Player");
 		
 		PlayerSprite sprite = new PlayerSprite(world.getSpriteSheet());
@@ -68,6 +68,9 @@ public class PlayerTemplate implements EntityTemplate {
 				
 				IntStat deaths = (IntStat) Stats.getStat("Deaths");
 				deaths.increment();
+				
+				Entity msg = world.tryGetEntity("", "", "PotionMessage");
+				if (msg != null) msg.delete();
 			}
 			
 		});

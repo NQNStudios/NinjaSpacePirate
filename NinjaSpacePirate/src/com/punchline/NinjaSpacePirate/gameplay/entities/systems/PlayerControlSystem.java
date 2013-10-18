@@ -4,9 +4,9 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.ReverseControl;
-import com.punchline.NinjaSpacePirate.gameplay.entities.components.SpeedLock;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.ReverseControlPowerup;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.SpeedLockPowerup;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
 import com.punchline.javalib.entities.components.render.Renderable;
@@ -77,14 +77,14 @@ public class PlayerControlSystem extends InputSystem {
 	
 	@Override
 	protected void process(Entity e) {
-		speedLock = e.hasComponent(SpeedLock.class);
+		speedLock = e.hasComponent(SpeedLockPowerup.class);
 		
 		if (wasSpeedLock && !speedLock) {
 			movingSlow = Gdx.input.isKeyPressed(Keys.DOWN);
 			movingFast = Gdx.input.isKeyPressed(Keys.UP);
 		}
 		
-		boolean reversed = e.hasComponent(ReverseControl.class);
+		boolean reversed = e.hasComponent(ReverseControlPowerup.class);
 		
 		PlayerSprite sprite = (PlayerSprite) e.getComponent(Renderable.class);
 		Velocity v = e.getComponent(Velocity.class);
