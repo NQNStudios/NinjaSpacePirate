@@ -1,5 +1,6 @@
 package com.punchline.NinjaSpacePirate.screens;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Display;
 
 /**
@@ -16,12 +18,19 @@ import com.punchline.javalib.utils.Display;
  */
 public class MenuButton {
 
+	public interface ButtonCallback {
+		public void invoke(Game game);
+	}
+	
 	private static final Color COLOR = Color.WHITE;
 	private static final Color SELECTED_COLOR = Color.YELLOW;
 	
 	private BitmapFont font;
 	private String text;
 	private boolean selected;
+	
+	/** Invoked when this button is pressed. */
+	public ButtonCallback onTrigger;
 	
 	/**
 	 * Constructs a MenuButton.
@@ -45,9 +54,9 @@ public class MenuButton {
 		float y = position.y - bounds.height / 2;
 		Rectangle screenBounds = new Rectangle(x, y, bounds.width, bounds.height);
 		
-		selected = screenBounds.contains(new Vector2(
-				Gdx.input.getX() * (Display.getPreferredWidth() / Display.getRealWidth()), 
-				(Display.getRealHeight() - Gdx.input.getY()) * (Display.getPreferredHeight() / Display.getRealHeight())));
+		if (Gdx.app.getType() != ApplicationType.Android && onTrigger != null) {
+			selected = screenBounds.contains(Display.getAdjustedInput(new Vector2(Gdx.input.getX(), Gdx.input.getY())));
+		}
 		
 		if (selected) {
 			font.setColor(SELECTED_COLOR);
@@ -72,6 +81,47 @@ public class MenuButton {
 	 */
 	public boolean isSelected() {
 		return selected;
+	}
+	
+	/**
+	 * Called on Android when the screen is touched.
+	 * @param input
+	 * @param position
+	 */
+	public void touchDown(Vector2 input, Vector2 position) {
+		if (onTrigger == null) return;
+		
+		TextBounds bounds = getBounds();
+		
+		float x = position.x - bounds.width / 2;
+		float y = position.y - bounds.height / 2;
+		Rectangle screenBounds = new Rectangle(x, y, bounds.width, bounds.height);
+		
+		selected = screenBounds.contains(input);
+	}
+	
+	/**
+	 * Called on Android when a screen touch is released
+	 * @param input
+	 * @param position
+	 * @param game
+	 */
+	public void touchUp(Vector2 input, Vector2 position, Game game) {
+		if (onTrigger == null) return;
+		
+		TextBounds bounds = getBounds();
+		
+		float x = position.x - bounds.width / 2;
+		float y = position.y - bounds.height / 2;
+		Rectangle screenBounds = new Rectangle(x, y, bounds.width, bounds.height);
+		
+		if (selected && screenBounds.contains(input)) {
+			if (onTrigger != null) {
+				onTrigger.invoke(game);
+			}
+		}
+		
+		selected = false;
 	}
 	
 }

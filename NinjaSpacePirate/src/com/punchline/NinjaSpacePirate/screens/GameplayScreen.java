@@ -1,17 +1,18 @@
 package com.punchline.NinjaSpacePirate.screens;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.Game;
-import com.punchline.javalib.states.GameScreen;
+import com.punchline.javalib.states.InputScreen;
 
 /**
  * The NinjaSpacePirate gameplay screen.
  * @author Natman64
  *
  */
-public class GameplayScreen extends GameScreen {
+public class GameplayScreen extends InputScreen {
 
 	private StealthWorld world;
 	private Camera camera;
@@ -42,14 +43,18 @@ public class GameplayScreen extends GameScreen {
 	public void resize(int width, int height) {
 		
 	}
-
+	
 	@Override
 	public void show() {
+		super.show();
+		
 		world.resume(); 
 	}
 
 	@Override
 	public void hide() {
+		super.hide();
+		
 		world.pause();
 	}
 
@@ -67,5 +72,16 @@ public class GameplayScreen extends GameScreen {
 	public void dispose() {
 		world.dispose();
 	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
+			game.getScreenManager().addScreen(new PauseScreen(game));
+		}
+		
+		return true;
+	}
+	
+	
 
 }

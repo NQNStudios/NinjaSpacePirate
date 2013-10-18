@@ -1,6 +1,8 @@
 package com.punchline.NinjaSpacePirate.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.punchline.NinjaSpacePirate.screens.MenuButton.ButtonCallback;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Display;
 
@@ -17,24 +19,60 @@ public class MainMenuScreen extends MenuScreen {
 	private MenuButton playButton;
 	private MenuButton learnButton;
 	private MenuButton reflectButton;
-	private MenuButton quitButton;
+	private MenuButton exitButton;
 	
 	/**
 	 * Constructs the screen.
 	 * @param game
 	 */
 	public MainMenuScreen(Game game) {
-		super(game);
+		super(game, "");
 		
 		playButton = new MenuButton(font, "Play");
-		learnButton = new MenuButton(font, "Learn");
-		reflectButton = new MenuButton(font, "Reflect");
-		quitButton = new MenuButton(font, "Exit");
+		learnButton = new MenuButton(font, "Tutorial");
+		reflectButton = new MenuButton(font, "Stats");
+		exitButton = new MenuButton(font, "Exit");
+		
+		playButton.onTrigger = new ButtonCallback() {
+
+			@Override
+			public void invoke(Game game) {
+				game.getScreenManager().addScreen(new GameplayScreen(game));
+			}
+			
+		};
+		
+		learnButton.onTrigger = new ButtonCallback() {
+
+			@Override
+			public void invoke(Game game) {
+				game.getScreenManager().addScreen(new RulesScreen(game));
+			}
+			
+		};
+		
+		reflectButton.onTrigger = new ButtonCallback() {
+
+			@Override
+			public void invoke(Game game) {
+				
+			}
+			
+		};
+		
+		exitButton.onTrigger = new ButtonCallback() {
+
+			@Override
+			public void invoke(Game game) {
+				Gdx.app.exit();
+			}
+			
+		};
 		
 		buttons.add(playButton);
 		buttons.add(learnButton);
 		buttons.add(reflectButton);
-		buttons.add(quitButton);
+		buttons.add(exitButton);
 	}
 
 	@Override
