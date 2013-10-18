@@ -20,6 +20,8 @@ public class MainMenuScreen extends MenuScreen {
 	 */
 	public MainMenuScreen(Game game) {
 		super(game);
+		
+		buttons.add(new MenuButton(font, "Play"));
 	}
 
 	@Override

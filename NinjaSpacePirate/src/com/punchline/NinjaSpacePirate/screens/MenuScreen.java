@@ -3,6 +3,8 @@ package com.punchline.NinjaSpacePirate.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.states.InputScreen;
 import com.punchline.javalib.utils.Display;
@@ -23,6 +25,9 @@ public abstract class MenuScreen extends InputScreen {
 	/** The BitmapFont used for rendering this screen. */
 	protected BitmapFont font;
 	
+	/** This menu's buttons. */
+	protected Array<MenuButton> buttons = new Array<MenuButton>();
+	
 	/**
 	 * Constructor for MenuScreen
 	 * @param game
@@ -41,7 +46,18 @@ public abstract class MenuScreen extends InputScreen {
 	
 	@Override
 	public void render(float delta) {
+		Vector2 position = new Vector2(Display.getPreferredWidth() / 2, Display.getPreferredHeight() / 2);
 		
+		spriteBatch.begin();
+		
+		for (MenuButton button : buttons) {
+			button.draw(spriteBatch, position);
+			
+			position.y -= button.getBounds().height;
+			position.y -= LINE_PADDING;
+		}
+		
+		spriteBatch.end();
 	}
 
 	@Override
