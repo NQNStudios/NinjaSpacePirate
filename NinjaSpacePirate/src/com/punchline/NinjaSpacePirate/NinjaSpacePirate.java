@@ -2,7 +2,6 @@ package com.punchline.NinjaSpacePirate;
 
 import com.badlogic.gdx.Gdx;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
-import com.punchline.NinjaSpacePirate.screens.GameplayScreen;
 import com.punchline.NinjaSpacePirate.screens.MainMenuScreen;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Convert;
