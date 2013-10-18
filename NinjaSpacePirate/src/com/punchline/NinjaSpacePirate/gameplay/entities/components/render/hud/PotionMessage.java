@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.ComponentManager;
 import com.punchline.javalib.entities.components.render.Sprite;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.Display;
@@ -81,5 +82,12 @@ public class PotionMessage extends Sprite {
 		
 		duration -= deltaSeconds;
 	}
+
+	@Override
+	public void onRemove(ComponentManager container) {
+		font.dispose();
+	}
+	
+	
 	
 }
