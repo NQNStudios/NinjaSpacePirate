@@ -19,9 +19,10 @@ import com.punchline.javalib.utils.Display;
 public abstract class MenuScreen extends InputScreen {
 	
 	/** The number of pixels between lines. */
-	protected static final float LINE_PADDING = 4f;
+	protected static final float LINE_PADDING = 8f;
 	
-	private String title;
+	/** The title of the menu */
+	protected String title;
 	
 	/** The SpriteBatch used for rendering this screen. */
 	protected SpriteBatch spriteBatch;

@@ -84,6 +84,14 @@ public class MenuButton {
 	}
 	
 	/**
+	 * Sets the text of this button.
+	 * @param text
+	 */
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	/**
 	 * Called on Android when the screen is touched.
 	 * @param input
 	 * @param position

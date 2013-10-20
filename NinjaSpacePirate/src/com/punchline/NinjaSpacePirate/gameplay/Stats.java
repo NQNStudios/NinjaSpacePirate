@@ -2,6 +2,7 @@ package com.punchline.NinjaSpacePirate.gameplay;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
@@ -106,6 +107,20 @@ public final class Stats {
 	 */
 	public static Stat getStat(String key) {
 		return stats.get(key);
+	}
+	
+	/**
+	 * @return The records map.
+	 */
+	public static Map<String, Stat> getRecords() {
+		return records;
+	}
+	
+	/**
+	 * @return The stats map.
+	 */
+	public static Map<String, Stat> getStats() {
+		return stats;
 	}
 	
 }

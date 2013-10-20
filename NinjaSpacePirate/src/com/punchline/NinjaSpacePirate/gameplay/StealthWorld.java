@@ -60,6 +60,17 @@ public class StealthWorld extends EntityWorld {
 
 	//endregion
 	
+	//region Disposal
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		
+		Stats.saveStats();
+	}
+	
+	//endregion
+	
 	//region Templates
 	
 	@Override
