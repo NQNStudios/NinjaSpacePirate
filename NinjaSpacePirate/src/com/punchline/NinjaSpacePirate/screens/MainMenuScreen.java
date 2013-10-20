@@ -20,6 +20,7 @@ public class MainMenuScreen extends MenuScreen {
 	private MenuButton learnButton;
 	private MenuButton reflectButton;
 	private MenuButton optionsButton;
+	private MenuButton creditsButton;
 	private MenuButton exitButton;
 	
 	/**
@@ -33,6 +34,7 @@ public class MainMenuScreen extends MenuScreen {
 		learnButton = new MenuButton(font, "Tutorial");
 		reflectButton = new MenuButton(font, "Stats");
 		optionsButton = new MenuButton(font, "Settings");
+		creditsButton = new MenuButton(font, "Credits");
 		exitButton = new MenuButton(font, "Exit");
 		
 		playButton.onTrigger = new ButtonCallback() {
@@ -57,7 +59,7 @@ public class MainMenuScreen extends MenuScreen {
 
 			@Override
 			public void invoke(Game game) {
-				
+				game.getScreenManager().addScreen(new StatsScreen(game));
 			}
 			
 		};
@@ -67,6 +69,15 @@ public class MainMenuScreen extends MenuScreen {
 			@Override
 			public void invoke(Game game) {
 				
+			}
+			
+		};
+		
+		creditsButton.onTrigger = new ButtonCallback() {
+
+			@Override
+			public void invoke(Game game) {
+				game.getScreenManager().addScreen(new CreditsScreen(game));
 			}
 			
 		};
@@ -84,6 +95,7 @@ public class MainMenuScreen extends MenuScreen {
 		buttons.add(learnButton);
 		buttons.add(reflectButton);
 		buttons.add(optionsButton);
+		buttons.add(creditsButton);
 		buttons.add(exitButton);
 	}
 

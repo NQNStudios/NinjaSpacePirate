@@ -10,6 +10,7 @@ public class RulesScreen extends MenuScreen {
 		
 		MenuButton rule1 = new MenuButton(font, "Tilt to move");
 		MenuButton rule2 = new MenuButton(font, "Avoid enemies");
+		MenuButton rule3 = new MenuButton(font, "");
 		MenuButton exitButton = new MenuButton(font, "Back");
 		
 		exitButton.onTrigger = new ButtonCallback() {
@@ -23,6 +24,7 @@ public class RulesScreen extends MenuScreen {
 		
 		buttons.add(rule1);
 		buttons.add(rule2);
+		buttons.add(rule3);
 		buttons.add(exitButton);
 	}
 	
