@@ -2,6 +2,7 @@ package com.punchline.NinjaSpacePirate.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
@@ -127,6 +128,19 @@ public abstract class MenuScreen extends InputScreen {
 				
 				position.y -= menuButton.getBounds().height;
 				position.y -= LINE_PADDING;
+			}
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.BACK || keycode == Keys.ESCAPE) {
+			if (!(this instanceof MainMenuScreen)) {
+				exit();
+			} else {
+				Gdx.app.exit();
 			}
 		}
 		
