@@ -47,6 +47,13 @@ public class PotionTemplate implements EntityTemplate {
 				super.onDetected(e, world);
 				
 				if (e.getTag().equals("Player")) {
+					if (e.hasComponent(PowerupProcess.class)) {
+						e.removeComponent(e.getComponent(PowerupProcess.class));
+						
+						Entity msg = world.tryGetEntity("", "", "PotionMessage");
+						if (msg != null) msg.delete();
+					}
+					
 					world.getProcessManager().attach(powerup);
 					
 					IntStat potions = (IntStat) Stats.getStat("Potions Drunk");

@@ -2,6 +2,8 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.processes;
 
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.Component;
+import com.punchline.javalib.entities.components.ComponentManager;
 import com.punchline.javalib.entities.processes.Process;
 import com.punchline.javalib.entities.processes.ProcessState;
 
@@ -10,7 +12,7 @@ import com.punchline.javalib.entities.processes.ProcessState;
  * @author Natman64
  * @created Oct 17, 2013
  */
-public abstract class PowerupProcess extends Process {
+public abstract class PowerupProcess extends Process implements Component {
 
 	private boolean firstUpdate = true;
 	private float duration;
@@ -50,6 +52,12 @@ public abstract class PowerupProcess extends Process {
 
 	}
 	
+	@Override
+	public void onAdd(ComponentManager container) { }
+
+	@Override
+	public void onRemove(ComponentManager container) { }
+
 	/** Applies the powerup effect to {@link #e}. */
 	protected abstract void startEffect(EntityWorld world);
 	

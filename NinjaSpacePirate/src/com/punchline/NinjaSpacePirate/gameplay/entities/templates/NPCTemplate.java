@@ -6,11 +6,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.EnemyCollisionHandler;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.GhostPowerup;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
-import com.punchline.javalib.entities.GenericCollisionEvents;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.View;
 import com.punchline.javalib.entities.components.physical.Body;
@@ -21,6 +22,7 @@ import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.LogManager;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * Template used to create NPCs.
@@ -75,19 +77,27 @@ public class NPCTemplate implements EntityTemplate {
 		body.setLinearVelocity(velocity);
 		e.addComponent(body);
 
-		Collidable collidable = GenericCollisionEvents.damageVictim();
+		Collidable collidable = new EnemyCollisionHandler();
 		e.addComponent(collidable);
 		
 		Health health = new Health(e, world, 5f);
 		health.deleteOnDeath = false;
 		
-		health.onDeath.addCallback("SetDeadSprite", new EventCallback() {
+		health.onDeath.addCallback(this, new EventCallback() {
 
 			@Override
 			public void invoke(Entity e, Object... args) {
 				NPCMultiRenderable sprite = (NPCMultiRenderable) e.getComponent(Renderable.class);
 				
 				sprite.die();
+				sprite.setLayer(2);
+				
+				Body body = e.getComponent(Body.class);
+				body.setLinearVelocity(new Vector2(0, 0));
+				
+				body.getBody().getFixtureList().get(0).setSensor(true);
+				
+				SoundManager.playSound("Player_Hit");
 			}
 			
 		});
@@ -106,11 +116,10 @@ public class NPCTemplate implements EntityTemplate {
 				if(e.getType().equals("Tile"))
 					LogManager.error("WeirdPool", "A tile was found instead of a NPC");
 				
-				if(ps == null)
+				if (!es.hasComponent(GhostPowerup.class) && ps == null)
 				{
-					ps= new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
-					world.getProcessManager().attach(
-							ps);
+					ps = new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
+					world.getProcessManager().attach(ps);
 				}
 
 			}

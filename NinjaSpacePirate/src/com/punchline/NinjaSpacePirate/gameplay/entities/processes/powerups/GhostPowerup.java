@@ -3,36 +3,33 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PowerupProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.render.AnimatedSprite;
 
-/**
- * Reverses control of the player.
- * @author Natman64
- * @created Oct 17, 2013
- */
-public class ReverseControlPowerup extends PowerupProcess {
+public class GhostPowerup extends PowerupProcess {
 
-	/**
-	 * Constructs a ReverseControlPowerup
-	 * @param duration
-	 * @param e
-	 */
-	public ReverseControlPowerup(float duration, Entity e) {
+	public GhostPowerup(float duration, Entity e) {
 		super(duration, e);
 	}
 
 	@Override
 	protected void startEffect(EntityWorld world) {
 		e.addComponent(this);
+		
+		AnimatedSprite sprite = e.getComponent(AnimatedSprite.class);
+		sprite.setState("Ghost", true);
 	}
 
 	@Override
 	protected void endEffect(EntityWorld world) {
 		e.removeComponent(this);
+		
+		AnimatedSprite sprite = e.getComponent(AnimatedSprite.class);
+		sprite.setState("Run", true);
 	}
 
 	@Override
 	protected String getMessage() {
-		 return "Reverse";
+		return "Ghost";
 	}
 
 }

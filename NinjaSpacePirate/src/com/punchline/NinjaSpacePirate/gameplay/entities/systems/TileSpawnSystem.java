@@ -15,6 +15,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.MidBreachRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.PotionRow;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
@@ -88,10 +89,13 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs floorDamaged1 = new TileArgs("FloorDamaged1", false);
 		TileArgs floorDamaged2 = new TileArgs("FloorDamaged2", false);
 		TileArgs floorDamaged3 = new TileArgs("FloorDamaged3", false);
+		TileArgs floorPotionPad = new TileArgs("FloorPotionPad", false);
 		
 		TileArgs whiteWallVertical = new TileArgs("WhiteWallVertical", true);
 		TileArgs whiteWallVentEast = new TileArgs("WhiteWallVentEast", true);
 		TileArgs whiteWallVentWest = new TileArgs("WhiteWallVentWest", true);
+		TileArgs whiteWallGreenLightEast = new TileArgs("WhiteWallGreenLightEast", true);
+		TileArgs whiteWallGreenLightWest = new TileArgs("WhiteWallGreenLightWest", true);
 		TileArgs whiteWallRedLightEast = new TileArgs("WhiteWallRedLightEast", true);
 		TileArgs whiteWallRedLightWest = new TileArgs("WhiteWallRedLightWest", true);
 		TileArgs whiteWallVerticalDamaged = new TileArgs("WhiteWallVerticalDamaged", true);
@@ -123,9 +127,9 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		rowTemplates.put("HallSegmentFloorVent", new TileRow(args));
 		
-		args[0] = whiteWallRedLightEast;
+		args[0] = whiteWallGreenLightEast;
 		args[3] = floor;
-		args[6] = whiteWallRedLightWest;
+		args[6] = whiteWallGreenLightWest;
 		
 		rowTemplates.put("HallSegmentWallRedLights", new TileRow(args));
 		
@@ -261,6 +265,33 @@ public class TileSpawnSystem extends EntitySystem {
 		rowTemplates.put("RightBreach6", new TileRow(args));
 		
 		//endregion
+	
+		//region Potion
+		
+		args[0] = whiteWallGreenLightEast;
+		args[1] = floorLight;
+		args[2] = floorGreen;
+		args[3] = floorGreen;
+		args[4] = floorGreen;
+		args[5] = floorLight;
+		args[6] = whiteWallGreenLightWest;
+		
+		rowTemplates.put("Potion0", new TileRow(args));
+		
+		rowTemplates.put("Potion2", new TileRow(args));
+		
+		args[0] = whiteWallVertical;
+		args[1] = floorLight;
+		args[2] = floorGreen;
+		args[3] = floorPotionPad;
+		args[4] = floorGreen;
+		args[5] = floorLight;
+		args[6] = whiteWallVertical;
+		
+		rowTemplates.put("Potion1", new PotionRow(args));
+		
+		//endregion
+		
 	}
 	
 	//endregion
@@ -286,6 +317,15 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[14] = "HallSegment";
 		
 		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 1));
+		
+		String[] potionLoc = new String[5];
+		potionLoc[0] = "HallSegment";
+		potionLoc[1] = "Potion0";
+		potionLoc[2] = "Potion1";
+		potionLoc[3] = "Potion2";
+		potionLoc[4] = "HallSegment";
+		
+		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 1));
 		
 		loc = null;
 		loc = new String[15];

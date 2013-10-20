@@ -4,19 +4,9 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PowerupProcess
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 
-/**
- * Reverses control of the player.
- * @author Natman64
- * @created Oct 17, 2013
- */
-public class ReverseControlPowerup extends PowerupProcess {
+public class InvulnPowerup extends PowerupProcess {
 
-	/**
-	 * Constructs a ReverseControlPowerup
-	 * @param duration
-	 * @param e
-	 */
-	public ReverseControlPowerup(float duration, Entity e) {
+	public InvulnPowerup(float duration, Entity e) {
 		super(duration, e);
 	}
 
@@ -32,7 +22,7 @@ public class ReverseControlPowerup extends PowerupProcess {
 
 	@Override
 	protected String getMessage() {
-		 return "Reverse";
+		return "Invincibility";
 	}
 
 }
