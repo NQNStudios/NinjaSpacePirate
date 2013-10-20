@@ -68,7 +68,7 @@ public class MainMenuScreen extends MenuScreen {
 
 			@Override
 			public void invoke(Game game) {
-				
+				game.getScreenManager().addScreen(new SettingsScreen(game));
 			}
 			
 		};
