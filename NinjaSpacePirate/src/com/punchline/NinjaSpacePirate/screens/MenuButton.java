@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Display;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * A text button that is part of a menu.
@@ -55,7 +56,12 @@ public class MenuButton {
 		Rectangle screenBounds = new Rectangle(x, y, bounds.width, bounds.height);
 		
 		if (Gdx.app.getType() != ApplicationType.Android && onTrigger != null) {
+			boolean wasSelected = selected;
 			selected = screenBounds.contains(Display.getAdjustedInput(new Vector2(Gdx.input.getX(), Gdx.input.getY())));
+			
+			if (!wasSelected && selected) {
+				SoundManager.playSound("Button_Hover");
+			}
 		}
 		
 		if (selected) {
@@ -126,6 +132,7 @@ public class MenuButton {
 		if (selected && screenBounds.contains(input)) {
 			if (onTrigger != null) {
 				onTrigger.invoke(game);
+				SoundManager.playSound("Button_Press");
 			}
 		}
 		

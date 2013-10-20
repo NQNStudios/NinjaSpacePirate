@@ -5,6 +5,7 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * Row in the middle of a hull breach, where the vacuum of space enters the ship.
@@ -34,6 +35,8 @@ public class MidBreachRow extends TileRow {
 		position.x = leftSide ? -4 : 4;
 		
 		world.createEntity("Void", ((StealthWorld) world).getPlayer(), position, FORCE);
+		
+		SoundManager.playSound("Space_Noise");
 	}
 	
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.states.InputScreen;
 import com.punchline.javalib.utils.Display;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * Base class for menu screens.
@@ -48,8 +49,8 @@ public abstract class MenuScreen extends InputScreen {
 				Display.getPreferredWidth(), Display.getPreferredHeight());
 		
 		font = new BitmapFont(
-				Gdx.files.internal("data/8BitWonder.fnt"),
-				Gdx.files.internal("data/8BitWonder.png"), false);
+				Gdx.files.internal("data/Fonts/8BitWonder.fnt"),
+				Gdx.files.internal("data/Fonts/8BitWonder.png"), false);
 	}
 	
 	@Override
@@ -108,6 +109,7 @@ public abstract class MenuScreen extends InputScreen {
 				if (menuButton.isSelected()) {
 					if (menuButton.onTrigger != null) {
 						menuButton.onTrigger.invoke(game);
+						SoundManager.playSound("Button_Press");
 					}
 				}
 			}

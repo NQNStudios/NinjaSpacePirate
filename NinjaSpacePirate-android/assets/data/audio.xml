@@ -1,0 +1,14 @@
+<Sounds>
+    
+    <Sound key="Button_Hover">data/Sounds/Button_Hover.wav</Sound>
+    <Sound key="Button_Press">data/Sounds/Button_Press.wav</Sound>
+    
+    <Sound key="Coin_Pickup">data/Sounds/Coin_Pickup.wav</Sound>
+    <Sound key="Potion_Sound">data/Sounds/Potion_Sound.wav</Sound>
+    
+    <Sound key="Player_Fall">data/Sounds/Player_Fall.wav</Sound>
+    <Sound key="Player_Hit">data/Sounds/Player_Hit.wav</Sound>
+    
+    <Sound key="Space_Noise">data/Sounds/Space_Noise.wav</Sound>
+    
+</Sounds>

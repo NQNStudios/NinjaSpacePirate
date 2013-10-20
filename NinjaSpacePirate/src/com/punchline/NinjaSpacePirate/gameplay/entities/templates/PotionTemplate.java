@@ -11,6 +11,7 @@ import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.Sprite;
 import com.punchline.javalib.entities.templates.EntityTemplate;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * Creates a potion that applies a random effect to the player.
@@ -52,6 +53,8 @@ public class PotionTemplate implements EntityTemplate {
 					potions.increment();
 					
 					owner.delete(); //remove the potion from the world
+					
+					SoundManager.playSound("Potion_Sound");
 				}
 			}
 			

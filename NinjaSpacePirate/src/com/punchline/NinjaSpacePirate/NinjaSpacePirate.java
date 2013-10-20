@@ -1,11 +1,14 @@
 package com.punchline.NinjaSpacePirate;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.screens.MainMenuScreen;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.LogManager;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * The game class.
@@ -38,7 +41,11 @@ public class NinjaSpacePirate extends Game {
 
 	@Override
 	protected void loadSounds() {
-		
+		try {
+			SoundManager.loadContent(Gdx.files.internal("data/audio.xml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

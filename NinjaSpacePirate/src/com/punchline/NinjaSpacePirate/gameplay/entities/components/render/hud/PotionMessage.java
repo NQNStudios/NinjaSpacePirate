@@ -49,8 +49,8 @@ public class PotionMessage extends Sprite {
 		this.duration = duration;
 		
 		font = new BitmapFont(
-				Gdx.files.internal("data/8BitWonder.fnt"), 
-				Gdx.files.internal("data/8BitWonder.png"), false);
+				Gdx.files.internal("data/Fonts/8BitWonder.fnt"), 
+				Gdx.files.internal("data/Fonts/8BitWonder.png"), false);
 		
 		tempProjectionMatrix = new Matrix4();
 		tempProjectionMatrix.setToOrtho2D(0, 0, Display.getPreferredWidth(), Display.getPreferredHeight());
@@ -87,7 +87,5 @@ public class PotionMessage extends Sprite {
 	public void onRemove(ComponentManager container) {
 		font.dispose();
 	}
-	
-	
 	
 }

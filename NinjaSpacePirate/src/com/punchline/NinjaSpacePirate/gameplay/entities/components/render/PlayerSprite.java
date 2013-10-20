@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.javalib.entities.components.render.AnimatedSprite;
 import com.punchline.javalib.entities.components.render.Animation;
+import com.punchline.javalib.utils.SoundManager;
 import com.punchline.javalib.utils.SpriteSheet;
 
 /**
@@ -44,6 +45,7 @@ public class PlayerSprite extends AnimatedSprite {
 			falling = true;
 			setLayer(0);
 			setState("Stationary", false);
+			SoundManager.playSound("Player_Fall");
 		} else {
 			super.setState(state, keepStateTime);
 		}

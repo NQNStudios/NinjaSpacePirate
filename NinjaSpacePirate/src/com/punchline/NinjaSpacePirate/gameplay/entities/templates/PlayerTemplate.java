@@ -16,6 +16,7 @@ import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
+import com.punchline.javalib.utils.SoundManager;
 
 /**
  * Template for creating the player entity.
@@ -61,7 +62,10 @@ public class PlayerTemplate implements EntityTemplate {
 			public void invoke(Entity e, Object... args) {
 				PlayerSprite sprite = (PlayerSprite) (e.getComponent(Renderable.class));
 				
-				if (!sprite.isFalling()) sprite.setState("Dead", false);
+				if (!sprite.isFalling()) {
+					sprite.setState("Dead", false);
+					SoundManager.playSound("Player_Hit");
+				}
 				
 				Body body = e.getComponent(Body.class);
 				body.getBody().getFixtureList().get(0).setSensor(true); //don't collide with anything now
