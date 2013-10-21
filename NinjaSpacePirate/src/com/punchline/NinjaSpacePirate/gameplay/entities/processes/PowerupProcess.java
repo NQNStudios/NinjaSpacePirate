@@ -49,7 +49,9 @@ public abstract class PowerupProcess extends Process implements Component {
 	
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
-
+		if (endState == ProcessState.ABORTED) {
+			endEffect(world);
+		}
 	}
 	
 	@Override

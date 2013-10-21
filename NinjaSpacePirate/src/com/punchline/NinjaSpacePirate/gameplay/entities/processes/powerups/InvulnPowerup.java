@@ -22,7 +22,7 @@ public class InvulnPowerup extends PowerupProcess {
 
 	@Override
 	protected String getMessage() {
-		return "Invincibility";
+		return "Strength";
 	}
 
 }

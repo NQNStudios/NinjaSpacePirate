@@ -19,6 +19,7 @@ import com.punchline.javalib.entities.components.physical.Collidable;
 import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.events.EventCallback;
+import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.LogManager;
@@ -98,6 +99,9 @@ public class NPCTemplate implements EntityTemplate {
 				body.getBody().getFixtureList().get(0).setSensor(true);
 				
 				SoundManager.playSound("Player_Hit");
+				
+				ChasePlayerProcess ps = e.getComponent(ChasePlayerProcess.class);
+				if (ps != null) ps.end(ProcessState.ABORTED);
 			}
 			
 		});
@@ -120,6 +124,7 @@ public class NPCTemplate implements EntityTemplate {
 				{
 					ps = new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
 					world.getProcessManager().attach(ps);
+
 				}
 
 			}

@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.entities.components.Component;
+import com.punchline.javalib.entities.components.ComponentManager;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
@@ -18,7 +20,7 @@ import com.punchline.javalib.utils.LogManager;
  * @author Natman64
  *
  */
-public class ChasePlayerProcess extends Process {
+public class ChasePlayerProcess extends Process implements Component {
 	private class SuccessCallback implements EventCallback {
 		
 		private ChasePlayerProcess process;
@@ -75,11 +77,11 @@ public class ChasePlayerProcess extends Process {
 			return;
 		}
 		
-		
-		
-
-		
 		if (chaser == null || player == null) return;
+		
+		if (!chaser.hasComponent(getClass())) {
+			chaser.addComponent(this);
+		}
 		
 		Transform chaserTransform = chaser.getComponent(Transform.class);
 		Transform playerTransform = player.getComponent(Transform.class);
@@ -118,6 +120,18 @@ public class ChasePlayerProcess extends Process {
 		
 		chaserHealth.onDeath.removeCallback("ChaseProcessEnd");
 		playerHealth.onDeath.removeCallback("ChaseProcessEnd");
+		
+		chaser.removeComponent(this);
+	}
+
+	@Override
+	public void onAdd(ComponentManager container) {
+		
+	}
+
+	@Override
+	public void onRemove(ComponentManager container) {
+		
 	}
 
 }

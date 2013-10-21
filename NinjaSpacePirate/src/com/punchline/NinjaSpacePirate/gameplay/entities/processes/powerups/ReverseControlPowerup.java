@@ -32,7 +32,7 @@ public class ReverseControlPowerup extends PowerupProcess {
 
 	@Override
 	protected String getMessage() {
-		 return "Reverse";
+		 return "Confusion";
 	}
 
 }

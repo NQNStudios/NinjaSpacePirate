@@ -76,6 +76,7 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	//region Rows
 	
+	@SuppressWarnings("unused")
 	private void buildRowTemplates() {
 		//region TileArgs
 		
@@ -316,7 +317,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 1));
+		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 3));
 		
 		String[] potionLoc = new String[5];
 		potionLoc[0] = "HallSegment";
@@ -347,11 +348,11 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1, 3));
 		
-		LocationTemplate pitLocation = new PitLocation();
+		LocationTemplate pitLocation = new PitLocation(2, 2);
 		
 		locationTemplates.put("PitGrate", pitLocation);
 		
-		LocationTemplate breachLocation = new HullBreachLocation();
+		LocationTemplate breachLocation = new HullBreachLocation(3, 2);
 		
 		locationTemplates.put("Breach", breachLocation);
 	}

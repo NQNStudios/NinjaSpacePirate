@@ -19,8 +19,8 @@ public class PitLocation extends LocationTemplate {
 	/**
 	 * Creates a pit location template.
 	 */
-	public PitLocation() {
-		super(null, 0, 1);
+	public PitLocation(int difficulty, int weight) {
+		super(null, difficulty, weight);
 	}
 
 	@Override
@@ -49,11 +49,6 @@ public class PitLocation extends LocationTemplate {
 		
 		return rows;
 		
-	}
-
-	@Override
-	public int getDifficulty() {
-		return 2;
 	}
 
 	@Override

@@ -22,8 +22,8 @@ public class HullBreachLocation extends LocationTemplate {
 	/**
 	 * Constructs a HullBreachLocation.
 	 */
-	public HullBreachLocation() {
-		super(null, 0, 1);
+	public HullBreachLocation(int difficulty, int weight) {
+		super(null, difficulty, weight);
 	}
 
 	@Override
@@ -51,11 +51,6 @@ public class HullBreachLocation extends LocationTemplate {
 		}
 		
 		return rows;
-	}
-	
-	@Override
-	public int getDifficulty() {
-		return 3;
 	}
 
 	@Override

@@ -26,8 +26,8 @@ public class PotionMessage extends Sprite {
 	private static final float TEXT_Y = 57;
 	
 	private static final float TIME_SCALE = 1.5f;
-	private static final float TIME_X = 375;
-	private static final float TIME_Y = 70;
+	private static final float TIME_X = 400;
+	private static final float TIME_Y = 90;
 	
 	private EntityWorld world;
 	private String message;
@@ -76,7 +76,7 @@ public class PotionMessage extends Sprite {
 		font.draw(spriteBatch, message, x, TEXT_Y);
 		
 		font.setScale(TIME_SCALE);
-		font.draw(spriteBatch, "" + (int) duration, TIME_X, TIME_Y);
+		font.draw(spriteBatch, "" + (int) duration, TIME_X - font.getBounds("" + (int) duration).width / 2, TIME_Y - font.getBounds("" + (int) duration).height / 2);
 		
 		spriteBatch.setProjectionMatrix(projectionMatrix); //return the SpriteBatch to normal
 		
