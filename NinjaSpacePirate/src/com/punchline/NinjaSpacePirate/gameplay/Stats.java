@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.punchline.NinjaSpacePirate.gameplay.stats.DistanceStat;
 import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.NinjaSpacePirate.gameplay.stats.TimeStat;
 
@@ -29,6 +30,7 @@ public final class Stats {
 	 */
 	public static void init() {
 		records.put("High Score", new IntStat(1000));
+		records.put("Farthest Run", new DistanceStat(0f));
 		
 		stats.put("Deaths", new IntStat(0));
 		stats.put("Times Seen", new IntStat(0));

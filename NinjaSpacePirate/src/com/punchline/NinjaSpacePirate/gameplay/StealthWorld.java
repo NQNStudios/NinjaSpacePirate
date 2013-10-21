@@ -37,6 +37,9 @@ public class StealthWorld extends EntityWorld {
 	/** The first y coordinate where tiles will spawn. */
 	public static final int TILE_SPAWN_Y = -6;
 	
+	/** The location the player spawns at. */
+	public static final int PLAYER_SPAWN_Y = -5;
+	
 	/** The speed of walking enemies. */
 	public static final float ENEMY_SPEED = 3f;
 	

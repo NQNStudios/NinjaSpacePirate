@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
+import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
+import com.punchline.NinjaSpacePirate.gameplay.stats.DistanceStat;
 import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
@@ -72,6 +74,12 @@ public class PlayerTemplate implements EntityTemplate {
 				
 				IntStat deaths = (IntStat) Stats.getStat("Deaths");
 				deaths.increment();
+				
+				DistanceStat dist = (DistanceStat) Stats.getRecord("Farthest Run");
+				float myDist = body.getPosition().y - StealthWorld.PLAYER_SPAWN_Y;
+				if (myDist > dist.getValue()) {
+					dist.setValue(myDist);
+				}
 				
 				Entity msg = world.tryGetEntity("", "", "PotionMessage");
 				if (msg != null) msg.delete();
