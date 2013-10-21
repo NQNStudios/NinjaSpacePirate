@@ -55,16 +55,25 @@ public abstract class PowerupProcess extends Process implements Component {
 	}
 	
 	@Override
-	public void onAdd(ComponentManager container) { }
+	public void onAdd(ComponentManager container) { 
+		if (container.hasComponent(getClass())) {
+			PowerupProcess old = container.getComponent(getClass());
+			old.end(ProcessState.ABORTED);
+		}
+	}
 
 	@Override
 	public void onRemove(ComponentManager container) { }
 
 	/** Applies the powerup effect to {@link #e}. */
-	protected abstract void startEffect(EntityWorld world);
+	protected void startEffect(EntityWorld world) {
+		e.addComponent(this);
+	}
 	
 	/** Removes the powerup effect from {@link #e}. */
-	protected abstract void endEffect(EntityWorld world);
+	protected void endEffect(EntityWorld world) {
+		e.removeComponent(this);
+	}
 
 	/** The message this powerup shows the player. */
 	protected abstract String getMessage();

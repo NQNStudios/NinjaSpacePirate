@@ -12,8 +12,8 @@ public class GhostPowerup extends PowerupProcess {
 	}
 
 	@Override
-	protected void startEffect(EntityWorld world) {
-		e.addComponent(this);
+	protected void startEffect(EntityWorld world) {		
+		super.startEffect(world);
 		
 		AnimatedSprite sprite = e.getComponent(AnimatedSprite.class);
 		sprite.setState("Ghost", true);
@@ -21,7 +21,7 @@ public class GhostPowerup extends PowerupProcess {
 
 	@Override
 	protected void endEffect(EntityWorld world) {
-		e.removeComponent(this);
+		super.endEffect(world);
 		
 		AnimatedSprite sprite = e.getComponent(AnimatedSprite.class);
 		sprite.setState("Run", true);

@@ -318,7 +318,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[13] = "HallSegment";
 		loc[14] = "HallSegment";
 		
-		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 3));
+		locationTemplates.put("HallSegment", new LocationTemplate(loc, -1, 1));
 		
 		String[] potionLoc = new String[5];
 		potionLoc[0] = "HallSegment";
@@ -327,7 +327,7 @@ public class TileSpawnSystem extends EntitySystem {
 		potionLoc[3] = "Potion2";
 		potionLoc[4] = "HallSegment";
 		
-		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 1));
+		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 3));
 		
 		loc = null;
 		loc = new String[15];

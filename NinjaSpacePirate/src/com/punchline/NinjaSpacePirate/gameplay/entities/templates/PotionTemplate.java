@@ -10,7 +10,6 @@ import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.Sprite;
-import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.SoundManager;
 
@@ -49,10 +48,7 @@ public class PotionTemplate implements EntityTemplate {
 				
 				if (e.getTag().equals("Player")) {
 					if (e.hasComponent(PowerupProcess.class)) {
-						PowerupProcess powerup = e.getComponent(PowerupProcess.class);
-						powerup.end(ProcessState.ABORTED);
-						
-						Entity msg = world.tryGetEntity("", "", "PotionMessage");
+						Entity msg = world.tryGetEntity("", "", "PotionMessage"); //delete the old message
 						if (msg != null) msg.delete();
 					}
 					
