@@ -5,11 +5,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.EnemyCollisionHandler;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.GhostPowerup;
+import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.Health;
@@ -102,6 +104,9 @@ public class NPCTemplate implements EntityTemplate {
 				
 				ChasePlayerProcess ps = e.getComponent(ChasePlayerProcess.class);
 				if (ps != null) ps.end(ProcessState.ABORTED);
+				
+				IntStat stat = (IntStat) Stats.getStat("Enemies Killed");
+				stat.increment();
 			}
 			
 		});
@@ -124,7 +129,7 @@ public class NPCTemplate implements EntityTemplate {
 				{
 					ps = new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
 					world.getProcessManager().attach(ps);
-
+					((IntStat) Stats.getStat("Times Seen")).increment();
 				}
 
 			}

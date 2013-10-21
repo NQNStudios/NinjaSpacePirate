@@ -9,7 +9,7 @@ public class RulesScreen extends MenuScreen {
 		super(game, "TUTORIAL");
 		
 		MenuButton rule1 = new MenuButton(font, "Tilt to move");
-		MenuButton rule2 = new MenuButton(font, "Avoid enemies");
+		MenuButton rule2 = new MenuButton(font, "Avoid being seen");
 		MenuButton rule3 = new MenuButton(font, "");
 		MenuButton exitButton = new MenuButton(font, "Back");
 		

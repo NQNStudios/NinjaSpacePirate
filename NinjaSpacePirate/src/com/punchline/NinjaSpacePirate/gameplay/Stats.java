@@ -31,7 +31,9 @@ public final class Stats {
 		records.put("High Score", new IntStat(1000));
 		
 		stats.put("Deaths", new IntStat(0));
+		stats.put("Times Seen", new IntStat(0));
 		stats.put("Potions Drunk", new IntStat(0));
+		stats.put("Enemies Killed", new IntStat(0));
 		stats.put("Time Played", new TimeStat(0f));
 		
 		loadStats();
