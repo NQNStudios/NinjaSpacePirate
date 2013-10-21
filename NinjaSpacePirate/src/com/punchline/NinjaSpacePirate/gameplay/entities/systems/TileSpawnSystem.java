@@ -86,6 +86,7 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs floorLight = new TileArgs("FloorLight", false);
 		TileArgs floorHole = new TileArgs("FloorHole", false);
 		TileArgs floorGreen = new TileArgs("FloorGreen", false);
+		TileArgs floorGreenBlocked = new TileArgs("FloorGreen", true);
 		TileArgs floorDamaged0 = new TileArgs("FloorDamaged0", false);
 		TileArgs floorDamaged1 = new TileArgs("FloorDamaged1", false);
 		TileArgs floorDamaged2 = new TileArgs("FloorDamaged2", false);
@@ -134,10 +135,10 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		rowTemplates.put("HallSegmentWallRedLights", new TileRow(args));
 		
-		args[0] = floorGreen;
+		args[0] = floorGreenBlocked;
 		args[1] = floor;
 		args[5] = floor;
-		args[6] = floorGreen;
+		args[6] = floorGreenBlocked;
 		
 		rowTemplates.put("HallSegmentDoors", new DoorRow(args));
 		
