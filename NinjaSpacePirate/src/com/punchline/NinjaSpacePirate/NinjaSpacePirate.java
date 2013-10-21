@@ -22,6 +22,7 @@ public class NinjaSpacePirate extends Game {
 		Convert.init(8f);
 		LogManager.init(Gdx.app);
 		Stats.init();
+		Settings.loadSettings();
 		
 		title = "Ninja Space Pirate";
 		
@@ -37,6 +38,7 @@ public class NinjaSpacePirate extends Game {
 		super.dispose();
 		
 		Stats.saveStats();
+		Settings.saveSettings();
 	}
 
 	@Override
