@@ -33,7 +33,7 @@ import com.punchline.javalib.utils.SpriteSheet;
  *
  */
 public class StealthWorld extends EntityWorld {
-
+	
 	/** The first y coordinate where tiles will spawn. */
 	public static final int TILE_SPAWN_Y = -6;
 	
@@ -44,6 +44,7 @@ public class StealthWorld extends EntityWorld {
 	public static final float ENEMY_SPEED = 3f;
 	
 	private Entity player;
+	private GameScore score = new GameScore();
 	
 	//region Initialization
 	
@@ -215,6 +216,10 @@ public class StealthWorld extends EntityWorld {
 	 */
 	public Entity getPlayer() {
 		return player;
+	}
+	
+	public GameScore getScore() {
+		return score;
 	}
 	
 	//endregion
