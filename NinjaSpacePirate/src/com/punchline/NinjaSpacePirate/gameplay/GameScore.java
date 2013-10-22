@@ -17,7 +17,6 @@ public class GameScore {
 	public int coins;
 	public int potions;
 	public int kills;
-	public int timesSeen;
 	
 	public int meterPoints() {
 		return meters * POINTS_PER_METER;
@@ -35,16 +34,11 @@ public class GameScore {
 		return kills * POINTS_PER_KILL;
 	}
 	
-	public int timesSeenPoints() {
-		return timesSeen * POINTS_PER_TIME_SEEN;
-	}
-	
 	public int totalPoints() {
 		return meterPoints()
 				+ coinPoints()
 				+ potionPoints()
-				+ killPoints()
-				+ timesSeenPoints();
+				+ killPoints();
 	}
 	
 }
