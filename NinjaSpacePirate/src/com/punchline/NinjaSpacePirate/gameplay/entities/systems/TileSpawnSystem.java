@@ -17,6 +17,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorR
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.MidBreachRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.PotionRow;
 import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.systems.EntitySystem;
 import com.punchline.javalib.utils.LogManager;
@@ -38,6 +39,8 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private static final float MIN_ROW_BUFFER = 7;
 	private static final float ROW_BUFFER_DELTA = PlayerControlSystem.SPEED_DELTA;
+	
+	private static final float COIN_SPAWN_CHANCE = 33f;
 	
 	//endregion
 	
@@ -102,6 +105,24 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs whiteWallRedLightWest = new TileArgs("WhiteWallRedLightWest", true);
 		TileArgs whiteWallVerticalDamaged = new TileArgs("WhiteWallVerticalDamaged", true);
 		
+		TileArgs floorCoin = new TileArgs("Floor", false) {
+			@Override
+			public void onCreated(EntityWorld world, float x, float y) {
+				if (r.percent(COIN_SPAWN_CHANCE)) {
+					world.createEntity("Coin", new Vector2(x, y));
+				}
+			}
+		};
+		
+		TileArgs floorDamagedCoin = new TileArgs("FloorDamaged3", false) {
+			@Override
+			public void onCreated(EntityWorld world, float x, float y) {
+				if (r.percent(COIN_SPAWN_CHANCE)) {
+					world.createEntity("Coin", new Vector2(x, y));
+				}
+			}
+		};
+		
 		//endregion
 		
 		//region Hall
@@ -136,8 +157,8 @@ public class TileSpawnSystem extends EntitySystem {
 		rowTemplates.put("HallSegmentWallRedLights", new TileRow(args));
 		
 		args[0] = floorGreenBlocked;
-		args[1] = floor;
-		args[5] = floor;
+		args[1] = floorCoin;
+		args[5] = floorCoin;
 		args[6] = floorGreenBlocked;
 		
 		rowTemplates.put("HallSegmentDoors", new DoorRow(args));
@@ -153,8 +174,6 @@ public class TileSpawnSystem extends EntitySystem {
 		args[4] = floorHole;
 		args[5] = floorHole;
 		args[6] = whiteWallVertical;
-		
-		rowTemplates.put("Pit", new TileRow(args));
 		
 		args[1] = floorGrate;
 		
@@ -202,7 +221,7 @@ public class TileSpawnSystem extends EntitySystem {
 		rowTemplates.put("LeftBreach1", new TileRow(args));
 		
 		args[1] = floorHole;
-		args[2] = floorDamaged0;
+		args[2] = floorDamagedCoin;
 		
 		rowTemplates.put("LeftBreach2", new TileRow(args));
 		
@@ -243,7 +262,7 @@ public class TileSpawnSystem extends EntitySystem {
 		rowTemplates.put("RightBreach1", new TileRow(args));
 		
 		args[5] = floorHole;
-		args[4] = floorDamaged0;
+		args[4] = floorDamagedCoin;
 		
 		rowTemplates.put("RightBreach2", new TileRow(args));
 		

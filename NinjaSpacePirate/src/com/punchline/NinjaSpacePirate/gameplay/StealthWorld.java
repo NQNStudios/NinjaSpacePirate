@@ -128,7 +128,6 @@ public class StealthWorld extends EntityWorld {
 	@Override
 	protected void buildEntities() {
 		player = createEntity("Player");
-		createEntity("Coin", new Vector2());
 	}
 	
 	//endregion
