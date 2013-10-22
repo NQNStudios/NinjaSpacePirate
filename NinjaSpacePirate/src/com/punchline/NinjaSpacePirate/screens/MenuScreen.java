@@ -35,6 +35,12 @@ public abstract class MenuScreen extends InputScreen {
 	/** This menu's buttons. */
 	protected Array<MenuButton> buttons = new Array<MenuButton>();
 	
+	protected float titleY = 3 * Display.getPreferredHeight() / 4;
+	protected float buttonY = Display.getPreferredHeight() / 2;
+	
+	protected float titleScale = 1f;
+	protected float buttonScale = 1f;
+	
 	/**
 	 * Constructor for MenuScreen
 	 * @param game
@@ -61,16 +67,18 @@ public abstract class MenuScreen extends InputScreen {
 	
 	@Override
 	public void render(float delta) {
-		Vector2 position = new Vector2(Display.getPreferredWidth() / 2, Display.getPreferredHeight() / 2);
+		Vector2 position = new Vector2(Display.getPreferredWidth() / 2, buttonY);
 		
 		spriteBatch.begin();
 		
 		float x = Display.getPreferredWidth() / 2;
-		float y = 3 * Display.getPreferredHeight() / 4;
+		float y = titleY;
 		
 		TextBounds bounds = font.getBounds(title);
 		
 		font.draw(spriteBatch, title, x - bounds.width / 2, y - bounds.height / 2);
+		
+		font.setScale(buttonScale);
 		
 		for (MenuButton button : buttons) {
 			button.draw(spriteBatch, position);
@@ -78,6 +86,8 @@ public abstract class MenuScreen extends InputScreen {
 			position.y -= button.getBounds().height;
 			position.y -= LINE_PADDING;
 		}
+		
+		font.setScale(titleScale);
 		
 		spriteBatch.end();
 	}
@@ -95,8 +105,9 @@ public abstract class MenuScreen extends InputScreen {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Vector2 pos = Display.getAdjustedInput(new Vector2(screenX, screenY));
 		
+		font.setScale(buttonScale);
 		if (Gdx.app.getType() == ApplicationType.Android) {
-			Vector2 position = new Vector2(Display.getPreferredWidth() / 2, Display.getPreferredHeight() / 2);
+			Vector2 position = new Vector2(Display.getPreferredWidth() / 2, buttonY);
 			
 			for (MenuButton menuButton : buttons) {
 				menuButton.touchDown(pos, position);
@@ -114,6 +125,7 @@ public abstract class MenuScreen extends InputScreen {
 				}
 			}
 		}
+		font.setScale(titleScale);
 		
 		return true;
 	}
@@ -122,6 +134,7 @@ public abstract class MenuScreen extends InputScreen {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Vector2 pos = Display.getAdjustedInput(new Vector2(screenX, screenY));
 		
+		font.setScale(buttonScale);
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			Vector2 position = new Vector2(Display.getPreferredWidth() / 2, Display.getPreferredHeight() / 2);
 			
@@ -132,6 +145,7 @@ public abstract class MenuScreen extends InputScreen {
 				position.y -= LINE_PADDING;
 			}
 		}
+		font.setScale(titleScale);
 		
 		return true;
 	}

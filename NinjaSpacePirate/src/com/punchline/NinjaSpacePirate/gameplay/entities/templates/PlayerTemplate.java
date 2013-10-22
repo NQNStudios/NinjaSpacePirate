@@ -31,7 +31,7 @@ import com.punchline.javalib.utils.SoundManager;
  */
 public class PlayerTemplate implements EntityTemplate {
 
-	private static final float POST_DEATH_TIME = 3f;
+	private static final float POST_DEATH_TIME = 1f;
 	
 	//Body constants
 	private static final float BODY_RADIUS = Convert.pixelsToMeters(3.5f);

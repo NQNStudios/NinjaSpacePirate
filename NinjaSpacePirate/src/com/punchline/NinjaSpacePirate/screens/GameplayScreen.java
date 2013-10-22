@@ -3,8 +3,11 @@ package com.punchline.NinjaSpacePirate.screens;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.punchline.NinjaSpacePirate.gameplay.StealthGameOverInfo;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.javalib.Game;
+import com.punchline.javalib.entities.Entity;
+import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.states.InputScreen;
 
 /**
@@ -33,9 +36,10 @@ public class GameplayScreen extends InputScreen {
 		world.process();
 		
 		if (world.isGameOver()) {
-			//StealthGameOverInfo info = (StealthGameOverInfo) world.getGameOverInfo();
+			StealthGameOverInfo info = (StealthGameOverInfo) world.getGameOverInfo();
 			
-			//TODO Process the game over
+			exit();
+			game.getScreenManager().addScreen(new GameOverScreen(game, info.score));
 		}
 	}
 
@@ -76,7 +80,12 @@ public class GameplayScreen extends InputScreen {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-			game.getScreenManager().addScreen(new PauseScreen(game));
+			Entity player = world.getPlayer();
+			Health health = player.getComponent(Health.class);
+				
+			if (!health.isEmpty()) {
+				game.getScreenManager().addScreen(new PauseScreen(game));
+			}
 		}
 		
 		return true;
