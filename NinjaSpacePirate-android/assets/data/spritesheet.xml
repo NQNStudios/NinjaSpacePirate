@@ -40,4 +40,5 @@
 	<rect key="View">96, 236, 20, 15</rect>
 	
 	<rect key="Potion">1, 235, 8, 8</rect>
+	<rect key="Coin">46, 91, 7, 7</rect>
 </SpriteSheet>

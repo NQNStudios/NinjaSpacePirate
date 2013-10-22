@@ -11,6 +11,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.NPCAnimationSyst
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PitBlockingSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.TileSpawnSystem;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.CoinTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.HudWarningTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
@@ -96,6 +97,7 @@ public class StealthWorld extends EntityWorld {
 		
 		//Items
 		addTemplate("Potion", new PotionTemplate());
+		addTemplate("Coin", new CoinTemplate());
 	}
 	
 	//endregion
@@ -126,6 +128,7 @@ public class StealthWorld extends EntityWorld {
 	@Override
 	protected void buildEntities() {
 		player = createEntity("Player");
+		createEntity("Coin", new Vector2());
 	}
 	
 	//endregion

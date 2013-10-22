@@ -34,6 +34,7 @@ public final class Stats {
 		
 		stats.put("Deaths", new IntStat(0));
 		stats.put("Times Seen", new IntStat(0));
+		stats.put("Coins Collected", new IntStat(0));
 		stats.put("Potions Drunk", new IntStat(0));
 		stats.put("Enemies Killed", new IntStat(0));
 		stats.put("Time Played", new TimeStat(0f));
