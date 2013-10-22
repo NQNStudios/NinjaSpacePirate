@@ -37,6 +37,8 @@ public class PlayerControlSystem extends InputSystem {
 	private static final float VERTICAL_TILT_MIN = -3f;
 	private static final float VERTICAL_TILT_MAX = 3f;
 	
+	private static final float START_SPEED = 3f;
+	
 	private boolean speedLock;
 	private boolean wasSpeedLock;
 	
@@ -50,7 +52,7 @@ public class PlayerControlSystem extends InputSystem {
 	private float verticalTilt = 0f;
 	
 	/** The player's normal running speed. */
-	public static float movementSpeed = 3f;
+	public static float movementSpeed = START_SPEED;
 	
 	/** Whether the game is currently taking input. */
 	public boolean inputEnabled = true;
@@ -63,6 +65,7 @@ public class PlayerControlSystem extends InputSystem {
 		super(input);
 		
 		tiltThresholdX = 0f;
+		movementSpeed = START_SPEED;
 	}
 
 	@Override
