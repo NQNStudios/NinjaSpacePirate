@@ -45,6 +45,7 @@ public class SettingsScreen extends MenuScreen {
 		
 		buttons.add(soundButton);
 		buttons.add(musicButton);
+		buttons.add(new MenuButton(font, ""));
 		buttons.add(exitButton);
 	}
 
