@@ -2,7 +2,9 @@ package com.punchline.NinjaSpacePirate.gameplay.entities.templates;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.punchline.NinjaSpacePirate.gameplay.GameScore;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
+import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PowerupProcess;
 import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
@@ -53,6 +55,9 @@ public class PotionTemplate implements EntityTemplate {
 					}
 					
 					world.getProcessManager().attach(powerup);
+					
+					GameScore score = ((StealthWorld) world).getScore();
+					score.potions++;
 					
 					IntStat potions = (IntStat) Stats.getStat("Potions Drunk");
 					potions.increment();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.punchline.NinjaSpacePirate.gameplay.GameScore;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.EnemyCollisionHandler;
@@ -107,6 +108,10 @@ public class NPCTemplate implements EntityTemplate {
 				
 				IntStat stat = (IntStat) Stats.getStat("Enemies Killed");
 				stat.increment();
+				
+				StealthWorld world = (StealthWorld) args[0];
+				GameScore score = world.getScore();
+				score.kills++;
 			}
 			
 		});
