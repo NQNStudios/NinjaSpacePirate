@@ -80,5 +80,25 @@ public class StatsScreen extends MenuScreen {
 		
 		spriteBatch.end();
 	}
+
+	
+	
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		font.setScale(0.6f);
+		boolean result = super.touchDown(screenX, screenY, pointer, button);
+		font.setScale(1f);
+		return result;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		font.setScale(0.6f);
+		boolean result = super.touchUp(screenX, screenY, pointer, button);
+		font.setScale(1f);
+		return result;
+	}
+	
+	
 	
 }
