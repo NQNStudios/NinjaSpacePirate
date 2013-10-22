@@ -9,4 +9,10 @@ import com.punchline.javalib.entities.GameOverInfo;
  */
 public class StealthGameOverInfo extends GameOverInfo {
 	
+	public GameScore score;
+	
+	public StealthGameOverInfo(GameScore score) {
+		this.score = score;
+	}
+	
 }
