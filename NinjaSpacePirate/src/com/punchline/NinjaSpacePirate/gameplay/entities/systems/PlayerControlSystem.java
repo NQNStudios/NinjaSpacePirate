@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.PlayerSprite;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.ReverseControlPowerup;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.SicknessPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.SpeedLockPowerup;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.components.physical.Velocity;
@@ -158,6 +159,12 @@ public class PlayerControlSystem extends InputSystem {
 		//set entity velocity
 		if (reversed) {
 			xVelocity = -xVelocity;
+		}
+		
+		if (e.hasComponent(SicknessPowerup.class)) {
+			SicknessPowerup p = e.getComponent(SicknessPowerup.class);
+			
+			xVelocity = (float) (Math.sin(p.elapsed * 5) * MAX_HORIZONTAL_SPEED);
 		}
 		
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));

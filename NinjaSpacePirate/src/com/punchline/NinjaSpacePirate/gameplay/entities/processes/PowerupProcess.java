@@ -56,10 +56,7 @@ public abstract class PowerupProcess extends Process implements Component {
 	
 	@Override
 	public void onAdd(ComponentManager container) { 
-		if (container.hasComponent(getClass())) {
-			PowerupProcess old = container.getComponent(getClass());
-			old.end(ProcessState.ABORTED);
-		}
+
 	}
 
 	@Override

@@ -6,12 +6,14 @@ import com.punchline.NinjaSpacePirate.gameplay.GameScore;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.PowerupProcess;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.SicknessPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.generic.TriggerZone;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.render.Sprite;
+import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.SoundManager;
 
@@ -48,23 +50,28 @@ public class PotionTemplate implements EntityTemplate {
 			public void onDetected(Entity e, EntityWorld world) {
 				super.onDetected(e, world);
 				
+				GameScore score = ((StealthWorld) world).getScore();
+				score.potions++;
+				
+				IntStat potions = (IntStat) Stats.getStat("Potions Drunk");
+				potions.increment();
+				
+				owner.delete(); //remove the potion from the world
+				
+				SoundManager.playSound("Potion_Sound");
+				
 				if (e.getTag().equals("Player")) {
 					if (e.hasComponent(PowerupProcess.class)) {
 						Entity msg = world.tryGetEntity("", "", "PotionMessage"); //delete the old message
 						if (msg != null) msg.delete();
+						
+						PowerupProcess p = e.getComponent(PowerupProcess.class);
+						p.end(ProcessState.ABORTED);
+						world.getProcessManager().attach(new SicknessPowerup(3, e));
+						return;
 					}
 					
 					world.getProcessManager().attach(powerup);
-					
-					GameScore score = ((StealthWorld) world).getScore();
-					score.potions++;
-					
-					IntStat potions = (IntStat) Stats.getStat("Potions Drunk");
-					potions.increment();
-					
-					owner.delete(); //remove the potion from the world
-					
-					SoundManager.playSound("Potion_Sound");
 				}
 			}
 			

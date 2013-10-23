@@ -346,7 +346,7 @@ public class TileSpawnSystem extends EntitySystem {
 		potionLoc[3] = "Potion2";
 		potionLoc[4] = "HallSegment";
 		
-		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 3));
+		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 1));
 		
 		loc = null;
 		loc = new String[15];
