@@ -22,13 +22,14 @@ public class NinjaSpacePirate extends Game {
 		Convert.init(8f);
 		LogManager.init(Gdx.app);
 		Stats.init();
-		Settings.loadSettings();
 		
 		title = "Ninja Space Pirate";
 		
 		landscapeMode = false;
 		
 		super.create();
+		
+		Settings.loadSettings();
 		
 		getScreenManager().addScreen(new MainMenuScreen(this));
 	}
