@@ -27,6 +27,7 @@ public class GameOverScreen extends MenuScreen {
 	private float delay;
 	
 	private int currentStat = PRE_COUNT;
+	private int currentMax;
 	
 	private GameScore score;
 	
@@ -97,7 +98,6 @@ public class GameOverScreen extends MenuScreen {
 			elapsedTime += delta;
 		}
 		
-		int currentMax;
 		String partString = "";
 		int amount = 0;
 		int mod = 0;
@@ -198,6 +198,9 @@ public class GameOverScreen extends MenuScreen {
 		//start the next count
 		if (currentStat < 4) {
 			currentStat++;
+			
+			totalCount += currentMax - currentCount;
+			
 			currentCount = 0;
 			SoundManager.playSound("Button_Press");
 			delay = 0f;
