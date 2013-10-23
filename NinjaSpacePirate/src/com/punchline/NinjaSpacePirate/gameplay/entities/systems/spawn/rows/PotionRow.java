@@ -44,7 +44,7 @@ public class PotionRow extends TileRow {
 			return new SpeedLockPowerup(5, e);
 			
 		case 2:
-			return new GhostPowerup(10, e);
+			return new GhostPowerup(5, e);
 			
 		case 3:
 			return new InvulnPowerup(10, e);
