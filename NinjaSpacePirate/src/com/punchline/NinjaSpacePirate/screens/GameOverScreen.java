@@ -11,6 +11,7 @@ import com.punchline.javalib.utils.SoundManager;
 public class GameOverScreen extends MenuScreen {
 
 	private static final float TIME_PER_NUMBER = 0.005f;
+	private static final float STAT_DELAY = 0.5f;
 	
 	private static final int PRE_COUNT = -1;
 	private static final int METERS = 0;
@@ -22,6 +23,8 @@ public class GameOverScreen extends MenuScreen {
 	private float elapsedTime = 0f;
 	private int currentCount = 0;
 	private int totalCount = 0;
+	
+	private float delay;
 	
 	private int currentStat = PRE_COUNT;
 	
@@ -90,7 +93,9 @@ public class GameOverScreen extends MenuScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
-		elapsedTime += delta;
+		if (delay == 0f) {
+			elapsedTime += delta;
+		}
 		
 		int currentMax;
 		String partString = "";
@@ -157,18 +162,30 @@ public class GameOverScreen extends MenuScreen {
 		while (elapsedTime >= TIME_PER_NUMBER && currentCount < currentMax) {
 			currentCount++;
 			totalCount++;
-			scoreParts[currentStat].setText(partString + ": " + amount + " x " + mod);
 			
 			SoundManager.playSound("Button_Hover");
 			
 			elapsedTime -= TIME_PER_NUMBER;
 		}
 		
-		if (currentCount >= currentMax) {
-			//start the next count
-			currentStat++;
-			currentCount = 0;
-			SoundManager.playSound("Button_Press");
+		if (currentStat >= 0) {
+			scoreParts[currentStat].setText(partString + ": " + amount + " x " + mod);
+		}
+		
+		if (currentCount >= currentMax && delay == 0f) {
+			delay = STAT_DELAY;
+		}
+		
+		if (delay > 0) {
+			delay -= delta;
+			
+			if (delay <= 0 && currentCount == currentMax) {
+				//start the next count
+				currentStat++;
+				currentCount = 0;
+				SoundManager.playSound("Button_Press");
+				delay = 0f;
+			}
 		}
 		
 		scoreCount.setText("Points: " + totalCount);
@@ -178,7 +195,14 @@ public class GameOverScreen extends MenuScreen {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		super.touchDown(screenX, screenY, pointer, button);
 		
-		skipCurrentStat = true;
+		//start the next count
+		if (currentStat < 4) {
+			currentStat++;
+			currentCount = 0;
+			SoundManager.playSound("Button_Press");
+			delay = 0f;
+		}
+		
 		return true;
 	}
 	
