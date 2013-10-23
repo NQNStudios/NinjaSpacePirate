@@ -169,6 +169,8 @@ public class PlayerControlSystem extends InputSystem {
 		
 		v.setLinearVelocity(new Vector2(xVelocity, yVelocity));
 		
+		sprite.timeCoefficient = yVelocity / movementSpeed / 2f;
+		
 		wasSpeedLock = speedLock;
 	}
 
