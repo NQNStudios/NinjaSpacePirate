@@ -20,6 +20,8 @@ public class PlayerSprite extends AnimatedSprite {
 	private float scaleY = 1f;
 	private boolean falling = false;
 	
+	public float timeCoefficient = 1f;
+	
 	/**
 	 * Creates a player sprite.
 	 * @param spriteSheet The game sprite sheet.
@@ -71,7 +73,7 @@ public class PlayerSprite extends AnimatedSprite {
 			setScale(scaleX - SCALE_DELTA, scaleY - SCALE_DELTA);
 		}
 		
-		super.draw(spriteBatch, deltaSeconds);
+		super.draw(spriteBatch, deltaSeconds * timeCoefficient);
 	}
 
 }
