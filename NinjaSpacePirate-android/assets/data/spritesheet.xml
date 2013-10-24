@@ -15,8 +15,9 @@
 	<rect key="FloorVent">10, 154, 8, 8</rect>
 	<rect key="FloorGrate">19, 154, 8, 8</rect>
 	<rect key="FloorLight">28, 154, 8, 8</rect>
-	<rect key="FloorHole">1, 172, 8, 8</rect>
+	<rect key="FloorHole">19, 172, 8, 8</rect>
 	<rect key="FloorGreen">37, 154, 8, 8</rect>
+	<rect key="FloorGreenDoor">1, 172, 8, 8</rect>
 	<rect key="FloorDamaged0">73, 154, 8, 8</rect>
 	<rect key="FloorDamaged1">82, 154, 8, 8</rect>
 	<rect key="FloorDamaged2">91, 154, 8, 8</rect>

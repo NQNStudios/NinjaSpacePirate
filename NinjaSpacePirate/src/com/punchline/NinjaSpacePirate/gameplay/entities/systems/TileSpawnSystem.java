@@ -11,6 +11,7 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.GuardPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.HullBreachLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
@@ -79,7 +80,6 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	//region Rows
 	
-	@SuppressWarnings("unused")
 	private void buildRowTemplates() {
 		//region TileArgs
 		
@@ -90,11 +90,30 @@ public class TileSpawnSystem extends EntitySystem {
 		TileArgs floorHole = new TileArgs("FloorHole", false);
 		TileArgs floorGreen = new TileArgs("FloorGreen", false);
 		TileArgs floorGreenBlocked = new TileArgs("FloorGreen", true);
+		TileArgs floorGreenDoor = new TileArgs("FloorGreenDoor", true);
 		TileArgs floorDamaged0 = new TileArgs("FloorDamaged0", false);
 		TileArgs floorDamaged1 = new TileArgs("FloorDamaged1", false);
 		TileArgs floorDamaged2 = new TileArgs("FloorDamaged2", false);
 		TileArgs floorDamaged3 = new TileArgs("FloorDamaged3", false);
 		TileArgs floorPotionPad = new TileArgs("FloorPotionPad", false);
+		
+		TileArgs floorGuardRight = new TileArgs("Floor", false) {
+
+			@Override
+			public void onCreated(EntityWorld world, float x, float y) {
+				world.createEntity("NPC", "whiteSuitMan", new Vector2(x, y), "", "Enemies", "Guard", 0f);
+			}
+			
+		};
+		
+		TileArgs floorGuardLeft = new TileArgs("Floor", false) {
+
+			@Override
+			public void onCreated(EntityWorld world, float x, float y) {
+				world.createEntity("NPC", "whiteSuitMan", new Vector2(x, y), "", "Enemies", "Guard", (float) Math.toRadians(180));
+			}
+			
+		};
 		
 		TileArgs whiteWallVertical = new TileArgs("WhiteWallVertical", true);
 		TileArgs whiteWallVentEast = new TileArgs("WhiteWallVentEast", true);
@@ -287,6 +306,44 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		//endregion
 	
+		//region Guard Posts
+		
+		args[0] = whiteWallRedLightEast;
+		args[1] = floorLight;
+		args[2] = floor;
+		args[3] = floor;
+		args[4] = floor;
+		args[5] = floorLight;
+		args[6] = whiteWallVertical;
+		
+		rowTemplates.put("LeftGuardPost0", new TileRow(args));
+		rowTemplates.put("LeftGuardPost2", new TileRow(args));
+		
+		args[0] = floorGreenDoor;
+		args[1] = floorCoin;
+		args[2] = floorGuardRight;
+		
+		rowTemplates.put("LeftGuardPost1", new TileRow(args));
+		
+		args[0] = whiteWallVertical;
+		args[1] = floorLight;
+		args[2] = floor;
+		args[3] = floor;
+		args[4] = floor;
+		args[5] = floorLight;
+		args[6] = whiteWallRedLightWest;
+		
+		rowTemplates.put("RightGuardPost0", new TileRow(args));
+		rowTemplates.put("RightGuardPost2", new TileRow(args));
+		
+		args[4] = floorGuardLeft;
+		args[5] = floorCoin;
+		args[6] = floorGreenDoor;
+		
+		rowTemplates.put("RightGuardPost1", new TileRow(args));
+		
+		//endregion
+		
 		//region Potion
 		
 		args[0] = whiteWallGreenLightEast;
@@ -367,6 +424,8 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[14] = "HallSegment";
 		
 		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1, 3));
+		
+		locationTemplates.put("GuardPost", new GuardPostLocation(1, 2));
 		
 		LocationTemplate pitLocation = new PitLocation(2, 2);
 		

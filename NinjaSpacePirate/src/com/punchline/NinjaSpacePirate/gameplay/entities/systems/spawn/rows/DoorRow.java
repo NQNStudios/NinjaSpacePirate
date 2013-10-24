@@ -40,7 +40,7 @@ public class DoorRow extends TileRow {
 			velocity.x = -StealthWorld.ENEMY_SPEED;
 		}
 		
-		world.createEntity("EnemySpawner", "whiteSuitMan", position, "", "Enemies", "Patroller", velocity);
+		world.createEntity("EnemySpawner", "redSuitMan", position, "", "Enemies", "Patroller", velocity);
 	}
 	
 }
