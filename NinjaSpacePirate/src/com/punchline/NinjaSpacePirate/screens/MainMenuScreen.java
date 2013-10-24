@@ -2,7 +2,6 @@ package com.punchline.NinjaSpacePirate.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
-import com.punchline.NinjaSpacePirate.Settings;
 import com.punchline.NinjaSpacePirate.screens.MenuButton.ButtonCallback;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Display;
