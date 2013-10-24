@@ -63,7 +63,7 @@ public class TileTemplate implements EntityTemplate {
 			Body body = new Body(world, e, BodyType.StaticBody, boxShape, position);
 			e.addComponent(body);
 			
-			if (spriteKey.equals("FloorGreen")) {
+			if (spriteKey.equals("FloorGreen") || spriteKey.equals("FloorGreenDoor")) {
 				sprite.setLayer(NORMAL_TILE_LAYER);
 				Collidable c = new Collidable() {
 	

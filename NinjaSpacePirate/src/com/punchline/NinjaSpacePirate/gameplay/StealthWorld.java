@@ -15,6 +15,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.templates.CoinTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.HudWarningTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCSpawnerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.NPCTemplate;
+import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PatrollerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PitTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PlayerTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.templates.PotionMessageTemplate;
@@ -94,6 +95,7 @@ public class StealthWorld extends EntityWorld {
 		//Characters
 		addTemplate("Player", new PlayerTemplate());
 		addTemplate("NPC", new NPCTemplate());
+		addTemplate("Patroller", new PatrollerTemplate());
 		
 		//Items
 		addTemplate("Potion", new PotionTemplate());

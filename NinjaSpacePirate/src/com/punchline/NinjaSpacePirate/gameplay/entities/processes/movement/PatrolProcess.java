@@ -18,7 +18,6 @@ public class PatrolProcess extends MovementProcess {
 	/** Entities will be considered as having reached a patrol point if they come within this many meters. */
 	private static final float ERROR_TOLERANCE = 0.06f;
 	
-	private Entity patroller;
 	private float patrolSpeed;
 	
 	private int nextPoint = 0;
@@ -40,12 +39,16 @@ public class PatrolProcess extends MovementProcess {
 	
 	@Override
 	public void update(EntityWorld world, float deltaTime) {
-		if (missingComponents(patroller)) {
+		if (missingComponents(e)) {
 			throw new IllegalArgumentException("Cannot run PatrolProcess - entity is missing either a transform or velocity component.");
 		}
 		
-		Transform t = patroller.getComponent(Transform.class);
-		Velocity v = patroller.getComponent(Velocity.class);
+		if (!e.getType().equals("Patroller")) {
+			throw new IllegalArgumentException("Cannot run PatrolProcess - entity is not a patroller");
+		}
+		
+		Transform t = e.getComponent(Transform.class);
+		Velocity v = e.getComponent(Velocity.class);
 		
 		Vector2 destination = patrolPoints.get(nextPoint);
 		

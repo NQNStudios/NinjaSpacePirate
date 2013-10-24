@@ -14,9 +14,11 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.DualGuardPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.GuardPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.HullBreachLocation;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PatrolPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.MidBreachRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.PatrollerRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.PotionRow;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
@@ -383,6 +385,14 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		rowTemplates.put("DualGuardPost1", new TileRow(args));
 		
+		args[0] = floorGreenDoor;
+		args[1] = floor;
+		args[3] = floorCoin;
+		args[5] = floor;
+		args[6] = floorGreenDoor;
+		
+		rowTemplates.put("PatrolPost1", new PatrollerRow(args));
+		
 		//endregion
 		
 		//endregion
@@ -470,6 +480,7 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		locationTemplates.put("GuardPost", new GuardPostLocation(2, 2));
 		locationTemplates.put("DualGuardPost", new DualGuardPostLocation(4, 2));
+		locationTemplates.put("Patroller", new PatrolPostLocation(1, 2));
 		
 		LocationTemplate pitLocation = new PitLocation(1, 2);
 		
