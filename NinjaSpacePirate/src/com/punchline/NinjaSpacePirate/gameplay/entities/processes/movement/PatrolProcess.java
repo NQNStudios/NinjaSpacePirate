@@ -1,20 +1,19 @@
-package com.punchline.NinjaSpacePirate.gameplay.entities.processes;
+package com.punchline.NinjaSpacePirate.gameplay.entities.processes.movement;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.MovementProcess;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
-import com.punchline.javalib.entities.processes.Process;
-import com.punchline.javalib.entities.processes.ProcessState;
 
 /**
  * Process that makes an Entity continually patrol between a list of points.
  * @author Natman64
  *
  */
-public class PatrolProcess extends Process {
+public class PatrolProcess extends MovementProcess {
 
 	/** Entities will be considered as having reached a patrol point if they come within this many meters. */
 	private static final float ERROR_TOLERANCE = 0.06f;
@@ -25,14 +24,8 @@ public class PatrolProcess extends Process {
 	private int nextPoint = 0;
 	private Array<Vector2> patrolPoints = new Array<Vector2>();
 	
-	/**
-	 * Constructs a PatrolProcess.
-	 * @param patroller The entity patrolling.
-	 * @param patrolSpeed The speed of patrol.
-	 * @param patrolPoints The points the Entity should patrol between, in order.
-	 */
-	public PatrolProcess(Entity patroller, float patrolSpeed, Vector2... patrolPoints) {
-		this.patroller = patroller;
+	public PatrolProcess(EntityWorld world, Entity patroller, float patrolSpeed, Vector2... patrolPoints) {
+		super(world, patroller);
 		
 		if (missingComponents(patroller)) {
 			throw new IllegalArgumentException("Tried to attach a patrol process to an entity without either a transform or velocity component.");
@@ -68,10 +61,6 @@ public class PatrolProcess extends Process {
 		
 		t.setRotation((float) Math.toRadians(velocity.angle()));
 		
-	}
-	
-	@Override
-	public void onEnd(EntityWorld world, ProcessState endState) {
 	}
 
 	private boolean missingComponents(Entity e) {

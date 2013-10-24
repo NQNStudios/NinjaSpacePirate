@@ -11,6 +11,7 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.LocationTemplate;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.DualGuardPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.GuardPostLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.HullBreachLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
@@ -35,7 +36,6 @@ public class TileSpawnSystem extends EntitySystem {
 	
 	private static final float ROW_SPAWN_DISTANCE = 12f;
 	
-	private static final float MAX_DIFFICULTY = 5;
 	private static final int DIFFICULTY_RANGE = 5;
 	
 	private static final float MIN_ROW_BUFFER = 7;
@@ -59,6 +59,7 @@ public class TileSpawnSystem extends EntitySystem {
 	private float difficulty = 0;
 	
 	private Array<String> availableLocations = new Array<String>();
+	private int highestDifficulty = 0;
 	
 	private Entity player;
 	
@@ -72,6 +73,17 @@ public class TileSpawnSystem extends EntitySystem {
 	public TileSpawnSystem() {
 		buildRowTemplates();
 		buildLocationTemplates();
+		
+		//find out how far difficulty can go
+		Iterator<Entry<String, LocationTemplate>> it = locationTemplates.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, LocationTemplate> entry = it.next();
+			
+			int difficulty = entry.getValue().getDifficulty();
+			if (difficulty > highestDifficulty) {
+				highestDifficulty = difficulty;
+			}
+		}
 		
 		queueSpawnLocation("HallSegment");
 	}
@@ -308,6 +320,8 @@ public class TileSpawnSystem extends EntitySystem {
 	
 		//region Guard Posts
 		
+		//region Left
+		
 		args[0] = whiteWallRedLightEast;
 		args[1] = floorLight;
 		args[2] = floor;
@@ -325,6 +339,10 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		rowTemplates.put("LeftGuardPost1", new TileRow(args));
 		
+		//endregion
+		
+		//region Right
+		
 		args[0] = whiteWallVertical;
 		args[1] = floorLight;
 		args[2] = floor;
@@ -341,6 +359,31 @@ public class TileSpawnSystem extends EntitySystem {
 		args[6] = floorGreenDoor;
 		
 		rowTemplates.put("RightGuardPost1", new TileRow(args));
+		
+		//endregion
+		
+		//region Both
+		
+		args[0] = whiteWallRedLightWest;
+		args[1] = floorLight;
+		args[2] = floor;
+		args[3] = floor;
+		args[4] = floor;
+		args[5] = floorLight;
+		args[6] = whiteWallRedLightWest;
+		
+		rowTemplates.put("DualGuardPost0", new TileRow(args));
+		rowTemplates.put("DualGuardPost2", new TileRow(args));
+		
+		args[0] = floorGreenDoor;
+		args[1] = floorGuardRight;
+		args[3] = floorCoin;
+		args[5] = floorGuardLeft;
+		args[6] = floorGreenDoor;
+		
+		rowTemplates.put("DualGuardPost1", new TileRow(args));
+		
+		//endregion
 		
 		//endregion
 		
@@ -425,9 +468,10 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		locationTemplates.put("HallSegmentDoors", new LocationTemplate(loc, 1, 3));
 		
-		locationTemplates.put("GuardPost", new GuardPostLocation(1, 2));
+		locationTemplates.put("GuardPost", new GuardPostLocation(2, 2));
+		locationTemplates.put("DualGuardPost", new DualGuardPostLocation(4, 2));
 		
-		LocationTemplate pitLocation = new PitLocation(2, 2);
+		LocationTemplate pitLocation = new PitLocation(1, 2);
 		
 		locationTemplates.put("PitGrate", pitLocation);
 		
@@ -477,7 +521,7 @@ public class TileSpawnSystem extends EntitySystem {
 		if (oldDifficulty == 0) oldDifficulty = -1;
 		difficulty = (totalElapsedTime + 30f) / 30f; //add the extra count to avoid 0 casting.
 		
-		if (difficulty > MAX_DIFFICULTY) difficulty = MAX_DIFFICULTY;
+		if (difficulty > highestDifficulty) difficulty = highestDifficulty;
 		
 		if ((int) difficulty - oldDifficulty >= 1) {
 			Iterator<Entry<String, LocationTemplate>> it = locationTemplates.entrySet().iterator();

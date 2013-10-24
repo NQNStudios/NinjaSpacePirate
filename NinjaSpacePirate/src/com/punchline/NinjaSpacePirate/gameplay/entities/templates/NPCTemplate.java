@@ -11,6 +11,7 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.EnemyCollisionHandler;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.MovementProcess;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.GhostPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.stats.IntStat;
 import com.punchline.javalib.entities.Entity;
@@ -25,7 +26,6 @@ import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.entities.templates.EntityTemplate;
 import com.punchline.javalib.utils.Convert;
-import com.punchline.javalib.utils.LogManager;
 import com.punchline.javalib.utils.SoundManager;
 
 /**
@@ -36,7 +36,7 @@ import com.punchline.javalib.utils.SoundManager;
 public class NPCTemplate implements EntityTemplate {
 	
 	//Body constants
-	private static final float BODY_RADIUS = Convert.pixelsToMeters(4);
+	private static final float BODY_RADIUS = Convert.pixelsToMeters(2.5f);
 	
 	//View constants
 	private static final float VIEW_RANGE = Convert.pixelsToMeters(17.5f);
@@ -70,6 +70,7 @@ public class NPCTemplate implements EntityTemplate {
 		
 		Vector2 velocity = new Vector2();
 		Float rotation = (float)Math.toRadians(270);
+		MovementProcess movement = null;
 		if (args.length > 5) {
 			Object optionalArg = args[5];
 			
@@ -77,6 +78,8 @@ public class NPCTemplate implements EntityTemplate {
 				velocity = (Vector2) args[5];
 			} else if (optionalArg instanceof Float) {
 				rotation = (Float) args[5];
+			} else if (optionalArg instanceof MovementProcess) {
+				movement = (MovementProcess) optionalArg;
 			}
 		}
 		
@@ -133,12 +136,13 @@ public class NPCTemplate implements EntityTemplate {
 			public void onDetected(Entity es, EntityWorld world) {
 				super.onDetected(es, world);
 				
-				
-				if(e.getType().equals("Tile"))
-					LogManager.error("WeirdPool", "A tile was found instead of a NPC");
-				
 				if (!es.hasComponent(GhostPowerup.class) && ps == null)
 				{
+					if (owner.hasComponent(MovementProcess.class)) {
+						MovementProcess m = owner.getComponent(MovementProcess.class);
+						owner.removeComponent(m);
+					}
+					
 					ps = new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
 					world.getProcessManager().attach(ps);
 					((IntStat) Stats.getStat("Times Seen")).increment();
@@ -152,6 +156,10 @@ public class NPCTemplate implements EntityTemplate {
 		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
 		
 		e.addComponent(mr);
+		
+		if (movement != null) {
+			e.addComponent(movement);
+		}
 		
 		return e;
 	}
