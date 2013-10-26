@@ -4,14 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
-import com.punchline.javalib.entities.components.Component;
 import com.punchline.javalib.entities.components.ComponentManager;
 import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
 import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.events.processes.EndProcessCallback;
-import com.punchline.javalib.entities.processes.Process;
 import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.utils.LogManager;
 
@@ -52,13 +50,9 @@ public class ChasePlayerProcess extends MovementProcess {
 		if(chaser.getType().equals("Tile"))
 			LogManager.error("WeirdPool", "A tile was found instead of a NPC");
 		
-		
-		player.onDeleted.addCallback(this, new EndProcessCallback(this, ProcessState.ABORTED));
-		
-		Health chaserHealth = chaser.getComponent(Health.class);
+		endOnDeath(chaser);
 		Health playerHealth = player.getComponent(Health.class);
 		
-		chaserHealth.onDeath.addCallback(this, new EndProcessCallback(this, ProcessState.ABORTED));
 		playerHealth.onDeath.addCallback(this, new SuccessCallback(this));
 	}
 	

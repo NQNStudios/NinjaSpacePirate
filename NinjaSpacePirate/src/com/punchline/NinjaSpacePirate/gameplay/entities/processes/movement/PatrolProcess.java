@@ -38,6 +38,8 @@ public class PatrolProcess extends MovementProcess {
 			this.patrolPoints.add(point);
 		}
 		
+		endOnDeath(patroller);
+		
 		LogManager.debug("Movement", "PatrolProcess created");
 	}
 	
