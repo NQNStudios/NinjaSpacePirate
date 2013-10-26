@@ -5,6 +5,7 @@ import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileArgs;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.TileRow;
 import com.punchline.javalib.entities.EntityWorld;
+import com.punchline.javalib.utils.LogManager;
 import com.punchline.javalib.utils.Random;
 
 /**
@@ -40,7 +41,9 @@ public class DoorRow extends TileRow {
 			velocity.x = -StealthWorld.ENEMY_SPEED;
 		}
 		
+		LogManager.debug("World", "Starting to spawn red man");
 		world.createEntity("EnemySpawner", "redSuitMan", position, "", "Enemies", "Patroller", velocity);
+		LogManager.debug("World", "Finished spawning red man");
 	}
 	
 }

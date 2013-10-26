@@ -4,6 +4,7 @@ import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.Component;
 import com.punchline.javalib.entities.components.ComponentManager;
+import com.punchline.javalib.entities.events.processes.EndProcessCallback;
 import com.punchline.javalib.entities.processes.Process;
 import com.punchline.javalib.entities.processes.ProcessState;
 
@@ -15,11 +16,13 @@ public abstract class MovementProcess extends Process implements Component {
 	public MovementProcess(EntityWorld world, Entity e) {
 		this.world = world;
 		this.e = e;
+		
+		e.onDeleted.addCallback(this, new EndProcessCallback(this, ProcessState.ABORTED));
 	}
 
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
-		
+		e.onDeleted.removeCallback(this);
 	}
 
 	@Override

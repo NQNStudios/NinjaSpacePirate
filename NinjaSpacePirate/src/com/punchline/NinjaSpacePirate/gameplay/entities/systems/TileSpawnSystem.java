@@ -590,11 +590,15 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		row.onCreated(world, y);
 		
+		LogManager.debug("World", rowKey + " row spawned");
+		
 		y++;
 	}
 	
 	private void queueSpawnRow(String rowKey) {
 		rowsToSpawn.add(rowKey);
+		
+		LogManager.debug("World", rowKey + " row queued");
 	}
 	
 	private void queueSpawnLocation(String locKey) {
@@ -605,6 +609,8 @@ public class TileSpawnSystem extends EntitySystem {
 		}
 		
 		locationTemplates.get(locKey).onQueue(world);
+		
+		LogManager.debug("World", locKey + " location queued");
 	}
 	
 	private void queueNextLocation() {

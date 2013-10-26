@@ -59,6 +59,8 @@ public class StealthWorld extends EntityWorld {
 	public StealthWorld(InputMultiplexer input, Camera camera) {
 		super(input, camera, new Vector2());
 		
+		physicsWorld.setPositionIterations(4);
+		
 		debugView.enabled = true;
 		debugView.visible = true;
 	}

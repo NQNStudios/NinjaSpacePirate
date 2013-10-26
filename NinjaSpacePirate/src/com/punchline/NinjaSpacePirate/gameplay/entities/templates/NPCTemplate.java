@@ -140,7 +140,7 @@ public class NPCTemplate implements EntityTemplate {
 						owner.removeComponent(m);
 					}
 					
-					ps = new ChasePlayerProcess(e, ((StealthWorld) world).getPlayer());
+					ps = new ChasePlayerProcess(world, e, ((StealthWorld) world).getPlayer());
 					world.getProcessManager().attach(ps);
 					((IntStat) Stats.getStat("Times Seen")).increment();
 				}

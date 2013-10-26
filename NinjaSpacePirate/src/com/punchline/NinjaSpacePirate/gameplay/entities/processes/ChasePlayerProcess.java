@@ -20,7 +20,7 @@ import com.punchline.javalib.utils.LogManager;
  * @author Natman64
  *
  */
-public class ChasePlayerProcess extends Process implements Component {
+public class ChasePlayerProcess extends MovementProcess {
 	private class SuccessCallback implements EventCallback {
 		
 		private ChasePlayerProcess process;
@@ -43,30 +43,23 @@ public class ChasePlayerProcess extends Process implements Component {
 	/** Flag that triggers the ending of all ChasePlayerProcesses. */
 	public boolean endAll = false;
 	
-	
-	/**
-	 * Creates a ChasePlayerProcess.
-	 * @param chaser
-	 * @param player
-	 */
-	public ChasePlayerProcess(Entity chaser, Entity player) {
-		this.chaser = chaser;
-		this.player = player;
+	public ChasePlayerProcess(EntityWorld world, Entity chaser, Entity player) {
+		super(world, chaser);
 		
-		System.out.println("New Chase");
+		this.player = player;
+		this.chaser = chaser;
 		
 		if(chaser.getType().equals("Tile"))
 			LogManager.error("WeirdPool", "A tile was found instead of a NPC");
 		
 		
-		chaser.onDeleted.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
-		player.onDeleted.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
+		player.onDeleted.addCallback(this, new EndProcessCallback(this, ProcessState.ABORTED));
 		
 		Health chaserHealth = chaser.getComponent(Health.class);
 		Health playerHealth = player.getComponent(Health.class);
 		
-		chaserHealth.onDeath.addCallback("ChaseProcessEnd", new EndProcessCallback(this, ProcessState.ABORTED));
-		playerHealth.onDeath.addCallback("ChaseProcessEnd", new SuccessCallback(this));
+		chaserHealth.onDeath.addCallback(this, new EndProcessCallback(this, ProcessState.ABORTED));
+		playerHealth.onDeath.addCallback(this, new SuccessCallback(this));
 	}
 	
 	@Override
@@ -110,16 +103,16 @@ public class ChasePlayerProcess extends Process implements Component {
 		v.setLinearVelocity(new Vector2());
 		
 		//remove callbacks from the entities.
-		chaser.onDeleted.removeCallback("ChaseProcessEnd");
-		player.onDeleted.removeCallback("ChaseProcessEnd");
+		chaser.onDeleted.removeCallback(this);
+		player.onDeleted.removeCallback(this);
 		
 		Health chaserHealth = chaser.getComponent(Health.class);
 		Health playerHealth = player.getComponent(Health.class);
 		
 		if (chaserHealth == null || playerHealth == null) return;
 		
-		chaserHealth.onDeath.removeCallback("ChaseProcessEnd");
-		playerHealth.onDeath.removeCallback("ChaseProcessEnd");
+		chaserHealth.onDeath.removeCallback(this);
+		playerHealth.onDeath.removeCallback(this);
 		
 		chaser.removeComponent(this);
 	}

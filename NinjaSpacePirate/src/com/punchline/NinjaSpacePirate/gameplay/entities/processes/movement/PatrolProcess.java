@@ -7,6 +7,8 @@ import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
+import com.punchline.javalib.entities.processes.ProcessState;
+import com.punchline.javalib.utils.LogManager;
 
 /**
  * Process that makes an Entity continually patrol between a list of points.
@@ -35,6 +37,8 @@ public class PatrolProcess extends MovementProcess {
 		for (Vector2 point : patrolPoints) {
 			this.patrolPoints.add(point);
 		}
+		
+		LogManager.debug("Movement", "PatrolProcess created");
 	}
 	
 	@Override
@@ -46,6 +50,8 @@ public class PatrolProcess extends MovementProcess {
 		if (!e.getType().equals("Patroller")) {
 			throw new IllegalArgumentException("Cannot run PatrolProcess - entity is not a patroller");
 		}
+		
+		LogManager.debug("Movement", "PatrolProcess running");
 		
 		Transform t = e.getComponent(Transform.class);
 		Velocity v = e.getComponent(Velocity.class);
@@ -68,6 +74,13 @@ public class PatrolProcess extends MovementProcess {
 
 	private boolean missingComponents(Entity e) {
 		return !e.hasComponent(Transform.class) || !e.hasComponent(Velocity.class);
+	}
+
+	@Override
+	public void onEnd(EntityWorld world, ProcessState endState) {
+		super.onEnd(world, endState);
+		
+		LogManager.debug("Movement", "PatrolProcess ended");
 	}
 	
 }
