@@ -9,7 +9,6 @@ import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.physical.Transform;
 import com.punchline.javalib.entities.components.physical.Velocity;
 import com.punchline.javalib.entities.events.EventCallback;
-import com.punchline.javalib.entities.events.processes.EndProcessCallback;
 import com.punchline.javalib.entities.processes.ProcessState;
 import com.punchline.javalib.utils.LogManager;
 
