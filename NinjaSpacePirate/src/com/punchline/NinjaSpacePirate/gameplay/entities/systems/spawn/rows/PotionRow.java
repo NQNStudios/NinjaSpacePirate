@@ -38,10 +38,10 @@ public class PotionRow extends TileRow {
 		switch (num) {
 		
 		case 0:
-			return new ReverseControlPowerup(5, e);
+			return new ReverseControlPowerup(3, e);
 		
 		case 1:
-			return new SpeedLockPowerup(5, e);
+			return new SpeedLockPowerup(3, e);
 			
 		case 2:
 			return new GhostPowerup(5, e);
