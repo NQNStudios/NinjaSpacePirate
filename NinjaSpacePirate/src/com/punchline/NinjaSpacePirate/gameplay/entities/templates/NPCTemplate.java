@@ -70,6 +70,7 @@ public class NPCTemplate implements EntityTemplate {
 		
 		Vector2 velocity = new Vector2();
 		Float rotation = (float)Math.toRadians(270);
+		MovementProcess movement = null;
 		if (args.length > 5) {
 			Object optionalArg = args[5];
 			
@@ -77,6 +78,8 @@ public class NPCTemplate implements EntityTemplate {
 				velocity = (Vector2) args[5];
 			} else if (optionalArg instanceof Float) {
 				rotation = (Float) args[5];
+			} else if (optionalArg instanceof MovementProcess) {
+				movement = (MovementProcess) optionalArg;
 			}
 		}
 		
@@ -153,6 +156,10 @@ public class NPCTemplate implements EntityTemplate {
 		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
 		
 		e.addComponent(mr);
+		
+		if (movement != null) {
+			e.addComponent(movement);
+		}
 		
 		return e;
 	}

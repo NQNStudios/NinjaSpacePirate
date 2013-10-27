@@ -18,10 +18,9 @@ public class PatrollerTemplate implements EntityTemplate {
 		Vector2 position = (Vector2) args[0];
 		Vector2[] patrolPoints = (Vector2[]) args[1];
 		
-		e = world.createEntity("NPC", "yellowSuitMan", position, "", "Enemies", "Patroller");
-		
 		PatrolProcess movement = new PatrolProcess(world, e, 3f, patrolPoints);
-		e.addComponent(movement);
+		
+		e = world.createEntity("NPC", "yellowSuitMan", position, "", "Enemies", "Patroller", movement);
 		
 		return e;
 	}
