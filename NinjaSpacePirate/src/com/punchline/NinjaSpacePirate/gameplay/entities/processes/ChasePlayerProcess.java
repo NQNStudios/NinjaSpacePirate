@@ -1,6 +1,7 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.processes;
 
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.processes.powerups.GhostPowerup;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.PlayerControlSystem;
 import com.punchline.javalib.entities.Entity;
 import com.punchline.javalib.entities.EntityWorld;
@@ -61,6 +62,10 @@ public class ChasePlayerProcess extends MovementProcess {
 			world.getProcessManager().endAll(getClass(), ProcessState.SUCCEEDED);
 			
 			return;
+		}
+		
+		if (player.hasComponent(GhostPowerup.class)) {
+			endAll = true;
 		}
 		
 		if (chaser == null || player == null) return;
