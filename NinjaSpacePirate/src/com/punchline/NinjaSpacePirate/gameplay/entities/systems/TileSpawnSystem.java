@@ -16,6 +16,7 @@ import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.HullBreachLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.locations.PitLocation;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.DoorRow;
+import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.EnemyRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.MidBreachRow;
 import com.punchline.NinjaSpacePirate.gameplay.entities.systems.spawn.rows.PotionRow;
 import com.punchline.javalib.entities.Entity;
@@ -169,6 +170,7 @@ public class TileSpawnSystem extends EntitySystem {
 		args[6] = whiteWallVertical;
 		
 		rowTemplates.put("HallSegment", new TileRow(args));
+		rowTemplates.put("HallSegmentEnemy", new EnemyRow(args));
 		
 		args[0] = whiteWallVentEast;
 		args[6] = whiteWallVentWest;
@@ -449,6 +451,27 @@ public class TileSpawnSystem extends EntitySystem {
 		potionLoc[6] = "HallSegment";
 		
 		locationTemplates.put("PotionLocation", new LocationTemplate(potionLoc, -1, 1));
+		
+		loc = null;
+		loc = new String[5];
+		loc[0] = "HallSegmentEnemy";
+		loc[1] = "HallSegment";
+		loc[2] = "HallSegment";
+		loc[3] = "HallSegment";
+		loc[4] = "HallSegment";
+		
+		locationTemplates.put("EnemyLocation1", new LocationTemplate(loc, 1, 2));
+		
+		loc = null;
+		loc = new String[8];
+		loc[0] = "HallSegmentEnemy";
+		loc[1] = "HallSegment";
+		loc[2] = "HallSegment";
+		loc[3] = "HallSegmentEnemy";
+		loc[4] = "HallSegment";
+		loc[5] = "HallSegment";
+		loc[6] = "HallSegmentEnemy";
+		locationTemplates.put("EnemyLocation2", new LocationTemplate(loc, 3, 1));
 		
 		loc = null;
 		loc = new String[15];

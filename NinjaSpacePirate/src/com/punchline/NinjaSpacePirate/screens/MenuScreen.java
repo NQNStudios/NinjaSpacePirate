@@ -136,7 +136,7 @@ public abstract class MenuScreen extends InputScreen {
 		
 		font.setScale(buttonScale);
 		if (Gdx.app.getType() == ApplicationType.Android) {
-			Vector2 position = new Vector2(Display.getPreferredWidth() / 2, Display.getPreferredHeight() / 2);
+			Vector2 position = new Vector2(Display.getPreferredWidth() / 2, buttonY);
 			
 			for (MenuButton menuButton : buttons) {
 				menuButton.touchUp(pos, position, game);
