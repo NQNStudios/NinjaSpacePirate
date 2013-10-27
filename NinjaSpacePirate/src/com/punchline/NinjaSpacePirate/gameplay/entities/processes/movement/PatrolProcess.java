@@ -49,8 +49,7 @@ public class PatrolProcess extends MovementProcess {
 		if (missingComponents(patroller)) {
 			throw new IllegalArgumentException("Cannot run PatrolProcess - entity is missing either a transform or velocity component.");
 		}
-		
-<<<<<<< HEAD
+
 		if (!e.getType().equals("Patroller")) {
 			throw new IllegalArgumentException("Cannot run PatrolProcess - entity is not a patroller");
 		}
@@ -59,10 +58,6 @@ public class PatrolProcess extends MovementProcess {
 		
 		Transform t = e.getComponent(Transform.class);
 		Velocity v = e.getComponent(Velocity.class);
-=======
-		Transform t = patroller.getComponent(Transform.class);
-		Velocity v = patroller.getComponent(Velocity.class);
->>>>>>> parent of 0470a7a... Introduced a lot of new bugs and added patrollers
 		
 		Vector2 destination = patrolPoints.get(nextPoint);
 		
