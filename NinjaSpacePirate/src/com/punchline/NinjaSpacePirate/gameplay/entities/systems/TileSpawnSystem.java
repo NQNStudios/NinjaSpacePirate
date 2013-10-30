@@ -62,6 +62,8 @@ public class TileSpawnSystem extends EntitySystem {
 	private Array<String> availableLocations = new Array<String>();
 	private int highestDifficulty = 0;
 	
+	private String lastLocation;
+	
 	private Entity player;
 	
 	//endregion
@@ -631,9 +633,20 @@ public class TileSpawnSystem extends EntitySystem {
 	private void queueNextLocation() {
 		//This is where the system decides what obstacle to throw at the player next.
 		
-		int index = r.nextInt(availableLocations.size);
+		String locToSpawn = "";
 		
-		queueSpawnLocation(availableLocations.get(index));
+		while (locToSpawn.isEmpty()) {
+			int index = r.nextInt(availableLocations.size);
+			
+			String loc = availableLocations.get(index);
+			
+			if (!loc.equals(lastLocation)) {
+				locToSpawn = loc;
+			}
+		}
+		
+		lastLocation = locToSpawn; //never spawn the same location twice in a row
+		queueSpawnLocation(locToSpawn);
 	}
 	
 	//endregion
