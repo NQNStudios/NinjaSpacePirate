@@ -65,8 +65,9 @@ public class PlayerControlSystem extends InputSystem {
 	public PlayerControlSystem(InputMultiplexer input) {
 		super(input);
 		
-		tiltThresholdX = 0f;
 		movementSpeed = START_SPEED;
+		
+		calibrateTilt();
 	}
 
 	@Override
