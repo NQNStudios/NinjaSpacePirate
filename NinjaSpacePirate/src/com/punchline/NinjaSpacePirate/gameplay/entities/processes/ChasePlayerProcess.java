@@ -47,11 +47,6 @@ public class ChasePlayerProcess extends MovementProcess {
 		this.player = player;
 		this.chaser = chaser;
 		
-		if(!chaser.getGroup().equals("NPCs")) {
-			LogManager.error("WrongType", "A chase player process tried to operate on a non-enemy");
-			end(ProcessState.ABORTED);
-			return;
-		}
 		
 		endOnDeath(chaser);
 		Health playerHealth = player.getComponent(Health.class);
@@ -67,14 +62,25 @@ public class ChasePlayerProcess extends MovementProcess {
 			return;
 		}
 		
+		if (chaser == null || player == null) return;
+		
 		if (player.hasComponent(GhostPowerup.class)) {
 			endAll = true;
 		}
 		
-		if (chaser == null || player == null) return;
-		
 		if (!chaser.hasComponent(getClass())) {
 			chaser.addComponent(this);
+		}
+		
+		Health health = player.getComponent(Health.class);
+		if (health.isEmpty()) {
+			endAll = true; //this should never be called.
+		}
+		
+		if(!chaser.getGroup().equals("Enemies")) {
+			LogManager.error("WrongType", "A chase player process tried to operate on a non-enemy");
+			end(ProcessState.ABORTED);
+			return;
 		}
 		
 		Transform chaserTransform = chaser.getComponent(Transform.class);

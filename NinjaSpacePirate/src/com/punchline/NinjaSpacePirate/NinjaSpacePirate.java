@@ -8,6 +8,7 @@ import com.punchline.NinjaSpacePirate.screens.MainMenuScreen;
 import com.punchline.javalib.Game;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.LogManager;
+import com.punchline.javalib.utils.LogManager.LogType;
 import com.punchline.javalib.utils.SoundManager;
 
 /**
@@ -20,7 +21,7 @@ public class NinjaSpacePirate extends Game {
 	@Override
 	public void create() {
 		Convert.init(8f);
-		LogManager.init(Gdx.app);
+		LogManager.init(Gdx.app, LogType.ERROR);
 		Stats.init();
 		
 		title = "Ninja Space Pirate";
