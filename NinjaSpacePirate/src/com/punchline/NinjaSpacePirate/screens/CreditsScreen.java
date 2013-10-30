@@ -32,6 +32,8 @@ public class CreditsScreen extends MenuScreen {
 		buttons.add(line5);
 		buttons.add(line6);
 		buttons.add(exitButton);
+		
+		buttonScale = 0.95f;
 	}
 
 }
