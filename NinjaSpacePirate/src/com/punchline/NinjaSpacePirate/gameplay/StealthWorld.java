@@ -60,7 +60,7 @@ public class StealthWorld extends EntityWorld {
 		
 		physicsWorld.setPositionIterations(4);
 		
-		debugView.enabled = true;
+		//debugView.enabled = true;
 		debugView.visible = true;
 	}
 

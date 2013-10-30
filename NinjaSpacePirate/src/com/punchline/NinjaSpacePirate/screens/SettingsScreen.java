@@ -59,7 +59,7 @@ public class SettingsScreen extends MenuScreen {
 		};
 		
 		buttons.add(soundButton);
-		buttons.add(musicButton);
+		//buttons.add(musicButton);
 		
 		if (Gdx.app.getType() != ApplicationType.Android) {
 			buttons.add(smallScreenButton);

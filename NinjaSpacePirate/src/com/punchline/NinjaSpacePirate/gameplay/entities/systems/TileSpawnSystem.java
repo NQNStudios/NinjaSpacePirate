@@ -592,6 +592,7 @@ public class TileSpawnSystem extends EntitySystem {
 		
 		if (row == null) {
 			LogManager.error("Space Pirate Log", "Invalid row key passed: " + rowKey);
+			return;
 		}
 		
 		int i = 0;

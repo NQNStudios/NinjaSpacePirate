@@ -1,8 +1,8 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs;
 
 import com.badlogic.gdx.math.Vector2;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.OldSprite;
 import com.punchline.javalib.entities.components.generic.View;
-import com.punchline.javalib.entities.components.render.Sprite;
 import com.punchline.javalib.utils.Convert;
 import com.punchline.javalib.utils.SpriteSheet;
 
@@ -11,7 +11,7 @@ import com.punchline.javalib.utils.SpriteSheet;
  * @author Natman64
  *
  */
-public class NPCViewSprite extends Sprite {
+public class NPCViewSprite extends OldSprite {
 
 	private static final Vector2 LEFT_POSITION = Convert.pixelsToMeters(new Vector2(0, -1.5f));
 	private static final Vector2 RIGHT_POSITION = Convert.pixelsToMeters(new Vector2(0, 1.5f));
@@ -27,8 +27,8 @@ public class NPCViewSprite extends Sprite {
 	public NPCViewSprite(SpriteSheet spriteSheet, View view) {
 		super(spriteSheet, "View");
 		
-		setOrigin(new Vector2(0, 8));
-		setPosition(Convert.metersToPixels(RIGHT_POSITION));
+		setOrigin(new Vector2(0, 7.5f));
+		setPosition(new Vector2(14, 5.5f));
 		
 		this.view = view;
 		
@@ -60,11 +60,11 @@ public class NPCViewSprite extends Sprite {
 		}
 		
 		//Now move the view sprite so it always appears to come from the AnimatedSprite's eyes
-//		if (facingLeft(degrees) && !facingLeft(oldRotation)) {
-//			setOrigin(new Vector2(0, 9));
-//		} else if (facingLeft(oldRotation) && !facingLeft(degrees)) {
-//			setOrigin(new Vector2(0, 6));
-//		}
+		if (facingDown(degrees) && !facingDown(oldRotation)) {
+			setOrigin(new Vector2(0f, 8f));
+		} else if (facingDown(oldRotation) && !facingDown(degrees)) {
+			setOrigin(new Vector2(0, 7.5f));
+		}
 	}
 	
 	private boolean facingLeft(float degrees) {

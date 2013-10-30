@@ -47,8 +47,11 @@ public class ChasePlayerProcess extends MovementProcess {
 		this.player = player;
 		this.chaser = chaser;
 		
-		if(chaser.getType().equals("Tile"))
-			LogManager.error("WeirdPool", "A tile was found instead of a NPC");
+		if(!chaser.getGroup().equals("NPCs")) {
+			LogManager.error("WrongType", "A chase player process tried to operate on a non-enemy");
+			end(ProcessState.ABORTED);
+			return;
+		}
 		
 		endOnDeath(chaser);
 		Health playerHealth = player.getComponent(Health.class);

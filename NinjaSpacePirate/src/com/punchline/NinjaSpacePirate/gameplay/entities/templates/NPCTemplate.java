@@ -9,6 +9,7 @@ import com.punchline.NinjaSpacePirate.gameplay.GameScore;
 import com.punchline.NinjaSpacePirate.gameplay.Stats;
 import com.punchline.NinjaSpacePirate.gameplay.StealthWorld;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.EnemyCollisionHandler;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.OldMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs.NPCMultiRenderable;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.ChasePlayerProcess;
 import com.punchline.NinjaSpacePirate.gameplay.entities.processes.MovementProcess;
@@ -20,7 +21,6 @@ import com.punchline.javalib.entities.components.generic.Health;
 import com.punchline.javalib.entities.components.generic.View;
 import com.punchline.javalib.entities.components.physical.Body;
 import com.punchline.javalib.entities.components.physical.Collidable;
-import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.entities.components.render.Renderable;
 import com.punchline.javalib.entities.events.EventCallback;
 import com.punchline.javalib.entities.processes.ProcessState;
@@ -153,7 +153,7 @@ public class NPCTemplate implements EntityTemplate {
 		};
 		e.addComponent(view);
 		
-		MultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
+		OldMultiRenderable mr = new NPCMultiRenderable(world.getSpriteSheet(), spriteKey, view);
 		
 		e.addComponent(mr);
 		

@@ -1,8 +1,8 @@
 package com.punchline.NinjaSpacePirate.gameplay.entities.components.render.npcs;
 
 import com.badlogic.gdx.utils.Array;
+import com.punchline.NinjaSpacePirate.gameplay.entities.components.render.OldMultiRenderable;
 import com.punchline.javalib.entities.components.generic.View;
-import com.punchline.javalib.entities.components.render.MultiRenderable;
 import com.punchline.javalib.utils.SpriteSheet;
 
 /**
@@ -10,7 +10,7 @@ import com.punchline.javalib.utils.SpriteSheet;
  * @author Natman64
  *
  */
-public class NPCMultiRenderable extends MultiRenderable {
+public class NPCMultiRenderable extends OldMultiRenderable {
 	
 	private Array<Integer> reverseOrder = new Array<Integer>();
 	
