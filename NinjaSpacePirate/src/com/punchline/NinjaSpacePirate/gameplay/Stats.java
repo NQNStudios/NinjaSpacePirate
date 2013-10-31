@@ -29,7 +29,7 @@ public final class Stats {
 	 * Initializes the game's stats.
 	 */
 	public static void init() {
-		records.put("High Score", new IntStat(1000));
+		records.put("High Score", new IntStat(0));
 		records.put("Farthest Run", new DistanceStat(0f));
 		
 		stats.put("Deaths", new IntStat(0));

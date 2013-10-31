@@ -462,7 +462,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[3] = "HallSegment";
 		loc[4] = "HallSegment";
 		
-		locationTemplates.put("EnemyLocation1", new LocationTemplate(loc, 1, 2));
+		locationTemplates.put("EnemyLocation1", new LocationTemplate(loc, 2, 2));
 		
 		loc = null;
 		loc = new String[8];
@@ -473,7 +473,7 @@ public class TileSpawnSystem extends EntitySystem {
 		loc[4] = "HallSegment";
 		loc[5] = "HallSegment";
 		loc[6] = "HallSegmentEnemy";
-		locationTemplates.put("EnemyLocation2", new LocationTemplate(loc, 3, 1));
+		locationTemplates.put("EnemyLocation2", new LocationTemplate(loc, 4, 1));
 		
 		loc = null;
 		loc = new String[15];
