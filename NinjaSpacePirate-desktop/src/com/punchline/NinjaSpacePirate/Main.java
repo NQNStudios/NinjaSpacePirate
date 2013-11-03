@@ -2,8 +2,9 @@ package com.punchline.NinjaSpacePirate;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.punchline.javalib.utils.LogManager;
-import com.punchline.javalib.utils.LogManager.LogType;
+import com.lostcode.javalib.utils.LogManager;
+import com.lostcode.javalib.utils.LogManager.LogType;
+import com.natman.NinjaSpacePirate.NinjaSpacePirate;
 
 public class Main {
 	public static void main(String[] args) {
